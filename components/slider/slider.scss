@@ -1,0 +1,148 @@
+.main-slider {
+    min-height: 800px;
+    z-index: -1;
+    .swiper-container {
+        height: 800px;
+    }
+    .swiper-slide {
+        background-image: url(/images/background-slide-1.jpg);
+        background-repeat: no-repeat;
+        background-position: cover;
+        text-align: left;
+    }
+    .swiper-pagination {
+        bottom: 70px;
+    }
+    .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
+        margin: 0px 10px;
+    }
+    .swiper-pagination-bullet {
+        width: 12px;
+        height: 12px;
+        border: 2px solid rgba($color: #ffffff, $alpha: 1);
+        background-color: transparent;
+        box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.38);
+        opacity: 1;
+    }
+    .swiper-pagination-bullet-active {
+        background-color: white;
+        box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.38);
+    }
+    .main-slider__text {
+        width: 1240px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+        margin-top: 242px;
+    }
+    .main-slider__string_one {
+        font-family: "Proxima-Nova-Rg", sans-serif;
+        font-size: 18px;
+        line-height: 40px;
+        color: white;
+        background-color: rgba($color: #000000, $alpha: 0.8);
+        display: inline;
+        padding: 5px 29px 5px 29px;
+        box-decoration-break: clone;
+    }
+    .main-slider__string_two {
+        font-family: "Proxima-Nova-Lt", sans-serif;
+        font-weight: 300;
+        font-size: 49px;
+        line-height: 62px;
+        color: white;
+        background-color: rgba($color: #000000, $alpha: 0.8);
+        display: inline;
+        padding: 0px 40px 5px 27px;
+        box-decoration-break: clone;
+    }
+    .main-slider__string_three {
+        font-family: "Proxima-Nova-Rg", sans-serif;
+        font-size: 22px;
+        line-height: 31px;
+        color: white;
+        background-color: rgba($color: #000000, $alpha: 0.8);
+        margin-bottom: 64px;
+        margin-top: 9px;
+        width: max-content;
+        padding: 9px 55px 11px 27px;
+        box-decoration-break: clone;
+    }
+    .main-slider__button {
+        font-family: "Proxima-Nova-Rg", sans-serif;
+        font-size: 17px;
+        line-height: 18px;
+        color: white;
+        text-decoration: none;
+        background-color: rgba($color: #000000, $alpha: 0.6);
+        padding: 17px 75px 17px 75px;
+        border: 1px solid white;
+    }
+    .main-slider__button:hover {
+        background-color: rgba($color: gray, $alpha: 0.7);
+        color: black;
+        transition: 0.3s;
+    }
+}
+@media (max-width: 1279px) {
+    .main-slider {
+        min-height: 600px;
+        .swiper-container {
+            height: 600px;
+        }
+        .swiper-pagination {
+            bottom: 50px;
+        }
+        .main-slider__text {
+            width: 95%;
+            margin-top: 150px;
+        }
+    }
+}
+@media (max-width: 767px) {
+    .main-slider {
+            min-height: 550px;
+            .swiper-container {
+                height: 550px;
+            }
+        .main-slider__string_one {
+            font-family: "Proxima-Nova-Rg", sans-serif;
+            font-size: 14px;
+            line-height: 33px;
+            color: white;
+            background-color: rgba($color: #000000, $alpha: 0.8);
+            display: inline;
+            padding: 8px 12px 8px 12px;
+            box-decoration-break: clone;
+        }
+        .main-slider__string_two {
+            font-family: "Proxima-Nova-Rg", sans-serif;
+            font-weight: normal;
+            font-size: 24px;
+            line-height: 36px;
+            display: block;
+            padding: 8px 12px 8px 12px;
+            width: max-content;
+            margin-top: 3px;
+        }
+        .main-slider__string_three {
+            font-family: "Proxima-Nova-Rg", sans-serif;
+            font-size: 16px;
+            line-height: 22px;
+            margin-bottom: 25px;
+            margin-top: -13px;
+            width: max-content;
+            padding: 8px 12px 8px 12px;
+        }
+        .main-slider__button {
+            font-family: "Proxima-Nova-Rg", sans-serif;
+            font-size: 13px;
+            line-height: 14px;
+            color: white;
+            text-decoration: none;
+            background-color: rgba($color: #000000, $alpha: 0.6);
+            padding: 17px 75px 17px 75px;
+            border: 1px solid white;
+        }
+    }
+}

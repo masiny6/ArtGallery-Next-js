@@ -1,0 +1,264 @@
+.beginner-section {
+    background-color: #f7f8f8;
+
+    .centering {
+        margin-top: 43px;
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 65px;
+    }
+}
+
+.beginner-video {
+    width: 778px;
+    height: 435px;
+    position: relative;
+    cursor: pointer;
+
+    .beginner-video__text {
+        font-family: "Proxima-Nova-Lt", sans-serif;
+        font-weight: 600;
+        font-size: 25px;
+        line-height: 29px;
+        color: white;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        padding: 42px;
+        box-shadow: inset 0px -91px 52px -33px rgba(0,0,0,0.90);
+    }
+}
+
+.beginner-video::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -12px;
+    margin-left: -7px;
+    border-top: 10px solid transparent;
+    border-left: 15px solid #fff;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+
+.beginner-video::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -37px;
+    margin-left: -38px;
+    width: 70px;
+    height: 70px;
+    border: 1px solid white;
+    border-radius: 50%;
+}
+
+.beginner-expert {
+    width: 405px;
+    position: relative;
+    .beginner-expert__link {
+        text-decoration: none;
+
+    }
+    .title-underline {
+        border-bottom: 1px solid #cbcbcb;
+        display: block;
+    }
+    .beginner-expert__title {
+        font-family: "Proxima-Nova-Lt", sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 42px;
+        color: #3e4246;
+        text-transform: uppercase;
+        position: relative;
+        transition: 0.3s;
+        display: inline;
+    }
+    .beginner-expert__title::before {
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 1px;
+        background-color: black;
+        bottom: -14px;
+        z-index: 3;
+        transition: 0.3s;
+    }
+    .beginner-expert__title:hover {
+        color: #009999;
+        transition: 0.3s;
+        &::before {
+            width: 100%;
+        }
+    }
+    .beginner-expert__text {
+        font-family: "Proxima-Nova-Lt", sans-serif;
+        font-weight: 600;
+        font-size: 19px;
+        line-height: 29px;
+        color: black;
+        margin-top: 22px;
+        transition: 0.3s;
+    }
+    .beginner-expert__text:hover {
+        color: #009999;
+        transition: 0.3s;
+    }
+}
+
+.beginner-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    width: 100%;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+
+    .beginner-popup__inner {
+        background-color: transparent;
+        width: 70%;
+        height: 75%;
+        z-index: 4;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 8%;
+    }
+
+    .beginner-popup__exit {
+        position: absolute;
+        width: 38px;
+        height: 2px;
+        background-color: white;
+        transform: rotate(45deg);
+        right: 5px;
+        top: 15px;
+        cursor: pointer;
+    }
+
+    .beginner-popup__exit::before {
+        content: "";
+        position: absolute;
+        width: 38px;
+        height: 2px;
+        background-color: white;
+        transform: rotate(90deg);
+    }
+
+    .beginner-popup__video {
+        width: 90%;
+        height: 90%;
+        margin-top: 3%;
+        margin-left: 5%;
+    }
+}
+.beginner-popup-js {
+    display: none;
+}
+
+@media (max-width: 1279px) {
+    .beginner-section {
+        .centering {
+            width: 92%;
+        }
+
+        .beginner-video {
+            width: 60%;
+            height: 50%;
+            position: relative;
+
+            .beginner-video__preview {
+                width: 100%;
+            }
+
+            .beginner-video__text {
+                font-size: 17px;
+                line-height: 24px;
+                padding: 28px;
+            }
+        }
+
+        .beginner-expert {
+            width: 35%;
+
+            .beginner-expert__photo {
+                width: 100%;
+            }
+            .beginner-expert__title {
+                font-size: 12px;
+                line-height: 42px;
+                &::before {
+                    bottom: -15px;
+                }
+            }
+            .beginner-expert__text {
+                font-size: 15px;
+                line-height: 21px;
+            }
+        }
+    }
+
+    .beginner-popup {
+        .beginner-popup__inner {
+            width: 90%;
+            height: 50%;
+            margin-top: 30%;
+        }
+
+        .beginner-popup__video {
+            width: 90%;
+            height: 90%;
+            margin-top: 4%;
+            margin-left: 5%;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .beginner-section {
+        .centering {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .beginner-video {
+            width: 100%;
+            margin-bottom: 36px;
+            .beginner-video__text {
+                padding: 15px;
+            }
+
+            .beginner-video__preview {
+                width: 100%;
+            }
+        }
+        .beginner-video {
+            .beginner-video__text {
+                box-shadow: inset 0px -76px 9px -31px rgba(0,0,0,0.60);
+            }
+        }
+        .beginner-expert {
+            width: 100%;
+            .beginner-expert__photo {
+                width: 100%;
+            }
+        }
+        .beginner-popup {
+            .beginner-popup__exit {
+                position: absolute;
+                width: 38px;
+                height: 2px;
+                background-color: white;
+                transform: rotate(45deg);
+                right: -10px;
+                top: -5px;
+            }
+        }
+    }
+}

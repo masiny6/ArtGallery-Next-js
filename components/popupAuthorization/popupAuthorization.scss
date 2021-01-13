@@ -1,0 +1,556 @@
+.popup-authorization {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+
+    .popup-authorization__centering {
+        width: 858px;
+        height: 491px;
+        background-color: white;
+        position: relative;
+        margin: auto;
+
+        .popup-authorization__close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+
+            &::after,
+            &::before {
+                content: "";
+                position: absolute;
+                width: 23px;
+                height: 5px;
+                top: 8px;
+                left: 1px;
+                background-color: black;
+            }
+
+            &::after {
+                transform: rotate(45deg);
+            }
+
+            &::before {
+                transform: rotate(-45deg);
+            }
+        }
+
+        .popup-header {
+            padding-top: 55px;
+            margin-left: 45px;
+            margin-right: 45px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #cccccc;
+            padding-bottom: 20px;
+            position: relative;
+            margin-bottom: 40px;
+
+            &::before {
+                content: "";
+                position: absolute;
+                width: 40px;
+                height: 1px;
+                background-color: black;
+                bottom: -1px;
+                left: 0;
+            }
+
+            .popup-header__title {
+                font-family: "Proxima-Nova-Lt", sans-serif;
+                font-weight: 300;
+                font-size: 36px;
+                line-height: 42px;
+            }
+
+            .no-account {
+                font-family: "Proxima-Nova-Rg", sans-serif;
+                font-weight: normal;
+                font-size: 14px;
+                line-height: 18px;
+                color: #656565;
+                display: flex;
+                align-items: center;
+
+                .no-account__text {
+                    margin-right: 22px;
+                }
+
+                .no-account__registr {
+                    border-bottom: 2px dotted #2e3237;
+                    cursor: pointer;
+                    transition: 0.3s;
+
+                    &:hover {
+                        opacity: 0.5;
+                        transition: 0.3s;
+                    }
+                }
+            }
+        }
+
+        .network-and-form {
+            margin-left: 45px;
+            margin-right: 45px;
+            display: flex;
+
+            .social-network {
+                padding-right: 45px;
+                border-right: 1px solid #cccccc;
+
+                .social-network__title {
+                    font-size: 17px;
+                    line-height: 18px;
+                }
+
+                .social-network__list {
+                    margin-top: 15px;
+                }
+
+                .social-network__elem {
+                    width: 251px;
+                    height: 39px;
+                    border: 1px solid #cccccc;
+                    border-radius: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                    transition: 0.3s;
+                    cursor: pointer;
+
+                    &:not(:last-child) {
+                        margin-bottom: 15px;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 48px;
+                    }
+
+                    &:hover {
+                        background-color: black;
+                        border: 1px solid black;
+                        transition: 0.3s;
+
+                        .social-network__link {
+                            color: white;
+
+                        }
+
+                        .svg-general {
+                            fill: white;
+                        }
+                    }
+
+                    .svg-general {
+                        position: absolute;
+                    }
+
+                    .svg-vk {
+                        width: 23px;
+                        height: 22px;
+                        top: 7px;
+                        left: 35px;
+                    }
+
+                    .svg-fb {
+                        width: 15px;
+                        height: 18px;
+                        top: 10px;
+                        left: 38px;
+                    }
+
+                    .svg-ok {
+                        width: 20px;
+                        height: 20px;
+                        top: 8px;
+                        left: 38px;
+                    }
+
+                    .svg-google {
+                        width: 28px;
+                        height: 28px;
+                        top: 5px;
+                        left: 38px;
+                    }
+
+                }
+
+                .social-network__ok {
+                    .social-network__link {
+                        padding-left: 30px;
+                    }
+                }
+
+                .social-network__link {
+                    font-size: 18px;
+                    line-height: 18px;
+                    color: black;
+                    text-decoration: none;
+                }
+
+            }
+
+            .section-form {
+                padding-left: 45px;
+                width: 100%;
+
+                .fieldset-email {
+                    margin-bottom: 27px;
+                    position: relative;
+                }
+
+                .fieldset-password {
+                    margin-bottom: 38px;
+                    position: relative;
+                }
+
+                .label-email,
+                .label-password {
+                    font-size: 17px;
+                    line-height: 18px;
+                    padding-bottom: 4px;
+                }
+
+                .input-email,
+                .input-password {
+                    width: 96%;
+                    height: 39px;
+                    border-radius: 0;
+                    border: 1px solid #cbcbcb;
+                    outline: 0;
+                    font-family: "Proxima-Nova-Rg", sans-serif;
+                    font-size: 17px;
+                    line-height: 18px;
+                    padding-left: 14px;
+                }
+
+                .button__inner {
+                    border: 3px solid #009999;
+                    transition: 0.3s;
+
+                    &:hover {
+                        border: 3px solid #26a9a9;
+                        transition: 0.3s;
+                    }
+
+                    .button-authorization {
+                        font-family: "Proxima-Nova-Lt", sans-serif;
+                        font-weight: 600;
+                        font-size: 16px;
+                        line-height: 18px;
+                        color: white;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                        outline: 1px solid #9cd7d7;
+                        border: 0px;
+                        background-color: #009999;
+                        width: 100%;
+                        height: 51px;
+                        transition: 0.3s;
+
+                        &:hover {
+                            outline: 1px solid #c2e7e7;
+                            background-color: #26a9a9;
+                            cursor: pointer;
+                            transition: 0.3s;
+                        }
+                    }
+                }
+
+                .forgotten-password {
+                    padding-top: 15px;
+                    display: flex;
+                    justify-content: center;
+                    color: #656565;
+                    font-size: 14px;
+                    line-height: 18px;
+
+                    .forgotten-password__text {
+                        margin-right: 21px;
+                    }
+
+                    .forgotten-password__button {
+                        border-bottom: 2px dotted #2e3237;
+                        cursor: pointer;
+                        transition: 0.3s;
+
+                        &:hover {
+                            opacity: 0.5;
+                            transition: 0.3s;
+                        }
+                    }
+                }
+                #name-error,
+                #family-error,
+                #email-error,
+                #password-error,
+                #agreement-error {
+                    color: red;
+                    position: absolute;
+                    font-size: 14px;
+                    bottom: -14px;
+                    left: 0;
+                    border: 0px !important;
+                }
+
+                .error {
+                    border: 1px solid red !important;
+                }
+                .label-error {
+                    color: red;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1279px) {
+    .popup-authorization {
+        .popup-authorization__centering {
+            width: 652px;
+            height: 404px;
+
+            .popup-authorization__close {
+                top: 15px;
+                right: 15px;
+            }
+
+            .popup-header {
+                padding-top: 40px;
+                margin-left: 40px;
+                margin-right: 40px;
+                padding-bottom: 10px;
+                margin-bottom: 35px;
+
+                .popup-header__title {
+                    font-size: 24px;
+                }
+
+                .no-account {
+                    font-size: 12px;
+                }
+            }
+
+            .network-and-form {
+                margin-left: 40px;
+                margin-right: 40px;
+
+                .social-network {
+                    padding-right: 40px;
+
+                    .social-network__title {
+                        font-size: 14px;
+                    }
+
+                    .social-network__list {
+                        margin-top: 10px;
+                    }
+
+                    .social-network__elem {
+                        width: 201px;
+                        height: 27px;
+
+                        &:last-child {
+                            margin-bottom: 38px;
+                        }
+
+                        .svg-vk {
+                            width: 18px;
+                            height: 19px;
+                            top: 4px;
+                            left: 35px;
+                        }
+
+                        .svg-fb {
+                            width: 15px;
+                            height: 15px;
+                            top: 6px;
+                            left: 38px;
+                        }
+
+                        .svg-ok {
+                            width: 16px;
+                            height: 20px;
+                            top: 3px;
+                            left: 38px;
+                        }
+
+                        .svg-google {
+                            width: 28px;
+                            height: 23px;
+                            top: 2px;
+                            left: 35px;
+                        }
+
+                    }
+
+                    .social-network__link {
+                        font-size: 14px;
+                    }
+
+                }
+
+                .section-form {
+                    padding-left: 39px;
+
+                    .fieldset-email {
+                        margin-bottom: 20px;
+                    }
+
+                    .fieldset-password {
+                        margin-bottom: 30px;
+                    }
+
+                    .label-email,
+                    .label-password {
+                        font-size: 14px;
+                        padding-bottom: 4px;
+                    }
+
+                    .input-email,
+                    .input-password {
+                        height: 27px;
+                        font-size: 14px;
+                        width: 94%;
+                    }
+
+                    .button__inner {
+                        border: 2px solid #009999;
+
+                        &:hover {
+                            border: 2px solid #26a9a9;
+                        }
+
+                        .button-authorization {
+                            font-size: 12px;
+                            height: 33px;
+                        }
+                    }
+
+                    .forgotten-password {
+                        padding-top: 12px;
+                        font-size: 12px;
+                    }
+                    #name-error,
+                    #family-error,
+                    #email-error,
+                    #password-error,
+                    #agreement-error {
+                        color: red;
+                        position: absolute;
+                        font-size: 12px;
+                        bottom: -13px;
+                        left: 0;
+                        border: 0px !important;
+                    }
+
+                    .error {
+                        border: 1px solid red !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .popup-authorization {
+        .popup-authorization__centering {
+            width: 92%;
+            height: 598px;
+
+            .popup-authorization__close {
+                width: 20px;
+                height: 20px;
+
+                &::after,
+                &::before {
+                    width: 20px;
+                }
+            }
+
+            .popup-header {
+                padding-top: 35px;
+                margin-left: 18px;
+                margin-right: 18px;
+                padding-bottom: 5px;
+                margin-bottom: 22px;
+                display: flex;
+                justify-content: center;
+
+                &::before {
+                    width: 20px;
+                    left: 50%;
+                    margin-left: -15px;
+                }
+
+                .popup-header__title {
+                    font-size: 22px;
+                }
+
+                .no-account {
+                    display: none;
+                }
+            }
+
+            .network-and-form {
+                margin-left: 18px;
+                margin-right: 18px;
+                flex-direction: column-reverse;
+
+                .social-network {
+                    padding-right: 0px;
+                    border-right: 0px;
+                    border-top: 1px solid #cacaca;
+                    text-align: center;
+                    padding-top: 29px;
+
+
+
+                    .social-network__elem {
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+
+
+
+                }
+
+                .section-form {
+                    padding-left: 0px;
+
+                    .fieldset-email {
+                        margin-bottom: 15px;
+                    }
+
+
+                    .forgotten-password {
+                        margin-bottom: 29px;
+
+                        .forgotten-password__text {
+                            border-bottom: 2px dotted #2e3237;
+                            cursor: pointer;
+                            transition: 0.3s;
+
+                            &:hover {
+                                opacity: 0.5;
+                                transition: 0.3s;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
