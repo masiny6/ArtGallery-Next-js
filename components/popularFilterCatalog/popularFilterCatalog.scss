@@ -73,7 +73,10 @@
         transition: 0.3s;
     }
 }
-
+.swiper-button-next,
+.swiper-button-prev {
+    left: -10000px;
+}
 @media (max-width: 1279px) {
     .popular-filter {
         .centering {

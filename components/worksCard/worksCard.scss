@@ -1,12 +1,17 @@
 .works-section {
     background-color: #f3f4f5;
-
+    .swiper-button-next,
+    .swiper-button-prev {
+        left: -10000px;
+    }
     .centering {
         margin-top: 50px;
     }
+
     .view-more-catalog {
         display: none;
     }
+
     .view-all {
         margin-left: auto;
         margin-right: auto;
@@ -69,11 +74,13 @@
     }
 
 }
+
 .main .select2-container--open .select2-results__option:hover {
     background-color: #666666 !important;
     color: white;
 
 }
+
 .select2-results__options--nested .select2-results__option:hover {
     background-color: #666666 !important;
     color: white;
@@ -102,6 +109,7 @@
     height: 10px;
     margin-left: -14px;
 }
+
 .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
     border-color: transparent;
     background-image: url(/images/V-black.svg);
@@ -432,6 +440,7 @@
     .section-header::before {
         display: none;
     }
+
     .sort {
         top: 25px;
         display: flex;
@@ -441,16 +450,21 @@
         float: right;
     }
 }
+
 .works-section_card {
-.swiper-container {
-    margin-top: 32px;
+    .swiper-container {
+        margin-top: 32px;
+    }
+
+    .grid__sizer,
+    .grid__item,
+    .static-item {
+        width: 100%;
+    }
 }
-.grid__sizer,
-.grid__item,
-.static-item {
-    width: 100%;
-}
-}
+
+
+
 @media (max-width: 1279px) {
     .works-section_card {
         .swiper-container {
@@ -460,6 +474,7 @@
             //     width: 32% !important;
             // }
         }
+
         .swiper-button {
             position: absolute;
             display: flex;
@@ -469,6 +484,7 @@
             margin-left: 0px;
         }
     }
+
     .grid__sizer,
     .grid__item,
     .static-item {
@@ -556,10 +572,12 @@
             margin-left: auto;
         }
     }
+
     .popular-filter-main {
         .section-header {
             width: 100%;
         }
+
         .sort {
             display: flex;
             position: relative;
@@ -577,43 +595,46 @@
             background-color: white !important;
         }
     }
+
     .works-section_card {
-    .swiper-button {
-        position: absolute;
-        display: flex;
-        top: 50%;
-        margin-top: 0px;
-        margin-left: 0px;
-        left: 0px;
-        justify-content: space-between;
-        width: 100%;
-        z-index: 10;
+        .swiper-button {
+            position: absolute;
+            display: flex;
+            top: 50%;
+            margin-top: 0px;
+            margin-left: 0px;
+            left: 0px;
+            justify-content: space-between;
+            width: 100%;
+            z-index: 10;
 
-        .swiper-button__next,
-        .swiper-button__prev {
-            border: 0px;
-            outline: 0;
-            background-color: transparent;
-        }
+            .swiper-button__next,
+            .swiper-button__prev {
+                border: 0px;
+                outline: 0;
+                background-color: transparent;
+            }
 
-        .swiper-button__prev:hover,
-        .swiper-button__next:hover {
-            background-color: transparent;
-        }
+            .swiper-button__prev:hover,
+            .swiper-button__next:hover {
+                background-color: transparent;
+            }
 
-        .swiper-button__prev:hover::before,
-        .swiper-button__prev:hover::after,
-        .swiper-button__next:hover::before,
-        .swiper-button__next:hover::after {
-            background-color: #009999;
+            .swiper-button__prev:hover::before,
+            .swiper-button__prev:hover::after,
+            .swiper-button__next:hover::before,
+            .swiper-button__next:hover::after {
+                background-color: #009999;
+            }
         }
     }
-}
+
     .swiper-button__prev,
     .swiper-button__next {
         border: 1px solid #cfcfcf;
         background-color: transparent;
     }
+
     .grid__sizer,
     .grid__item,
     .static-item {
@@ -685,13 +706,15 @@
             }
         }
     }
+
     .popular-filter-main {
         .sort {
             margin-right: 4vw;
+
             .sort-text {
                 margin-right: 7px;
             }
-        
+
             .select2 {
                 width: 146px !important;
                 height: 40px !important;

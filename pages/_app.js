@@ -1,6 +1,6 @@
 //GLOBAL STYLES
 import "../scss/reset.scss"
-import "../scss/swiper-bundle.scss"
+// import "../scss/swiper-bundle.scss"
 import "../scss/ion.rangeSlider.scss"
 import "../scss/fonts.scss"
 import "../scss/global.scss"

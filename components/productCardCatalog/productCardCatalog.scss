@@ -101,11 +101,11 @@
 
                 .swiper-container-one {
                     width: 81px;
-
+                    
 
                     .swiper-slide {
                         width: 79px;
-                        height: 81px;
+                        height: 81px !important;//ИСПРАВЛЕНО
                         border: 1px solid transparent;
                     }
 
@@ -123,6 +123,11 @@
                 .swiper-container-two {
                     width: 553px;
                     position: relative;
+
+                    .swiper-button-next,
+                    .swiper-button-prev {
+                        left: -10000px;
+                    }
 
                     .swiper-button-product {
                         position: absolute;
@@ -817,7 +822,7 @@
 
                         .swiper-slide {
                             width: 98%;
-                            height: auto;
+                            height: auto !important;//ИСПРАВЛЕНО
                         }
                     }
 
@@ -1016,7 +1021,7 @@
 
                         .swiper-slide {
                             width: 15% !important;
-                            height: auto;
+                            height: auto !important; //ИСПРАВЛЕНО
                         }
                     }
 

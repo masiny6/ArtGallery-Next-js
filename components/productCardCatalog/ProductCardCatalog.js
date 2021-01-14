@@ -1,9 +1,24 @@
-import React from "react"
+import React, { useState } from "react"
 import "./productCardCatalog.scss"
 import Link from "next/link"
+import { Swiper, SwiperSlide } from 'swiper/react';
+// Import Swiper styles
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+// import Swiper core and required components
+import SwiperCore, { Thumbs, Navigation, Controller } from 'swiper';
+// install Swiper components
+SwiperCore.use([Thumbs, Navigation, Controller]);
+
 
 export const ProductCardCatalog = () => {
+
+
+    const [swiperProduct, setSwiperProduct] = useState(null);
+    const [swiperPopup, setSwiperPopup] = useState(null);
+
     return(
+        <React.Fragment>
         <div className="product-card">
             <div className="bread-crumb">
                 <div className="centering">
@@ -22,19 +37,46 @@ export const ProductCardCatalog = () => {
                     </div>
                     <div className="photo-section">
                         <div className="photo-section__sliders">
-                            <div className="swiper-container swiper-container-one">
-                                <div className="swiper-wrapper">
-                                    <div className="swiper-slide"><img className="photo-section__elem" src="/images/product-1.jpg" alt=""/></div>
-                                    <div className="swiper-slide"><img className="photo-section__elem" src="/images/styles-photo-4.jpg" alt=""/></div>
-                                    <div className="swiper-slide"><img className="photo-section__elem" src="/images/styles-photo-3.jpg" alt=""/></div>
-                                </div>
-                            </div>
-                            <div className="swiper-container swiper-container-two">
-                                <div className="swiper-wrapper">
-                                    <div className="swiper-slide"><img className="photo-section__elem" src="/images/product-1.jpg" alt=""/></div>
-                                    <div className="swiper-slide"><img className="photo-section__elem" src="/images/styles-photo-4.jpg" alt=""/></div>
-                                    <div className="swiper-slide"><img className="photo-section__elem" src="/images/styles-photo-3.jpg" alt=""/></div>
-                                </div>
+                            <Swiper className="swiper-container-one"
+                                spaceBetween={10}
+                                slidesPerView={6}
+                                direction={"vertical"}
+                                onSwiper={setSwiperProduct}
+                                watchSlidesVisibility
+                                watchSlidesProgress
+                                
+                                breakpoints={{
+                                    320: {
+                                    spaceBetween: 15,
+                                    slidesPerView: 2,
+                                    direction: "horizontal",
+                                    },
+                                    768: {
+                                    spaceBetween: 14,
+                                    slidesPerView: 3.5,
+                                    },
+                                    1280: {
+                                    spaceBetween: 10,
+                                    slidesPerView: 4,
+                                    },
+                                }}
+                            >                   
+                                <SwiperSlide><img className="photo-section__elem" src="/images/product-1.jpg" alt=""/></SwiperSlide>
+                                <SwiperSlide><img className="photo-section__elem" src="/images/styles-photo-4.jpg" alt=""/></SwiperSlide>
+                                <SwiperSlide><img className="photo-section__elem" src="/images/styles-photo-3.jpg" alt=""/></SwiperSlide>
+                            </Swiper>
+                            <Swiper className="swiper-container-two"
+                                spaceBetween={2}
+                                loop
+                                navigation
+                                autoHeight
+                                thumbs={{ swiper: swiperProduct}}
+                                watchSlidesVisibility
+                                watchSlidesProgress
+                            >
+                                <SwiperSlide><img className="photo-section__elem" src="/images/product-1.jpg" alt=""/></SwiperSlide>
+                                <SwiperSlide><img className="photo-section__elem" src="/images/styles-photo-4.jpg" alt=""/></SwiperSlide>
+                                <SwiperSlide><img className="photo-section__elem" src="/images/styles-photo-3.jpg" alt=""/></SwiperSlide>
                                 <div className="swiper-button-prev"></div>
                                 <div className="swiper-button-next"></div>
                                 <div className="swiper-button-product">
@@ -63,7 +105,7 @@ export const ProductCardCatalog = () => {
                                     </svg>
                                     </div>
                                 </div>
-                            </div>
+                            </Swiper>
                         </div>
                         <div className="under-photo">
                             <span className="under-photo__like">
@@ -72,7 +114,7 @@ export const ProductCardCatalog = () => {
                                     <path d="M40.67 92.67C39.86 92.68 39.06 92.63 38.26 92.53C37.46 92.42 36.67 92.26 35.9 92.04C35.12 91.82 34.36 91.54 33.63 91.21C32.89 90.88 32.18 90.5 31.5 90.07L29.72 88.94L29.72 86.83C29.79 76.83 29.82 65.99 29.82 52.61C29.82 49.6 29.82 46.6 29.82 43.61L29.82 42.1L30.82 41.01L32 39.48C32.3 39.12 32.59 38.76 32.88 38.4C33.17 38.03 33.46 37.66 33.74 37.29C34.01 36.92 34.29 36.54 34.55 36.16C34.82 35.77 35.08 35.39 35.34 35C37.22 32 39.04 28.8 40.8 25.74C41.54 24.46 42.3 23.13 43.06 21.82C43.1 21.75 43.14 21.67 43.18 21.59C43.21 21.51 43.23 21.42 43.25 21.34C43.27 21.25 43.29 21.17 43.29 21.08C43.3 20.99 43.3 20.91 43.29 20.82C43.2 18.69 43.16 16.54 43.12 14.47C43.12 13.25 43.12 11.98 43.04 10.74C43 9.86 43.09 8.98 43.3 8.12C43.52 7.27 43.86 6.45 44.31 5.69C44.77 4.93 45.33 4.25 45.98 3.65C46.64 3.06 47.37 2.57 48.17 2.19C49.15 1.67 50.18 1.26 51.25 0.97C52.32 0.69 53.42 0.52 54.53 0.48C55.64 0.44 56.75 0.53 57.84 0.74C58.93 0.95 59.99 1.29 61 1.74C61.64 2 62.25 2.33 62.82 2.72C63.39 3.12 63.91 3.57 64.39 4.07C64.86 4.57 65.28 5.12 65.64 5.71C66 6.3 66.29 6.93 66.52 7.58L67.45 10C68.29 12.2 69.15 14.47 69.94 16.75C70.26 17.74 70.51 18.75 70.69 19.78C70.87 20.8 70.99 21.84 71.03 22.88C71.07 23.92 71.05 24.96 70.95 26C70.86 27.04 70.69 28.07 70.46 29.08C70.19 30.46 69.96 31.84 69.72 33.27C74.84 33.27 82.36 33.27 87.58 33.27C88.02 33.27 88.46 33.28 88.89 33.32C89.33 33.35 89.77 33.4 90.2 33.47C90.63 33.54 91.06 33.63 91.49 33.73C91.91 33.84 92.33 33.96 92.75 34.1C93.61 34.4 94.43 34.82 95.18 35.33C95.94 35.85 96.62 36.46 97.22 37.14C97.82 37.83 98.33 38.6 98.73 39.42C99.13 40.24 99.43 41.1 99.61 42C99.61 42.1 99.68 42.26 99.74 42.42L99.84 42.73L100 43.31L100 47.85L99.6 48.38C99.5 48.79 99.39 49.19 99.26 49.59C99.12 49.99 98.97 50.38 98.81 50.76C98.64 51.15 98.45 51.53 98.25 51.89C98.05 52.26 97.83 52.62 97.6 52.97C97.67 53.21 97.73 53.46 97.79 53.71C97.85 53.96 97.9 54.21 97.94 54.46C97.98 54.71 98.02 54.96 98.05 55.21C98.07 55.46 98.1 55.72 98.11 55.97C98.13 56.67 98.09 57.37 97.99 58.06C97.9 58.75 97.75 59.43 97.55 60.1C97.35 60.77 97.1 61.42 96.79 62.05C96.49 62.67 96.14 63.28 95.74 63.85C95.8 64.05 95.85 64.26 95.9 64.47C95.95 64.67 95.99 64.88 96.03 65.09C96.07 65.3 96.1 65.51 96.13 65.72C96.15 65.93 96.17 66.14 96.19 66.35C96.23 67.1 96.21 67.85 96.13 68.6C96.05 69.35 95.91 70.09 95.71 70.81C95.51 71.53 95.26 72.24 94.95 72.93C94.63 73.61 94.27 74.27 93.85 74.89C93.93 75.28 94 75.67 94.05 76.06C94.1 76.45 94.14 76.85 94.16 77.24C94.18 77.63 94.19 78.03 94.19 78.43C94.18 78.82 94.16 79.22 94.12 79.61C94.04 80.97 93.75 82.31 93.26 83.58C92.77 84.85 92.1 86.04 91.25 87.1C90.41 88.17 89.4 89.1 88.28 89.87C87.15 90.63 85.91 91.22 84.61 91.61C84.01 91.79 83.41 91.95 82.79 92.08C82.18 92.22 81.57 92.32 80.95 92.41C80.32 92.49 79.7 92.55 79.08 92.58C78.45 92.62 77.83 92.63 77.2 92.61C68.43 92.61 49.69 92.61 40.78 92.61L40.67 92.61L40.67 92.67ZM37.33 84.54C37.6 84.64 37.88 84.72 38.16 84.79C38.44 84.86 38.72 84.92 39.01 84.97C39.3 85.02 39.58 85.05 39.87 85.07C40.16 85.09 40.45 85.1 40.74 85.09C49.67 85.04 58.74 85.09 67.53 85.09L77.19 85.09C77.62 85.11 78.04 85.1 78.47 85.09C78.89 85.07 79.32 85.03 79.74 84.98C80.16 84.93 80.58 84.86 81 84.78C81.42 84.7 81.83 84.6 82.24 84.48C82.83 84.32 83.4 84.07 83.91 83.73C84.43 83.4 84.89 82.98 85.27 82.5C85.65 82.02 85.96 81.48 86.18 80.91C86.39 80.33 86.51 79.72 86.54 79.11C86.57 78.85 86.59 78.58 86.6 78.32C86.6 78.06 86.59 77.79 86.56 77.53C86.54 77.27 86.5 77 86.44 76.75C86.39 76.49 86.32 76.23 86.24 75.98C86.11 75.61 86.03 75.22 86 74.83C85.97 74.44 85.99 74.04 86.05 73.65C86.12 73.27 86.23 72.89 86.39 72.53C86.55 72.17 86.76 71.83 87 71.52C87.27 71.2 87.51 70.85 87.72 70.49C87.93 70.12 88.11 69.73 88.24 69.34C88.38 68.94 88.48 68.53 88.55 68.11C88.61 67.69 88.63 67.27 88.62 66.85C88.6 66.69 88.57 66.54 88.54 66.38C88.5 66.22 88.47 66.07 88.43 65.91C88.39 65.76 88.34 65.6 88.3 65.45C88.25 65.3 88.2 65.15 88.14 65C88.01 64.61 87.92 64.2 87.89 63.78C87.86 63.37 87.88 62.95 87.96 62.54C88.03 62.13 88.16 61.73 88.34 61.35C88.51 60.97 88.73 60.62 89 60.3C89.25 60.02 89.47 59.72 89.66 59.4C89.85 59.09 90.01 58.75 90.14 58.41C90.28 58.06 90.38 57.7 90.45 57.34C90.51 56.97 90.55 56.6 90.55 56.23C90.54 56.11 90.52 55.99 90.5 55.87C90.48 55.74 90.46 55.62 90.44 55.5C90.41 55.38 90.39 55.26 90.36 55.14C90.33 55.03 90.29 54.91 90.26 54.79C90.15 54.36 90.03 53.88 89.93 53.36C89.84 53.01 89.8 52.64 89.8 52.28C89.8 51.91 89.85 51.55 89.93 51.2C90.02 50.84 90.15 50.5 90.32 50.18C90.48 49.86 90.69 49.55 90.93 49.28C91.12 49.05 91.3 48.8 91.46 48.54C91.61 48.28 91.75 48.02 91.87 47.74C91.99 47.46 92.1 47.18 92.18 46.89C92.26 46.6 92.32 46.3 92.36 46L92.36 44.46C92.31 44.29 92.26 44.11 92.21 43.91C91.74 42.07 90.92 41.55 90.21 41.29C89.99 41.22 89.77 41.16 89.55 41.11C89.32 41.06 89.1 41.01 88.87 40.98C88.64 40.95 88.42 40.92 88.19 40.91C87.96 40.89 87.73 40.89 87.5 40.89C82.32 40.89 77.04 40.89 71.93 40.89L66.22 40.89C65.53 40.96 64.83 40.87 64.19 40.61C63.55 40.36 62.98 39.94 62.53 39.42C62.08 38.89 61.77 38.26 61.62 37.58C61.47 36.9 61.49 36.2 61.68 35.53C61.82 34.68 61.96 33.83 62.1 32.98C62.38 31.24 62.67 29.44 63.02 27.65C63.19 26.96 63.31 26.26 63.38 25.56C63.46 24.85 63.48 24.14 63.46 23.43C63.44 22.72 63.37 22.02 63.26 21.32C63.14 20.62 62.98 19.93 62.77 19.25C62.03 17.08 61.18 14.87 60.37 12.74L59.43 10.27C59.38 10.1 59.32 9.94 59.23 9.78C59.15 9.63 59.05 9.48 58.93 9.35C58.81 9.22 58.68 9.1 58.53 9C58.39 8.9 58.23 8.82 58.07 8.75C57.57 8.51 57.05 8.33 56.51 8.21C55.97 8.1 55.41 8.04 54.86 8.06C54.31 8.07 53.76 8.15 53.23 8.29C52.69 8.43 52.18 8.64 51.69 8.9C51.52 8.95 51.36 9.03 51.22 9.14C51.08 9.24 50.96 9.37 50.87 9.52C50.77 9.67 50.7 9.83 50.66 10C50.61 10.17 50.6 10.35 50.62 10.52C50.62 11.79 50.68 13.07 50.7 14.3C50.7 16.3 50.78 18.44 50.87 20.49C50.89 20.94 50.88 21.38 50.84 21.83C50.8 22.27 50.72 22.72 50.62 23.15C50.51 23.59 50.38 24.01 50.21 24.43C50.04 24.84 49.84 25.24 49.62 25.63C48.87 26.92 48.11 28.24 47.38 29.51C45.59 32.63 43.73 35.86 41.79 38.99C41.5 39.44 41.2 39.89 40.89 40.34C40.58 40.79 40.27 41.23 39.95 41.66C39.63 42.1 39.3 42.53 38.97 42.96C38.64 43.38 38.3 43.8 37.95 44.22L37.4 44.9C37.4 47.47 37.4 50.05 37.4 52.62C37.41 65 37.39 75.19 37.33 84.54Z" />
                                 </svg>
                                 Понравилось<br className="desktop-hidden"/>(<span className="under-photo__count">456</span>)</span>
-                            <span className="under-photo__copy"><a className="under-photo__link" download="" href="/images/news-photo-1.jpg">
+                            <span className="under-photo__copy"><a className="under-photo__link" download href="/images/news-photo-1.jpg">
                                 <svg className="svg-download" viewBox="0 0 2 2">
                                         <path d="M0.97 0.95L0.97 0L0.8 0L0.8 0.95L0.58 0.73L0.46 0.85L0.89 1.28L1.01 1.16L1.32 0.85L1.2 0.73L0.98 0.95L0.97 0.95ZM1.73 1.8L1.73 1.39L1.56 1.39L1.56 1.63L0.18 1.63L0.18 1.39L0.01 1.39L0.01 1.8L1.73 1.8Z" />
                                 </svg>
@@ -244,16 +286,17 @@ export const ProductCardCatalog = () => {
             </div>
             <div className="popup-photo js-popup-photo">
                 <span className="popup-photo__close"></span>
-                <div className="swiper-container">
-                    <div className="swiper-wrapper">
-                        <div className="swiper-slide"><img className="photo-section__elem" src="/images/product-1.jpg" alt=""/></div>
-                        <div className="swiper-slide"><img className="photo-section__elem" src="/images/styles-photo-4.jpg" alt=""/></div>
-                        <div className="swiper-slide"><img className="photo-section__elem" src="/images/styles-photo-3.jpg" alt=""/></div>
-                    </div>
-                    <div className="swiper-button-prev"></div>
-                                <div className="swiper-button-next"></div>
-                </div>
+                <Swiper
+                    loop
+                    navigation
+                    thumbs={{ swiper: swiperProduct}}
+                >
+                    <SwiperSlide><img className="photo-section__elem" src="/images/product-1.jpg" alt=""/></SwiperSlide>
+                    <SwiperSlide><img className="photo-section__elem" src="/images/styles-photo-4.jpg" alt=""/></SwiperSlide>
+                    <SwiperSlide><img className="photo-section__elem" src="/images/styles-photo-3.jpg" alt=""/></SwiperSlide>
+                </Swiper>
             </div>
         </div>
+        </React.Fragment>
     )
 }

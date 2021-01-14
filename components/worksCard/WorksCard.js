@@ -1,9 +1,20 @@
 import React from "react"
 import "./worksCard.scss"
 import Link from "next/link"
+import { Swiper, SwiperSlide } from 'swiper/react';
+// Import Swiper styles
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+// import Swiper core and required components
+import SwiperCore, { Navigation } from 'swiper';
+// install Swiper components
+SwiperCore.use([Navigation]);
+
+
 
 export const WorksCard = () => {
     return(
+        <React.Fragment>
         <div className="works-section works-section_card">
             <div className="section-header">
                 <h2 className="section-title">Похожие работы</h2>
@@ -13,9 +24,27 @@ export const WorksCard = () => {
                 </div>
             </div>
             <div className="centering">
-            <div className="swiper-container">
-                <div className="swiper-wrapper">
-                    <div className="swiper-slide">
+                <Swiper
+                     spaceBetween={40}
+                     slidesPerView={4}
+                     loop
+                     navigation
+                     breakpoints={{
+                         320: {
+                         spaceBetween: 7,
+                         slidesPerView: 2,
+                         },
+                         768: {
+                         spaceBetween: 44,
+                         slidesPerView: 3.5,
+                         },
+                         1280: {
+                         spaceBetween: 40,
+                         slidesPerView: 4,
+                         },
+                     }}
+                >
+                    <SwiperSlide>
                         <div className="grid__item js-grid__item">
                             <div className="photo-works">
                                 <img className="photo" src="/images/photo-works-1.jpg" alt=""/>
@@ -29,8 +58,8 @@ export const WorksCard = () => {
                                 <p className="description-work__size">Картина, 80x60 см.</p>
                                 <div className="price-and-icon">
                                     <div className="price-section">
-                                    <p className="price">927 750 <span className="ruble">₽</span></p>
-                                    <span className="old-price">727 750</span>
+                                        <p className="price">927 750 <span className="ruble">₽</span></p>
+                                        <span className="old-price">727 750</span>
                                     </div>
                                     <ul className="icon-list">
                                         <li className="icon-list__heart">
@@ -43,8 +72,8 @@ export const WorksCard = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="swiper-slide">
+                    </SwiperSlide>
+                    <SwiperSlide>
                         <div className="grid__item js-grid__item">
                             <div className="photo-works">
                                 <img className="photo" src="/images/photo-works-2.jpg" alt=""/>
@@ -56,8 +85,8 @@ export const WorksCard = () => {
                                 <p className="description-work__size">Картина, 80x60 см.</p>
                                 <div className="price-and-icon">
                                     <div className="price-section">
-                                    <p className="price">927 750 <span className="ruble">₽</span></p>
-                                    <span className="old-price">727 750</span>
+                                        <p className="price">927 750 <span className="ruble">₽</span></p>
+                                        <span className="old-price">727 750</span>
                                     </div>
                                     <ul className="icon-list">
                                         <li className="icon-list__heart">
@@ -70,8 +99,8 @@ export const WorksCard = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="swiper-slide">
+                    </SwiperSlide>
+                    <SwiperSlide>
                         <div className="grid__item js-grid__item">
                             <div className="photo-works">
                                 <img className="photo" src="/images/photo-works-3.jpg" alt=""/>
@@ -85,8 +114,8 @@ export const WorksCard = () => {
                                 <p className="description-work__size">Картина, 80x60 см.</p>
                                 <div className="price-and-icon">
                                     <div className="price-section">
-                                    <p className="price">927 750 <span className="ruble">₽</span></p>
-                                    <span className="old-price">727 750</span>
+                                        <p className="price">927 750 <span className="ruble">₽</span></p>
+                                        <span className="old-price">727 750</span>
                                     </div>
                                     <ul className="icon-list">
                                         <li className="icon-list__heart">
@@ -99,8 +128,8 @@ export const WorksCard = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="swiper-slide">
+                    </SwiperSlide>
+                    <SwiperSlide>
                         <div className="grid__item js-grid__item">
                             <div className="photo-works">
                                 <img className="photo" src="/images/photo-works-7.jpg" alt=""/>
@@ -113,7 +142,7 @@ export const WorksCard = () => {
                                 <p className="description-work__size">Картина, 80x60 см.</p>
                                 <div className="price-and-icon">
                                     <div className="price-section">
-                                    <p className="price">27 750 <span className="ruble">₽</span></p>
+                                        <p className="price">27 750 <span className="ruble">₽</span></p>
                                     </div>
                                     <ul className="icon-list">
                                         <li className="icon-list__heart">
@@ -126,12 +155,11 @@ export const WorksCard = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div className="swiper-button-next"></div>
-                    <div className="swiper-button-prev"></div>
+                    </SwiperSlide>
+                </Swiper>
             </div>
         </div>
-        </div>
+        
+        </React.Fragment>
     )
 }
