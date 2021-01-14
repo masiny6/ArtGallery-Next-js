@@ -20,7 +20,7 @@ export const Header = () => {
 
   //Открыти и закрытие search
   const searchHide = ["search-centering", "search-centering-js"]
-  const searchInput = typeof window !== 'undefined' ? document.querySelector(".search-form__input") : "undefined"
+  const searchInput = typeof window !== "undefined" ? document.querySelector(".search-form__input") : undefined
 
   if(state.showHeader && state.valueHeader === "search") {
       searchHide.splice(1,1)

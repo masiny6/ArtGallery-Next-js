@@ -1,14 +1,17 @@
-import Link from 'next/link'
+import React from 'react'
+import { Footer } from '../../components/footer/Footer'
+import { HeaderWhite } from '../../components/headerWhite/HeaderWhite'
+import { ProductCardCatalog } from '../../components/productCardCatalog/ProductCardCatalog'
+import { WorksCard } from '../../components/worksCard/WorksCard'
 
-export default function FirstPost() {
-  return (
-    <>
-      <h1>First Post</h1>
-      <h2>
-        <Link href="/">
-          <a>Back to home</a>
-        </Link>
-      </h2>
-    </>
-  )
+const ProductCard = () => {
+    return(
+        <div className="product-card-main">
+            <HeaderWhite/>
+            <ProductCardCatalog/>
+            <WorksCard/>
+            <Footer/>
+        </div>
+    )
 }
+export default ProductCard
