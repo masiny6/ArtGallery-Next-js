@@ -61,6 +61,7 @@ export default class Home extends React.Component{
             <Head>
             <title>ArtGallery</title>
             <link rel="icon" href="/favicon.ico" />
+            <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
             </Head>
             <div className="main">
                 <Header/>

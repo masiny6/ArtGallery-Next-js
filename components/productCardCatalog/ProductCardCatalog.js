@@ -11,6 +11,46 @@ import SwiperCore, { Thumbs, Navigation, Controller } from 'swiper';
 SwiperCore.use([Thumbs, Navigation, Controller]);
 
 
+const PRODUCTCARD_DATA = {
+    title: "Распоряжение о структуре очень длинное название картины",
+    author: "Диана Миллер",
+    picture: [
+        {
+            url: "/images/product-1.jpg"
+        },
+        {
+            url: "/images/styles-photo-4.jpg"
+        },
+        {
+            url: "/images/styles-photo-3.jpg"
+        },
+    ],
+    article: "Арт. HWV-133423",
+    size: "100 x 120 x 4 см",
+    style: "Пейзаж",
+    price: 927750,
+    oldPrice: 727750,
+    parametrsPicture: [
+        {
+            name: "Год написания",
+            description: "2008"
+        },
+        {
+            name: "Тема",
+            description: "Океан, Берег, Пляж"
+        },
+        {
+            name: "Стиль",
+            description: "Современный пейзаж"
+        },
+        {
+            name: "Материалы",
+            description: "Уголь, Чернила, Пастель"
+        },
+    ],
+    descriptionPicure: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda nulla eius doloribus distinctio reprehenderit, rerum suscipit pariatur, iste quo, voluptatum sequi aut similique ad ab. Quasi tempora laboriosam possimus temporibus!",
+}
+
 export const ProductCardCatalog = () => {
 
 
@@ -31,7 +71,7 @@ export const ProductCardCatalog = () => {
             </div>
             <div className="product-card__main">
                 <div className="centering">
-                    <h1 className="title-mobile">Распоряжение о структуре очень длинное название картины</h1>
+                    <h1 className="title-mobile">{!!PRODUCTCARD_DATA.title ? PRODUCTCARD_DATA.title : undefined}</h1>
                     <div className="author-mobile">
                         <a className="author-mobile__elem" href="#">Диана Миллер</a>
                     </div>
@@ -60,10 +100,10 @@ export const ProductCardCatalog = () => {
                                     slidesPerView: 4,
                                     },
                                 }}
-                            >                   
-                                <SwiperSlide><img className="photo-section__elem" src="/images/product-1.jpg" alt=""/></SwiperSlide>
-                                <SwiperSlide><img className="photo-section__elem" src="/images/styles-photo-4.jpg" alt=""/></SwiperSlide>
-                                <SwiperSlide><img className="photo-section__elem" src="/images/styles-photo-3.jpg" alt=""/></SwiperSlide>
+                            >
+                                {!!PRODUCTCARD_DATA.picture ? PRODUCTCARD_DATA.picture.map((item, key) => (
+                                    <SwiperSlide key={item.name + key}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
+                                )) : undefined} 
                             </Swiper>
                             <Swiper className="swiper-container-two"
                                 spaceBetween={2}
@@ -74,9 +114,9 @@ export const ProductCardCatalog = () => {
                                 watchSlidesVisibility
                                 watchSlidesProgress
                             >
-                                <SwiperSlide><img className="photo-section__elem" src="/images/product-1.jpg" alt=""/></SwiperSlide>
-                                <SwiperSlide><img className="photo-section__elem" src="/images/styles-photo-4.jpg" alt=""/></SwiperSlide>
-                                <SwiperSlide><img className="photo-section__elem" src="/images/styles-photo-3.jpg" alt=""/></SwiperSlide>
+                                {!!PRODUCTCARD_DATA.picture ? PRODUCTCARD_DATA.picture.map((item, key) => (
+                                    <SwiperSlide key={item.name + key}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
+                                )) : undefined} 
                                 <div className="swiper-button-prev"></div>
                                 <div className="swiper-button-next"></div>
                                 <div className="swiper-button-product">
@@ -128,9 +168,9 @@ export const ProductCardCatalog = () => {
                         </div>
                     </div>
                     <div className="text-section">
-                        <h1 className="text-section__title">Распоряжение о структуре очень длинное название картины</h1>
+                        <h1 className="text-section__title">{!!PRODUCTCARD_DATA.title ? PRODUCTCARD_DATA.title : undefined}</h1>
                         <div className="artile-and-favorites">
-                            <span className="article">Арт. HWV-133423</span>
+                            <span className="article">{!!PRODUCTCARD_DATA.article ? PRODUCTCARD_DATA.article : undefined}</span>
                             <span className="favorites">
                                 <svg className="svg-heart" viewBox="0 0 21.6 19.1">
                                     <path d="M10.8 3.7c5.5-6.8 12.6 1.4 8.7 5.7l-8.8 8.8L2 9.4C-1.5 5 5.3-3.2 10.8 3.7z"></path>
@@ -138,17 +178,16 @@ export const ProductCardCatalog = () => {
                                 <span className="favorites-active">В избранное</span></span>
                         </div>
                         <div className="author">
-                            <a className="author__elem" href="#">Диана Миллер</a>
+                            <a className="author__elem" href="#">{!!PRODUCTCARD_DATA.author ? PRODUCTCARD_DATA.author : undefined}</a>
                         </div>
                         <div className="size-and-style">
-                            <span className="size-picture">Размер картины: <span className="size-picture__inner">100 x 120 x 4
-                                    см</span></span>
-                            <span className="style-picture">Стиль: <a className="style-picture__link" href="#">Пейзаж</a></span>
+                            <span className="size-picture">Размер картины: <span className="size-picture__inner">{!!PRODUCTCARD_DATA.size ? PRODUCTCARD_DATA.size : undefined}</span></span>
+                            <span className="style-picture">Стиль: <a className="style-picture__link" href="#">{!!PRODUCTCARD_DATA.style ? PRODUCTCARD_DATA.style : undefined}</a></span>
                         </div>
                         <div className="price-and-basket">
                             <div className="price">
-                                <span className="price__real">927 750 <span className="ruble">₽</span></span>
-                                <span className="price__old">727 750</span>
+                                <span className="price__real">{Number(PRODUCTCARD_DATA.price).toLocaleString('ru-RU')} <span className="ruble">₽</span></span>
+                                <span className="price__old">{Number(PRODUCTCARD_DATA.oldPrice).toLocaleString('ru-RU')}</span>
                             </div>
                             <div className="basket">
                                 <div className="basket__inner">
@@ -248,22 +287,12 @@ export const ProductCardCatalog = () => {
                             </span>
                             <table className="parameters-table">
                                 <tbody>
-                                    <tr className="parameters-table__line">
-                                        <td className="parameters-table__column parameters-table__column-one">Год написания</td>
-                                        <td className="parameters-table__column parameters-table__column-two">2008</td>
-                                    </tr>
-                                    <tr className="parameters-table__line">
-                                        <td className="parameters-table__column parameters-table__column-one">Тема</td>
-                                        <td className="parameters-table__column parameters-table__column-two">Океан, Берег, Пляж</td>
-                                    </tr>
-                                    <tr className="parameters-table__line">
-                                        <td className="parameters-table__column parameters-table__column-one">Стиль</td>
-                                        <td className="parameters-table__column parameters-table__column-two">Современный пейзаж</td>
-                                    </tr>
-                                    <tr className="parameters-table__line">
-                                        <td className="parameters-table__column parameters-table__column-one">Материалы</td>
-                                        <td className="parameters-table__column parameters-table__column-two">Уголь, Чернила, Пастель</td>
-                                    </tr>
+                                    {!!PRODUCTCARD_DATA.parametrsPicture ? PRODUCTCARD_DATA.parametrsPicture.map((item, key) => (
+                                        <tr className="parameters-table__line" key={item.name + key}>
+                                            <td className="parameters-table__column parameters-table__column-one">{item.name}</td>
+                                            <td className="parameters-table__column parameters-table__column-two">{item.description}</td>
+                                        </tr>
+                                    )) : undefined}
                                 </tbody>
                             </table>
                         </div>
@@ -275,11 +304,7 @@ export const ProductCardCatalog = () => {
                                         fill="#000000" />
                                 </svg>
                             </span>
-                            <div className="description-picture__text">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda nulla eius doloribus
-                                distinctio reprehenderit, rerum suscipit pariatur, iste quo, voluptatum sequi aut similique ad
-                                ab. Quasi tempora laboriosam possimus temporibus!
-                            </div>
+                            <div className="description-picture__text">{!!PRODUCTCARD_DATA.descriptionPicure ? PRODUCTCARD_DATA.descriptionPicure : undefined}</div>
                         </div>
                     </div>
                 </div>
@@ -291,9 +316,9 @@ export const ProductCardCatalog = () => {
                     navigation
                     thumbs={{ swiper: swiperProduct}}
                 >
-                    <SwiperSlide><img className="photo-section__elem" src="/images/product-1.jpg" alt=""/></SwiperSlide>
-                    <SwiperSlide><img className="photo-section__elem" src="/images/styles-photo-4.jpg" alt=""/></SwiperSlide>
-                    <SwiperSlide><img className="photo-section__elem" src="/images/styles-photo-3.jpg" alt=""/></SwiperSlide>
+                    {!!PRODUCTCARD_DATA.picture ? PRODUCTCARD_DATA.picture.map((item, key) => (
+                        <SwiperSlide key={item.name + key}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
+                    )) : undefined} 
                 </Swiper>
             </div>
         </div>

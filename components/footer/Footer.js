@@ -1,5 +1,90 @@
 import React from "react"
 import "./footer.scss"
+import Link from "next/link"
+
+
+const FOOTER_DATA = {
+    aboutArtGallery: {
+        title: "Об ArtGallery",
+        elements: [
+            {
+                name: "О проекте",
+                url: ""
+
+            },
+            {
+                name: "Блог",
+                url: ""
+            },
+            {
+                name: "Авторы",
+                url: ""
+            }
+        ]
+    },
+    buyers: {
+        title: "Покупателям",
+        elements: [
+            {
+                name: "Доставка",
+                url: ""
+
+            },
+            {
+                name: "Оплата",
+                url: ""
+            },
+            {
+                name: "Возврат",
+                url: ""
+            }
+        ]
+    },
+    catalog: {
+        title: "Каталог",
+        elements: [
+            {
+                name: "Картины",
+                url: ""
+
+            },
+            {
+                name: "Коллажи",
+                url: ""
+            },
+            {
+                name: "Иллюстрации",
+                url: ""
+            }
+        ]
+    },
+    contact: {
+        title: "Контакты",
+        tel: "+ 7 (999) 123-123-44",
+        mail: "info@domainname.ru",
+        address: ["г. Москва", "Преснесенская наб., 12"]
+    },
+    socialNetwork: {
+        title: "Мы в социальных сетях"
+    },
+    paymentsSystems: {
+        title: "Платёжные системы",
+        paymentsURL: "/images/payments-systems.png"
+    },
+    documents: [
+        {
+            name: "Политика конфендициальности",
+            url: ""
+        },
+        {
+            name: "Условия и положения",
+            url: ""
+        }
+    ],
+    copyright: "© Artgallery, 2018"
+}
+
+
 
 export const Footer = () => {
     return(
@@ -8,53 +93,52 @@ export const Footer = () => {
                 <div className="centering">
                     <div className="main-footer__up">
                         <div className="about-us hidden-tablet">
-                            <h6 className="about-us__title general-title">Об ArtGallery</h6>
+                            <h6 className="about-us__title general-title">{!!FOOTER_DATA.aboutArtGallery ? FOOTER_DATA.aboutArtGallery.title : undefined}</h6>
                             <ul className="about-us__list general-list">
-                                <li className="about-us__elem general-elem"><a className="general-link" href="#">О проекте</a></li>
-                                <li className="about-us__elem general-elem"><a className="general-link" href="#">Блог</a></li>
-                                <li className="about-us__elem general-elem"><a className="general-link" href="#">Авторы</a></li>
+                                {!!FOOTER_DATA.aboutArtGallery ? FOOTER_DATA.aboutArtGallery.elements.map((item, key) => (
+                                    <li className="about-us__elem general-elem" key={item.name + key}><Link href={item.url}><a className="general-link" href={item.url}>{item.name}</a></Link></li>
+                                )) : undefined}
                             </ul>
                         </div>
                         <div className="buyers hidden-tablet">
-                            <h6 className="buyers__title general-title">Покупателям</h6>
+                            <h6 className="buyers__title general-title">{!!FOOTER_DATA.buyers ? FOOTER_DATA.buyers.title : undefined}</h6>
                             <ul className="buyers__list general-list">
-                                <li className="buyers__elem general-elem"><a className="general-link" href="#">Доставка</a></li>
-                                <li className="buyers__elem general-elem"><a className="general-link" href="#">Оплата</a></li>
-                                <li className="buyers__elem general-elem"><a className="general-link" href="#">Возврат</a></li>
+                            {!!FOOTER_DATA.buyers ? FOOTER_DATA.buyers.elements.map((item, key) => (
+                                    <li className="buyers__elem general-elem" key={item.name + key}><Link href={item.url}><a className="general-link" href={item.url}>{item.name}</a></Link></li>
+                                )) : undefined}
                             </ul>
                         </div>
                         <div className="catalog hidden-tablet">
-                            <h6 className="catalog__title general-title">Каталог</h6>
+                            <h6 className="catalog__title general-title">{!!FOOTER_DATA.catalog ? FOOTER_DATA.catalog.title : undefined}</h6>
                             <ul className="catalog__list general-list">
-                                <li className="catalog__elem general-elem"><a className="general-link" href="#">Картины</a></li>
-                                <li className="catalog__elem general-elem"><a className="general-link" href="#">Коллажи</a></li>
-                                <li className="catalog__elem general-elem"><a className="general-link" href="#">Иллюстрации</a></li>
+                            {!!FOOTER_DATA.catalog ? FOOTER_DATA.catalog.elements.map((item, key) => (
+                                    <li className="catalog__elem general-elem" key={item.name + key}><Link href={item.url}><a className="general-link" href={item.url}>{item.name}</a></Link></li>
+                                )) : undefined}
                             </ul>
                         </div>
                         <div className="contact">
                             <h6 className="contact__title general-title">Контакты</h6>
                             <ul className="contact__list">
-                                <li className="contact__elem"><a className="contact__tel" href="tel:+799912312344">+ 7 (999)
-                                        123-123-44</a>
+                                <li className="contact__elem"><a className="contact__tel" href={`tel:${FOOTER_DATA.contact.tel.replace(/[^+\d]/g, '')}`}>{!!FOOTER_DATA.contact ? FOOTER_DATA.contact.tel : undefined}</a>
                                 </li>
                                 <li className="contact__elem">
                                     <svg className="svg-mail" viewBox="0 0 6 5">
                                         <path id="Layer" fillRule="evenodd" className="shp0" d="M5.91 4.53L0 4.53L0 0L5.91 0L5.91 4.53ZM5.33 3.94L5.33 0.58L0.59 0.58L0.59 3.94L5.33 3.94Z" />
                                         <path id="Layer" fillRule="evenodd" className="shp0" d="M5.78 0.54L3.11 2.57C3 2.65 2.85 2.65 2.74 2.56L0.11 0.52C-0.02 0.42 -0.04 0.24 0.06 0.11C0.12 0.04 0.2 0 0.29 0L5.62 0C5.78 0 5.91 0.13 5.91 0.29C5.91 0.39 5.86 0.48 5.78 0.53L5.78 0.54ZM2.93 1.98L4.75 0.59L1.14 0.59L2.93 1.98Z" />
                                 </svg>
-                                    <a className="contact__mail" href="mail-to:info@domainname.ru">info@domainname.ru</a></li>
+                                    <a className="contact__mail" href={`mail-to:${FOOTER_DATA.contact.mail}`}>{!!FOOTER_DATA.contact ? FOOTER_DATA.contact.mail : undefined}</a></li>
                                 <li className="contact__elem">
                                     <svg className="svg-map" viewBox="0 0 372 512">
                                         <path id="Layer" fillRule="evenodd" className="shp0" d="M371.43 185.43C371.43 312.31 205.49 498.59 198.42 506.46C191.8 513.84 180.21 513.85 173.58 506.46C166.51 498.59 0.57 312.31 0.57 185.43C0.57 83.18 83.75 0 186 0C288.24 0 371.42 83.18 371.43 185.43ZM338.03 185.43C338.03 101.59 269.83 33.39 186 33.39C102.17 33.39 33.96 101.59 33.96 185.43C33.96 272.51 130.15 403.39 186 469.73C241.86 403.37 338.03 272.51 338.03 185.43Z" />
                                         <path id="Layer" fillRule="evenodd" className="shp0" d="M279.29 185.43C279.29 236.87 237.44 278.72 186 278.72C134.56 278.72 92.71 236.87 92.71 185.43C92.71 133.98 134.56 92.13 186 92.13C237.44 92.13 279.29 133.98 279.29 185.43ZM245.9 185.43C245.9 152.4 219.03 125.53 186 125.53C152.97 125.53 126.1 152.4 126.1 185.43C126.1 218.46 152.97 245.33 186 245.33C219.03 245.33 245.9 218.46 245.9 185.43Z" />
                                     </svg>
-                                    <address className="contact__address">г. Москва,<br/> Преснесенская наб., 12</address>
+                                    {!!FOOTER_DATA.contact ? <address className="contact__address">{FOOTER_DATA.contact.address[0]},<br/> {FOOTER_DATA.contact.address[1]}</address> : undefined}
                                 </li>
                             </ul>
                         </div>
                         <div className="social-and-payer">
                             <div className="social-network">
-                                <h6 className="social-network__title general-title">Мы в социальных сетях:</h6>
+                                <h6 className="social-network__title general-title">{!!FOOTER_DATA.socialNetwork ? FOOTER_DATA.socialNetwork.title : undefined}</h6>
                                 <ul className="social-network__list">
                                     <li className="social-icon__elem"><a className="social-icon__vk social-icon__link" href="#">
                                             <svg className="svg-vk" viewBox="0 0 511.962 511.962">
@@ -103,8 +187,8 @@ export const Footer = () => {
                                 </ul>
                             </div>
                             <div className="payment-system">
-                                <h6 className="payment-system__title general-title">Платёжные системы</h6>
-                                <img className="payment-system__photo" src="/images/payments-systems.png" alt=""/>
+                                <h6 className="payment-system__title general-title">{!!FOOTER_DATA.paymentsSystems ? FOOTER_DATA.paymentsSystems.title : undefined}</h6>
+                                <img className="payment-system__photo" src={!!FOOTER_DATA.paymentsSystems ? FOOTER_DATA.paymentsSystems.paymentsURL : undefined} alt=""/>
                             </div>
                         </div>
                     </div>
@@ -114,10 +198,11 @@ export const Footer = () => {
                 <div className="centering">
                     <div className="main-footer__down">
                         <ul className="document-list">
-                            <li className="document-elem"><a className="document-elem__link" href="#">Политика конфендициальности</a></li>
-                            <li className="document-elem"><a className="document-elem__link" href="#">Условия и положения</a></li>
+                            {!!FOOTER_DATA.documents ? FOOTER_DATA.documents.map((item, key) => (
+                                <li className="document-elem" key={item.name + key}><Link href={item.url}><a className="document-elem__link" href={item.url}>{item.name}</a></Link></li>
+                            )) : undefined}
                         </ul>
-                        <p className="copyright">© Artgallery, 2018</p>
+                        <p className="copyright">{!!FOOTER_DATA.copyright ? FOOTER_DATA.copyright : undefined}</p>
                         <div className="author">
                             <img className="author__photo hidden-mobile" src="/images/logo-footer.png" alt=""/>
                             <p className="author__text hidden-mobile">Разработка сайта</p>

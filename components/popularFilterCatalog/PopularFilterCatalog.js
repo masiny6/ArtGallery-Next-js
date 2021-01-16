@@ -10,6 +10,36 @@ import SwiperCore, { Navigation } from 'swiper';
 SwiperCore.use([Navigation]);
 
 
+const POPULARFILTER_CATALOG = {
+    mainTitle: "Популярные фильтры",
+    elements: [
+        {
+            name: "Барроко",
+            pictureURL: "/images/popular-filter-1.jpg"
+        },
+        {
+            name: "Живопись",
+            pictureURL: "/images/popular-filter-2.jpg"
+        },
+        {
+            name: "Пейзаж",
+            pictureURL: "/images/popular-filter-3.jpg"
+        },
+        {
+            name: "Модерн",
+            pictureURL: "/images/popular-filter-4.jpg"
+        },
+        {
+            name: "Барроко",
+            pictureURL: "/images/popular-filter-2.jpg"
+        },
+    ]
+}
+
+
+
+
+
 export const PopularFilterCatalog = () => {
     return(
         <React.Fragment>
@@ -17,7 +47,7 @@ export const PopularFilterCatalog = () => {
             <div className="centering">
                 <div className="centering-tablet">
                     <div className="popular-filter__header">
-                        <h2 className="popular-filter__title">Популярные фильтры</h2>
+                        <h2 className="popular-filter__title">{!!POPULARFILTER_CATALOG.mainTitle ? POPULARFILTER_CATALOG.mainTitle : undefined}</h2>
                         <div className="swiper-button">
                             <div className="swiper-button__prev"></div>
                             <div className="swiper-button__next"></div>
@@ -43,42 +73,18 @@ export const PopularFilterCatalog = () => {
                             },
                         }}
                     >
-                        <SwiperSlide>
-                            <div className="filter-photo">
-                                <img className="filter-photo__inner" src="/images/popular-filter-1.jpg" alt=""/>
-                            </div>
-                            <span className="filter-text">Барроко</span>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className="filter-photo">
-                                <img className="filter-photo__inner" src="/images/popular-filter-2.jpg" alt=""/>
-                            </div>
-                            <span className="filter-text">Живопись</span>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className="filter-photo">
-                                <img className="filter-photo__inner" src="/images/popular-filter-3.jpg" alt=""/>
-                            </div>
-                            <span className="filter-text">Пейзаж</span>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className="filter-photo">
-                                <img className="filter-photo__inner" src="/images/popular-filter-4.jpg" alt=""/>
-                            </div>
-                            <span className="filter-text">Модерн</span>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className="filter-photo">
-                                <img className="filter-photo__inner" src="/images/popular-filter-2.jpg" alt=""/>
-                            </div>
-                            <span className="filter-text">Барроко</span>
-                        </SwiperSlide>
+                        {!!POPULARFILTER_CATALOG.elements ? POPULARFILTER_CATALOG.elements.map((item, key) => (
+                            <SwiperSlide>
+                                <div className="filter-photo">
+                                    <img className="filter-photo__inner" src={item.pictureURL} alt=""/>
+                                </div>
+                                <span className="filter-text">{item.name}</span>
+                            </SwiperSlide>
+                        )) : undefined}
                     </Swiper>
                 </div>
             </div>
         </div>
-
-        
         </React.Fragment>
     )
 }

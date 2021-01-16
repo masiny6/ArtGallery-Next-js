@@ -3,7 +3,68 @@ import "./header.scss"
 import { RateContext } from '../../context/RateContext'
 import Link from 'next/link'
 
-
+const HEADER_DATA = {
+  logo: {
+    desktop: ["Art", "Gallery"],
+    mobile: ["A", "G"]
+  },
+  menu: {
+    main: [
+      {
+        name: "Каталог",
+        url: "/catalog"
+      },
+      {
+        name: "Художники",
+        url: ""
+      },
+      {
+        name: "Блог",
+        url: ""
+      },
+    ],
+    secondary: {
+      name: "Ещё",
+      secondaryItems: [
+        {
+          name: "О проекте",
+          url: ""
+        },
+        {
+          name: "Доставка",
+          url: ""
+        },
+        {
+          name: "Политика конфиденциальности",
+          url: ""
+        },
+      ]
+    },
+  },
+  lang: {
+    desktopStatic: {
+      name: "RU"
+    },
+    desktopList: [
+      {
+        name: "EN",
+        url: "/en"
+      },
+    ],
+    mobile: {
+      name: "Английская версия",
+      url: "/en"
+    }
+  },
+  copyright: {
+    name: "© Artgallery, 2018"
+  },
+  account: {
+    name: "Александрелло",
+    url: ""
+  }
+  
+}
 
 export const Header = () => {
 
@@ -53,36 +114,33 @@ export const Header = () => {
             <div className="menu-and-logo">
               <input id="burger-menu" className="burger-menu" type="checkbox"/><label className="menu-phone" htmlFor="burger-menu"></label>
               <div className="logo">
-                <a className="logo-link" href="#">
-                  <p className="main-logo"><span className="main-logo__elem">Art</span>Gallery</p>
-                </a>
-                <a className="logo-link" href="#">
-                  <p className="main-logo-mobile"><span className="main-logo__elem">A</span>G</p>
-                </a>
+                {!!HEADER_DATA.logo.desktop && !!HEADER_DATA.logo.mobile ? <Link href="/"><a className="logo-link" href="/">
+                  <p className="main-logo"><span className="main-logo__elem">{!!HEADER_DATA.logo.desktop ? HEADER_DATA.logo.desktop[0] : HEADER_DATA.logo.mobile[0]}</span>{!!HEADER_DATA.logo.desktop ? HEADER_DATA.logo.desktop[1] : HEADER_DATA.logo.mobile[1]}</p>
+                  <p className="main-logo-mobile"><span className="main-logo__elem">{!!HEADER_DATA.logo.mobile ? HEADER_DATA.logo.mobile[0] : HEADER_DATA.logo.desktop[0]}</span>{!!HEADER_DATA.logo.mobile ? HEADER_DATA.logo.mobile[1] : HEADER_DATA.logo.desktop[1]}</p>
+                </a></Link> : undefined}
               </div>
             </div>
             <nav className="main-navigation main-navigation-js">
               <ul className="navigation">
-                <li className="navigation__elem"><Link href="/catalog"><a className="navigation__link">Каталог</a></Link></li>
-                <li className="navigation__elem"><a className="navigation__link" href="#">Художники</a></li>
-                <li className="navigation__elem"><a className="navigation__link" href="#">Блог</a></li>
-                <li className="navigation__elem"><a className="navigation__link still" href="#" onPointerEnter={() => toggleHeaderHandler("more")} onPointerLeave={() => toggleHeaderHandler("more")}>Ещё</a></li>
+                {!!HEADER_DATA.menu.main ? HEADER_DATA.menu.main.map((item, key)=> (
+                  <li className="navigation__elem" key={item.name + key}><Link href={item.url}><a className="navigation__link" href={item.url}>{item.name}</a></Link></li>
+                )) : undefined}
+                <li className="navigation__elem"><a className="navigation__link still" href="#" onPointerEnter={() => toggleHeaderHandler("more")} onPointerLeave={() => toggleHeaderHandler("more")}>{HEADER_DATA.menu.secondary.name}</a></li>
               </ul>
               <div className={moreHide.join(" ")} onPointerLeave={() => toggleHeaderHandler("more")}>
                 <ul className="still-list">
-                  <li className="still-list__elem"><a className="still-list__link" href="#">О проекте</a></li>
-                  <li className="still-list__elem"><a className="still-list__link" href="#">Доставка</a></li>
-                  <li className="still-list__elem"><a className="still-list__link" href="#">Политика конфиденциальности</a></li>
-                  <li className="still-list__elem hidden-desktop hidden-tablet"><a className="still-list__link" href="#">Английская
-                      версия</a></li>
+                  {!!HEADER_DATA.menu.secondary ? HEADER_DATA.menu.secondary.secondaryItems.map((item, key) => (
+                    <li className="still-list__elem" key={item.name + key}><Link href={item.url}><a className="still-list__link" href={item.url}>{item.name}</a></Link></li>
+                  )) : undefined}
+                  {!!HEADER_DATA.lang.mobile ? <li className="still-list__elem hidden-desktop hidden-tablet"><a className="still-list__link" href={HEADER_DATA.lang.mobile.url}>{HEADER_DATA.lang.mobile.name}</a></li> : undefined}
                 </ul>
-                <p className="copyright-mobile hidden-desktop hidden-tablet">© Artgallery, 2018</p>
+                <p className="copyright-mobile hidden-desktop hidden-tablet">{HEADER_DATA.copyright.name}</p>
               </div>
             </nav>
             <div className="account-and-etc">
               <div className="personal-account">
                 <span className="personal-account__photo" onClick={() => popupShowHandler("authorization")}></span>
-                <span className="personal-account__name">Александрелло</span>
+                {!!HEADER_DATA.account ? <span className="personal-account__name">{HEADER_DATA.account.name}</span> : undefined}
                 <div className="drop-menu-account drop-menu-account-js">
                   <div className="centering-lists">
                     <ul className="first-section centering-lists__item">
@@ -137,9 +195,11 @@ export const Header = () => {
                 </form>
               </div>
               <div className="languages">
-                <span className="languages__ru" onClick={() => toggleHeaderHandler("language")}>RU</span>
+                {!!HEADER_DATA.lang.desktopStatic ? <span className="languages__ru" onClick={() => toggleHeaderHandler("language")}>{HEADER_DATA.lang.desktopStatic.name}</span> : undefined}
                 <ul className={languageHide.join(" ")}>
-                  <li className="languages-elem"><a className="languages__en" href="#">EN</a></li>
+                  {!!HEADER_DATA.lang.desktopList ? HEADER_DATA.lang.desktopList.map((item, key) => (
+                    <li className="languages-elem"><Link href={item.url}><a className="languages__en" href={item.url}>{item.name}</a></Link></li>
+                  )) : undefined}
                 </ul>
               </div>
             </div>
