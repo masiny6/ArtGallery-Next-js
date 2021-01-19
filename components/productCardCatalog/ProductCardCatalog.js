@@ -1,12 +1,14 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import "./productCardCatalog.scss"
 import Link from "next/link"
+import cn from "classnames"
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 // import Swiper core and required components
 import SwiperCore, { Thumbs, Navigation, Controller } from 'swiper';
+import { RateContext } from "../../context/RateContext";
 // install Swiper components
 SwiperCore.use([Thumbs, Navigation, Controller]);
 
@@ -53,7 +55,7 @@ const PRODUCTCARD_DATA = {
 
 export const ProductCardCatalog = () => {
 
-
+    const {favouriteToggleHandler, state, parametrsPictureToggleHandler, descriptionPictureToggleHandler, toggleIncreaseHandler} = useContext(RateContext)
     const [swiperProduct, setSwiperProduct] = useState(null);
     const [swiperPopup, setSwiperPopup] = useState(null);
 
@@ -102,20 +104,23 @@ export const ProductCardCatalog = () => {
                                 }}
                             >
                                 {!!PRODUCTCARD_DATA.picture ? PRODUCTCARD_DATA.picture.map((item, key) => (
-                                    <SwiperSlide key={item.name + key}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
+                                    <SwiperSlide key={key + 3}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
                                 )) : undefined} 
                             </Swiper>
                             <Swiper className="swiper-container-two"
                                 spaceBetween={2}
                                 loop
-                                navigation
+                                navigation = {{
+                                    nextEl: ".product-card__main .swiper-button_next",
+                                    prevEl: ".product-card__main .swiper-button_prev"
+                                }}
                                 autoHeight
                                 thumbs={{ swiper: swiperProduct}}
                                 watchSlidesVisibility
                                 watchSlidesProgress
                             >
                                 {!!PRODUCTCARD_DATA.picture ? PRODUCTCARD_DATA.picture.map((item, key) => (
-                                    <SwiperSlide key={item.name + key}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
+                                    <SwiperSlide key={key + 2}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
                                 )) : undefined} 
                                 <div className="swiper-button-prev"></div>
                                 <div className="swiper-button-next"></div>
@@ -133,7 +138,7 @@ export const ProductCardCatalog = () => {
                                         </svg>
                                     </div>
                                 </div>
-                                <div className="increase-button">
+                                <div className="increase-button" onClick={toggleIncreaseHandler}>
                                     <div className="increase-button__down">
                                         <svg className="svg-increase_down" viewBox="0 0 1 1" width="1" height="1">
                                             <path id="Layer" className="shp0" d="M0.2 0.63L0.74 0.08L0.66 0L0.11 0.54L0.11 0.34L0 0.34L0 0.63L0 0.74L0.11 0.74L0.4 0.74L0.4 0.63L0.2 0.63Z" />
@@ -171,11 +176,12 @@ export const ProductCardCatalog = () => {
                         <h1 className="text-section__title">{!!PRODUCTCARD_DATA.title ? PRODUCTCARD_DATA.title : undefined}</h1>
                         <div className="artile-and-favorites">
                             <span className="article">{!!PRODUCTCARD_DATA.article ? PRODUCTCARD_DATA.article : undefined}</span>
-                            <span className="favorites">
-                                <svg className="svg-heart" viewBox="0 0 21.6 19.1">
+                            <span className={cn("favorites", {"js-favorites" : state.favourite})} onClick={favouriteToggleHandler}>
+                                <svg className={cn("svg-heart", {"js-svg-heart" : state.favourite})} viewBox="0 0 21.6 19.1">
                                     <path d="M10.8 3.7c5.5-6.8 12.6 1.4 8.7 5.7l-8.8 8.8L2 9.4C-1.5 5 5.3-3.2 10.8 3.7z"></path>
                                 </svg>
-                                <span className="favorites-active">В избранное</span></span>
+                                <span className="favorites-active">{state.favourite ? "В избранном" : "В избранное"}</span>
+                            </span>
                         </div>
                         <div className="author">
                             <a className="author__elem" href="#">{!!PRODUCTCARD_DATA.author ? PRODUCTCARD_DATA.author : undefined}</a>
@@ -277,15 +283,15 @@ export const ProductCardCatalog = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className="parameters-picture">
-                            <span className="parameters-picture__button">Параметры картины
-                                <svg className="tab-arrow" viewBox="0 0 11 7" fil="#000">
+                        <div className={cn("parameters-picture", {"js-parameters-picture" : state.parametrsButton})}>
+                            <span className={cn("parameters-picture__button", {"js-parameters-picture__button" : state.parametrsButton})} onClick={parametrsPictureToggleHandler}>Параметры картины
+                                <svg className={cn("tab-arrow", {"js-tab-arrow" : state.parametrsButton})} viewBox="0 0 11 7" fil="#000">
                                     <path
                                         d="M0.55 1.5L1.96 0.09L6.91 5.03L5.5 6.45L0.55 1.5ZM4.09 5.03L9.04 0.09L10.45 1.5L5.5 6.45L4.09 5.03Z"
                                         fill="#000000" />
                                 </svg>
                             </span>
-                            <table className="parameters-table">
+                            <table className={cn("parameters-table", {"js-parameters-table" : state.parametrsButton})}>
                                 <tbody>
                                     {!!PRODUCTCARD_DATA.parametrsPicture ? PRODUCTCARD_DATA.parametrsPicture.map((item, key) => (
                                         <tr className="parameters-table__line" key={item.name + key}>
@@ -297,27 +303,27 @@ export const ProductCardCatalog = () => {
                             </table>
                         </div>
                         <div className="description-picture">
-                            <span className="description-picture__button">Описание картины
-                                <svg className="tab-arrow" viewBox="0 0 11 7" fil="#000">
+                            <span className={cn("description-picture__button", {"js-description-picture__button" : state.descriptionButton})} onClick={descriptionPictureToggleHandler}>Описание картины
+                                <svg className={cn("tab-arrow", {"js-tab-arrow" : state.descriptionButton})} viewBox="0 0 11 7" fil="#000">
                                     <path
                                         d="M0.55 1.5L1.96 0.09L6.91 5.03L5.5 6.45L0.55 1.5ZM4.09 5.03L9.04 0.09L10.45 1.5L5.5 6.45L4.09 5.03Z"
                                         fill="#000000" />
                                 </svg>
                             </span>
-                            <div className="description-picture__text">{!!PRODUCTCARD_DATA.descriptionPicure ? PRODUCTCARD_DATA.descriptionPicure : undefined}</div>
+                            <div className={cn("description-picture__text", {"js-description-picture__text" : state.descriptionButton})}>{!!PRODUCTCARD_DATA.descriptionPicure ? PRODUCTCARD_DATA.descriptionPicure : undefined}</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="popup-photo js-popup-photo">
-                <span className="popup-photo__close"></span>
+            <div className={cn("popup-photo", {"js-popup-photo" : !state.showIncrease})}>
+                <span className="popup-photo__close" onClick={toggleIncreaseHandler}></span>
                 <Swiper
                     loop
                     navigation
                     thumbs={{ swiper: swiperProduct}}
                 >
                     {!!PRODUCTCARD_DATA.picture ? PRODUCTCARD_DATA.picture.map((item, key) => (
-                        <SwiperSlide key={item.name + key}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
+                        <SwiperSlide key={key + 1}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
                     )) : undefined} 
                 </Swiper>
             </div>

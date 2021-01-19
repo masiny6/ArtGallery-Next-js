@@ -151,7 +151,10 @@ export const WorksCard = () => {
                      spaceBetween={40}
                      slidesPerView={4}
                      loop
-                     navigation
+                     navigation = {{
+                        nextEl: ".works-section_card .swiper-button__next",
+                        prevEl: ".works-section_card .swiper-button__prev"
+                    }}
                      breakpoints={{
                          320: {
                          spaceBetween: 7,

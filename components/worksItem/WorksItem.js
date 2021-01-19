@@ -1,6 +1,6 @@
 import React from "react"
 import Link from "next/link"
-
+import cn from 'classnames'
 
 
 export class WorksItem extends React.Component {
@@ -8,10 +8,24 @@ export class WorksItem extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            favourite: this.props.data.favourite,
+            basket: this.props.data.basket
         }
     }
     
+
+    favouriteToggleHandler = () => {
+        this.setState({
+            favourite: !this.state.favourite
+        })
+    }
+    basketToggleHandler = () => {
+        this.setState({
+            basket: !this.state.basket
+        })
+    }
+
+
     render() {
 
         const {
@@ -34,11 +48,11 @@ export class WorksItem extends React.Component {
                         <span className="old-price">{Number(data.oldPrice).toLocaleString('ru-RU')}</span>
                         </div>
                         <ul className="icon-list">
-                            <li className="icon-list__heart">
-                                <svg className="svg-heart" viewBox="0 0 21.6 19.1"><path d="M10.8 3.7c5.5-6.8 12.6 1.4 8.7 5.7l-8.8 8.8L2 9.4C-1.5 5 5.3-3.2 10.8 3.7z"></path></svg>
+                            <li className="icon-list__heart" onClick={this.favouriteToggleHandler}>
+                                <svg className={cn("svg-heart", {"svg-heart-js" : this.state.favourite})} viewBox="0 0 21.6 19.1"><path d="M10.8 3.7c5.5-6.8 12.6 1.4 8.7 5.7l-8.8 8.8L2 9.4C-1.5 5 5.3-3.2 10.8 3.7z"></path></svg>
                             </li>
-                            <li className="icon-list__basket">
-                                <svg className="svg-basket" viewBox="0 0 17.1 21.3"><path d="M16 20.3H1v-15l15.1.1z"></path><path fill="none" className="dst0 dst1" d="M5.1 5.4c0-5.7 6.7-5.9 6.7 0"></path></svg>
+                            <li className="icon-list__basket" onClick={this.basketToggleHandler}>
+                                <svg className={cn("svg-basket", {"svg-basket-js": this.state.basket})} viewBox="0 0 17.1 21.3"><path d="M16 20.3H1v-15l15.1.1z"></path><path fill="none" className="dst0 dst1" d="M5.1 5.4c0-5.7 6.7-5.9 6.7 0"></path></svg>
                             </li>
                         </ul>
                     </div>

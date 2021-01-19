@@ -57,7 +57,10 @@ export const PopularFilterCatalog = () => {
                         spaceBetween={12}
                         slidesPerView={1}
                         loop
-                        navigation
+                        navigation = {{
+                            nextEl: ".popular-filter .swiper-button__next",
+                            prevEl: ".popular-filter .swiper-button__prev"
+                        }}
                         breakpoints={{
                             320: {
                             spaceBetween: 0,
@@ -74,7 +77,7 @@ export const PopularFilterCatalog = () => {
                         }}
                     >
                         {!!POPULARFILTER_CATALOG.elements ? POPULARFILTER_CATALOG.elements.map((item, key) => (
-                            <SwiperSlide>
+                            <SwiperSlide key={item.name + key}>
                                 <div className="filter-photo">
                                     <img className="filter-photo__inner" src={item.pictureURL} alt=""/>
                                 </div>

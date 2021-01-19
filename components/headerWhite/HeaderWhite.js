@@ -1,9 +1,35 @@
-import React from "react"
+import React, { useContext, useEffect, useRef } from "react"
 import Link from 'next/link'
 import "../header/header.scss"
 import "./headerWhite.scss"
+import { RateContext } from "../../context/RateContext"
+import cn from "classnames"
 
 export const HeaderWhite = () => {
+  
+  const {state, popupShowHandler, toggleHeaderHandler, toggleSearchHandler, searchValueHandler} = useContext(RateContext)
+
+  //Фокус на инпут search
+  const searchElementFocus = useRef(null);
+
+  useEffect(() => {
+    if (searchElementFocus.current) {
+      searchElementFocus.current.focus();
+    }
+  }, []);
+
+  //Открыти и закрытие "ещё"
+  const moreHide = ["still-centering", "still-centering-white", "still-js"]
+  const moreInput = typeof window !== 'undefined' ? document.querySelector(".still") : "undefined"
+    
+  if(state.showHeader && state.valueHeader === "more") {
+      moreHide.splice(2,1)
+      moreInput.classList.add("still-background-white-js")
+  } else if(state.showHeader == false && state.valueHeader === "more") {
+    state.valueHeader = ""
+    moreInput.classList.remove("still-background-white-js")
+  }
+
     return(
         <header className="main-header main-header-white">
           <div className="centering main-header__centering">
@@ -19,9 +45,9 @@ export const HeaderWhite = () => {
                 <li className="navigation__elem"><Link href="/catalog"><a className="navigation__link navigation__link-white" to="/catalog">Каталог</a></Link></li>
                 <li className="navigation__elem"><a className="navigation__link navigation__link-white" href="#">Художники</a></li>
                 <li className="navigation__elem"><a className="navigation__link navigation__link-white" href="#">Блог</a></li>
-                <li className="navigation__elem"><a className="navigation__link navigation__link-white still still-white" href="#">Ещё</a></li>
+                <li className="navigation__elem"><a className="navigation__link navigation__link-white still still-white"  onPointerEnter={() => toggleHeaderHandler("more")} onPointerLeave={() => toggleHeaderHandler("more")} href="#">Ещё</a></li>
               </ul>
-              <div className="still-centering still-centering-white still-js">
+              <div className={moreHide.join(" ")} onPointerLeave={() => toggleHeaderHandler("more")}>
                 <ul className="still-list still-list-white">
                   <li className="still-list__elem"><a className="still-list__link" href="#">О проекте</a></li>
                   <li className="still-list__elem"><a className="still-list__link" href="#">Доставка</a></li>
@@ -33,7 +59,7 @@ export const HeaderWhite = () => {
             </nav>
             <div className="account-and-etc">
               <div className="personal-account personal-account-white">
-                <span className="personal-account__photo-white"></span>
+                <span className="personal-account__photo-white" onClick={() => popupShowHandler("authorization")}></span>
                 <span className="personal-account__name personal-account__name-white">Александрелло</span>
                 <div className="drop-menu-account drop-menu-account-white drop-menu-account-js">
                   <div className="centering-lists">
@@ -74,22 +100,29 @@ export const HeaderWhite = () => {
                     <span className="counter-basket counter">67</span>
                   </a></li>
                 <li className="list-etc__elem list-etc__elem-white"><a className="list-etc__link list-etc__link-white search" href="#">
-                  <svg className="svg-search svg-search-white" viewBox="0 0 4 4">
+                  <svg className="svg-search svg-search-white" onClick={() => toggleSearchHandler("search")} viewBox="0 0 4 4">
                       <path id="Layer" className="shp0" d="M2.32 2.6L3.32 3.6L3.6 3.32L2.6 2.32L2.32 2.6Z" />
                       <path id="Layer" className="shp0" d="M3.09 1.54C3.09 1.94 2.94 2.33 2.64 2.63C2.34 2.93 1.94 3.08 1.55 3.08C1.15 3.08 0.76 2.93 0.46 2.63C0.16 2.33 0.01 1.93 0.01 1.54C0.01 1.14 0.16 0.75 0.46 0.45C0.76 0.15 1.16 0 1.55 0C1.95 0 2.34 0.15 2.64 0.45C2.94 0.75 3.09 1.15 3.09 1.54ZM2.7 1.54C2.7 1.25 2.59 0.95 2.36 0.73C2.13 0.5 1.84 0.39 1.55 0.39C1.26 0.39 0.96 0.5 0.74 0.73C0.52 0.95 0.4 1.25 0.4 1.54C0.4 1.83 0.51 2.13 0.74 2.35C0.96 2.57 1.26 2.69 1.55 2.69C1.84 2.69 2.14 2.58 2.36 2.35C2.59 2.13 2.7 1.83 2.7 1.54Z" />
                   </svg>
                 </a></li>
               </ul>
-              <div className="search-centering search-centering-js">
+              <div className={cn("search-centering", {"search-centering-js" : !(state.showHeader && state.valueHeader === "search")})}>
                 <form className="search-form" action="#">
-                  <input className="search-form__input search-form__input-js" type="text" placeholder="Поиск..."/>
+                  <input className="search-form__input search-form__input-js"
+                  ref={
+                    searchElementFocus => {
+                      if (searchElementFocus) {
+                        searchElementFocus.focus();
+                      }
+                    }
+                  } onChange={searchValueHandler} value={state.searchValue} type="text" placeholder="Поиск..."/>
                   <button className="search-form__button" type="submit"></button>
                   <button className="search-form__button-clear" type="reset"></button>
                 </form>
               </div>
               <div className="languages languages-white">
-                <span className="languages__ru languages__ru-white">RU</span>
-                <ul className="languages-list languages-list-white languages-list-js">
+                <span className="languages__ru languages__ru-white"  onClick={() => toggleHeaderHandler("language")}>RU</span>
+                <ul className={cn("languages-list", {"languages-list-js" : !(state.showHeader && state.valueHeader === "language")}, "languages-list-white")}>
                   <li className="languages-elem"><a className="languages__en" href="#">EN</a></li>
                 </ul>
               </div>

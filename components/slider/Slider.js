@@ -54,7 +54,7 @@ export const Slider = () => {
                 pagination={{ clickable: true }}
             >
                 {!!SLIDER_DATA.sliders ? SLIDER_DATA.sliders.map((item, key) => (
-                    <SwiperSlide className="swiper-slide" style={{backgroundImage: `url(${item.url})`}}>
+                    <SwiperSlide className="swiper-slide" style={{backgroundImage: `url(${item.url})`}} key={item.stringOne + key}>
                         <div className="main-slider__text">
                             {!!item.stringOne ? <p className="main-slider__string_one">{item.stringOne}</p> : undefined}<br/>
                             {!!item.stringTwo ? <p className="main-slider__string_two">{!!item.stringTwo[0] ? item.stringTwo[0]: undefined}<br/>{!!item.stringTwo[1] ? item.stringTwo[1] : undefined}</p> : undefined}<br/>

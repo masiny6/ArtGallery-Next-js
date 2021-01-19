@@ -52,7 +52,10 @@ export const News = () => {
                 spaceBetween={44}
                 slidesPerView={2}
                 loop
-                navigation
+                navigation = {{
+                    nextEl: ".news-section .swiper-button__next",
+                    prevEl: ".news-section .swiper-button__prev"
+                }}
                 breakpoints={{
                     320: {
                     spaceBetween: 7,

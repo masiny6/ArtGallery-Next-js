@@ -2,7 +2,9 @@
     .js-hidden-select {
         display: none !important;
     }
-
+    .author-list {
+        z-index: 9;
+    }
     .filter-mobile {
         display: none;
     }
@@ -12,9 +14,49 @@
         justify-content: space-between;
     }
 
+    //Range slider React
+    .rc-slider-step {
+        background-color: #ccc;
+    }
+    .rc-slider-track {
+        background-color: #000;
+        z-index: 2;
+    }
+    .rc-slider-handle {
+        width: 16px;
+        height: 16px;
+        border: 2px solid #000;
+        background-color: #ccc;
+        z-index: 2;
+        &:hover {
+            background-color: #000;
+            transition: 0.3s;
+        }
+    }
+    .rc-slider-handle-dragging {
+        border-color: #000 !important;
+        background-color: #000;
+        box-shadow: 0 0 0 0 transparent !important;
+    }
+    .rc-slider-handle-click-focused:focus {
+        border-color: #000;
+    }
+    .rc-slider-dot {
+        background-color: transparent;
+        border: 0px solid transparent;
+    }
+    .rc-slider {
+        width: 226px;
+    }
+
     .filter-price {
         display: flex;
         flex-direction: column;
+//Range slider React
+        .rc-slider {
+            width: 226px;
+        }
+        
 
         &__title {
             font-family: "Proxima-Nova-Rg", sans-serif;
@@ -84,59 +126,23 @@
         .filter-price__max {
             right: -10px;
         }
-
-        .irs {
-            width: 226px !important;
-        }
-
-        .irs--flat {
-            margin-top: -18px;
-        }
-
-        .irs-line {
-            height: 4px;
-            border-radius: 0;
-            background-color: #cccccc;
-        }
-
-        .irs-bar {
-            background-color: black;
-            height: 4px;
-        }
-
-        .irs--flat .irs-handle>i:first-child {
-            width: 16px;
-            height: 16px;
-            border: 2px solid black;
-            background-color: #cccccc;
-            border-radius: 50%;
-
-            &:hover {
-                background-color: black;
-            }
-
-            &:active {
-                background-color: black;
-            }
-        }
-
-        .irs--flat .irs-handle {
-            top: 17px;
-            margin-left: -10px;
-        }
-
-        .irs-from,
-        .irs-to,
-        .irs-min,
-        .irs-max,
-        .irs-single {
-            display: none;
-        }
     }
 
     .filter-size {
         display: flex;
         position: relative;
+//Range slider React
+        .rc-slider {
+            width: 181px;
+        }
+        .rc-slider-mark {
+            margin-top: 5px;
+            .rc-slider-mark-text {
+                font-size: 14px;
+                color: #000;
+            }
+        }
+        
 
         &__title {
             font-family: "Proxima-Nova-Rg", sans-serif;
@@ -151,64 +157,6 @@
             display: flex;
             align-self: flex-end;
             margin-bottom: 4px;
-        }
-
-        .irs {
-            width: 181px;
-        }
-
-        .irs--flat {
-            bottom: -28px;
-        }
-
-        .irs-grid {
-            bottom: 5px;
-        }
-
-        .irs-line {
-            height: 4px;
-            border-radius: 0;
-            background-color: #cccccc;
-        }
-
-        .irs-bar {
-            background-color: black;
-            height: 4px;
-        }
-
-        .irs--flat .irs-handle>i:first-child {
-            width: 16px;
-            height: 16px;
-            border: 2px solid black;
-            background-color: #cccccc;
-            border-radius: 50%;
-
-            &:hover {
-                background-color: black;
-            }
-
-            &:active {
-                background-color: black;
-            }
-        }
-
-        .irs--flat .irs-handle {
-            top: 17px;
-            margin-left: -10px;
-        }
-
-        .irs-grid-text {
-            font-size: 14px;
-            color: black;
-        }
-
-        .irs-from,
-        .irs-to,
-        .irs-min,
-        .irs-max,
-        .irs-grid-pol,
-        .irs-single {
-            display: none;
         }
     }
 
@@ -600,8 +548,9 @@
                 height: 31px;
             }
 
-            .irs {
-                width: 178px !important;
+            //Range slider React
+            .rc-slider {
+                width: 178px;
             }
         }
 
@@ -609,12 +558,14 @@
             order: 2;
             display: block;
             margin-right: 22px;
+            margin-top: 18px;
 
             &__title {
                 padding-top: 8px;
             }
 
-            .irs {
+            //Range slider React
+            .rc-slider {
                 width: 178px;
             }
 
@@ -625,12 +576,12 @@
 
         .filter-orientation {
             order: 4;
-            margin-top: -10px;
+            margin-top: 18px;
             flex-basis: 100%;
         }
 
         .button-reset {
-            margin-bottom: 15px;
+            margin-bottom: -11px;
             order: 3;
         }
 
@@ -765,9 +716,8 @@
                 /**/
             }
 
-            .irs {
-                width: 100% !important;
-                /**/
+            .rc-slider {
+                width: 100%;
             }
         }
 
@@ -775,27 +725,18 @@
             order: 2;
             display: flex;
             flex-basis: 100%;
-            /**/
-            /**/
             margin-right: 0px;
-
-            /**/
+            margin-top: 50px;
             &__title {
                 font-family: "Proxima-Nova-Lt", sans-serif;
-                /**/
                 font-weight: 600;
-                /**/
                 font-size: 14px;
-                /**/
                 padding-top: 0px;
-                /**/
                 margin-right: 19px;
-                /**/
             }
 
-            .irs {
+            .rc-slider {
                 width: 100%;
-                /**/
             }
 
             .irs--flat {

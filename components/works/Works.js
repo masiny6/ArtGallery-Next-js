@@ -204,7 +204,7 @@ export class Works extends React.Component {
                         switch(key) {
                             case 2:
                                 return (
-                                    <React.Fragment key={item.id}>
+                                    <React.Fragment key={item + key}>
                                         <WorksItem data={item} />
                                         <div className="grid__item grid__item_empty hidden-desktop hidden-mobile hidden-catalog js-grid__item"></div>
                                     </React.Fragment>
@@ -212,7 +212,7 @@ export class Works extends React.Component {
                                 break;
                             case 6:
                                 return (
-                                    <React.Fragment key={item.id}>
+                                    <React.Fragment key={item + key}>
                                         <WorksItem data={item} />
                                         <div className="grid__item grid__item_empty js-grid__item hidden-mobile"></div>
                                     </React.Fragment>
@@ -220,7 +220,7 @@ export class Works extends React.Component {
                                 break;
                             case 7:
                                 return (
-                                    <React.Fragment key={item.id}>
+                                    <React.Fragment key={item + key}>
                                         <WorksItem data={item} />
                                         <div className="grid__item grid__item_empty js-grid__item hidden-tablet hidden-mobile"></div>
                                     </React.Fragment>
@@ -228,7 +228,7 @@ export class Works extends React.Component {
                                 break;
                             default:
                                 return (
-                                    <React.Fragment key={item.id}>
+                                    <React.Fragment key={item + key}>
                                         <WorksItem data={item} />
                                     </React.Fragment>
                                 )

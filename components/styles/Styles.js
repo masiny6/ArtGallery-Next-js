@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import "./styles.scss"
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
@@ -50,7 +50,10 @@ const STYLES_DATA = {
 
 
 export const Styles = () => {
+
+
     return(
+        
         <div className="styles-section">
             <div className="section-header">
                 <h2 className="section-title">{!!STYLES_DATA.mainTiitle ? STYLES_DATA.mainTiitle : undefined}</h2>
@@ -64,7 +67,10 @@ export const Styles = () => {
                 spaceBetween={44}
                 slidesPerView={2}
                 loop
-                navigation
+                navigation = {{
+                    nextEl: ".styles-section .swiper-button__next",
+                    prevEl: ".styles-section .swiper-button__prev"
+                }}
                 breakpoints={{
                     320: {
                     spaceBetween: 7,

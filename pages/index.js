@@ -21,9 +21,10 @@ export default class Home extends React.Component{
             //открытие и закрытие попапа
             showPopup: false,
             valuePopup: "",
-            //Появление language
+            
             showHeader: false,
-            valueHeader: ""
+            valueHeader: "",
+            searchValue: "",
         }
     }
     //Открытие и закрытие попапа
@@ -40,21 +41,38 @@ export default class Home extends React.Component{
         valuePopup: ""
     })
     }
-    //Открытие и закрытие элементов header
+
     toggleHeaderHandler = (valueHeader) => {
-    const ShowAndHide = this.state.showHeader
-    this.setState({
-        showHeader: !ShowAndHide,
-        valueHeader
-    })
+        this.setState({
+            showHeader: !this.state.showHeader,
+            valueHeader
+        })
     }
+
+    toggleSearchHandler = (valueHeader) => {
+        this.setState({
+            showHeader: !this.state.showHeader,
+            valueHeader,
+            searchValue: ""
+        })
+    }
+
+    searchValueHandler = (event) => {
+        this.setState({
+            searchValue: event.target.value
+        })
+    }
+
+
     render() {
         return (
         <RateContext.Provider
                         value={{state: this.state,
                                 popupShowHandler: this.popupShowHandler,
                                 popupHideHandler: this.popupHideHandler,
-                                toggleHeaderHandler: this.toggleHeaderHandler
+                                toggleHeaderHandler: this.toggleHeaderHandler,
+                                toggleSearchHandler: this.toggleSearchHandler,
+                                searchValueHandler: this.searchValueHandler
                         }}>
                 
         <React.Fragment>

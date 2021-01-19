@@ -1,13 +1,25 @@
-import React, { useContext } from "react"
+import React, { useContext, useLayoutEffect, useState } from "react"
 import { RateContext } from "../../context/RateContext"
 import "./popupAuthorization.scss"
 
-
-
+//считывает размеры окна
+function useWindowSize() {
+    const [size, setSize] = useState([0, 0]);
+    useLayoutEffect(() => {
+      function updateSize() {
+        setSize([window.innerWidth, window.innerHeight]);
+      }
+      window.addEventListener('resize', updateSize);
+      updateSize();
+      return () => window.removeEventListener('resize', updateSize);
+    }, []);
+    return size;
+  }
 
 export const PopupAuthorization = () => {
 
     const {state, popupHideHandler, popupShowHandler} = useContext(RateContext)
+    const [width, height] = useWindowSize();//
 
     const popupHide = ["popup-authorization", "js-popup-authorization", "js-popup-close-general"]
 
@@ -92,7 +104,7 @@ export const PopupAuthorization = () => {
                             
                         </form>
                         <div className="forgotten-password">
-                            <span className="forgotten-password__text js-forgotten-password__text">Забыли пароль?</span>
+                            <span className="forgotten-password__text js-forgotten-password__text">{width <= 767 ? <span className="no-account__registr js-no-account__registr" onClick={() => popupShowHandler("registr")}>Зарегистрироваться</span> : "Забыли пароль"}</span>
                             <span className="forgotten-password__button js-forgotten-password__button" onClick={() => popupShowHandler("recovery")}>Восстановить пароль</span>
                         </div>
                     </div>
