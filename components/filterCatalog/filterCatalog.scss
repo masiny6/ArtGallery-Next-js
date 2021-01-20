@@ -3,7 +3,17 @@
         display: none !important;
     }
     .author-list {
-        z-index: 9;
+        width: 620px;
+        display: inline-block;
+        z-index: 4;
+        
+        .css-yk16xz-control {
+            border-radius: 0;
+            border-color: transparent;
+        }
+        .css-1okebmr-indicatorSeparator {
+            display: none;
+        }
     }
     .filter-mobile {
         display: none;
@@ -626,6 +636,10 @@
         background-position: 16px;
         min-height: 54px;
         position: relative;
+        
+        .author-list {
+            width: 88%;
+        }
 
         .filter-mobile {
             font-family: "Proxima-Nova-Lt", sans-serif;

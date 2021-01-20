@@ -82,19 +82,19 @@ class Catalog extends React.Component{
                     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
                 </Head>
                 <div className="popular-filter-main">
-                <HeaderWhite/>
+                <HeaderWhite data={this.props.data}/>
                 <main className="catalog-main">
-                    <TitleCatalog/>
+                    <TitleCatalog data={this.props.data}/>
                     <BreadCrumbCatalogMobile/>
-                    <FilterCatalog/>
-                    <PopularFilterCatalog/>
-                    <Works/>
+                    <FilterCatalog data={this.props.data}/>
+                    <PopularFilterCatalog data={this.props.data}/>
+                    <Works data={this.props.data}/>
                 </main>
-                <Footer/>
-                <PopupAuthorization/>
-                <PopupRegistration/>
-                <PopupPasswordRecovery/>
-                <PopupSuccess/>
+                <Footer data={this.props.data}/>
+                <PopupAuthorization data={this.props.data}/>
+                <PopupRegistration data={this.props.data}/>
+                <PopupPasswordRecovery data={this.props.data}/>
+                <PopupSuccess data={this.props.data}/>
                 </div>
                 </React.Fragment>
             </RateContext.Provider>
@@ -103,3 +103,10 @@ class Catalog extends React.Component{
 }
 
 export default Catalog
+export async function getServerSideProps(context) {
+    const res = await fetch(`http://localhost:3000/api/catalog`)
+    const data = await res.json()
+    return {
+      props: {data}, // will be passed to the page component as props
+    }
+  }

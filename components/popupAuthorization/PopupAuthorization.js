@@ -1,6 +1,12 @@
 import React, { useContext, useLayoutEffect, useState } from "react"
+import OutsideClickHandler from 'react-outside-click-handler';
 import { RateContext } from "../../context/RateContext"
 import "./popupAuthorization.scss"
+import cn from "classnames"
+
+
+
+
 
 //считывает размеры окна
 function useWindowSize() {
@@ -16,24 +22,25 @@ function useWindowSize() {
     return size;
   }
 
-export const PopupAuthorization = () => {
+export const PopupAuthorization = (props) => {
 
     const {state, popupHideHandler, popupShowHandler} = useContext(RateContext)
     const [width, height] = useWindowSize();//
+    const data = props.data.popupAuthorization
 
-    const popupHide = ["popup-authorization", "js-popup-authorization", "js-popup-close-general"]
-
-    if(state.showPopup && state.valuePopup === "authorization") {
-        popupHide.splice(2,1)
-    }
 
     
     return(
-        <div className={popupHide.join(" ")}>
+        <div className={cn("popup-authorization", "js-popup-authorization", {"js-popup-close-general" : !(state.showPopup && state.valuePopup === "authorization")})}>
+            <OutsideClickHandler
+                onOutsideClick={() => {
+                    popupHideHandler()
+                }}
+            >
             <div className="popup-authorization__centering">
                 <span className="popup-authorization__close js-popup-general-close" onClick={popupHideHandler}></span>
                 <div className="popup-header">
-                    <span className="popup-header__title">Авторизация</span>
+                    <span className="popup-header__title">{!!data.mainTitle ? data.mainTitle : undefined}</span>
                     <div className="no-account">
                         <span className="no-account__text">Ещё нет аккаунта?</span>
                         <span className="no-account__registr js-no-account__registr" onClick={() => popupShowHandler("registr")}>Зарегистрироваться</span>
@@ -63,7 +70,8 @@ export const PopupAuthorization = () => {
                                     <path
                                         d="M50.09 0.02L37.62 0C23.62 0 14.57 9.28 14.57 23.66L14.57 34.56L2.04 34.56C0.95 34.56 0.08 35.44 0.08 36.52L0.08 52.33C0.08 53.41 0.95 54.29 2.04 54.29L14.57 54.29L14.57 94.16C14.57 95.25 15.45 96.12 16.53 96.12L32.88 96.12C33.96 96.12 34.84 95.24 34.84 94.16L34.84 54.29L49.5 54.29C50.58 54.29 51.46 53.41 51.46 52.33L51.46 36.52C51.46 36 51.25 35.51 50.89 35.14C50.52 34.77 50.02 34.56 49.5 34.56L34.84 34.56L34.84 25.32C34.84 20.87 35.9 18.62 41.69 18.62L50.09 18.61C51.17 18.61 52.05 17.74 52.05 16.65L52.05 1.98C52.05 0.9 51.17 0.02 50.09 0.02Z" />
                                 </svg>
-                                <a className="social-network__link" href="#">Facebook</a></li>
+                                <a className="social-network__link" href="#">Facebook</a>
+                                </li>
                             <li className="social-network__elem social-network__ok">
                                 <svg className="svg-general svg-ok" viewBox="0 0 95.481 95.481">
                                     <path d="M43.041,67.254c-7.402-0.772-14.076-2.595-19.79-7.064c-0.709-0.556-1.441-1.092-2.088-1.713
@@ -110,6 +118,9 @@ export const PopupAuthorization = () => {
                     </div>
                 </div>
             </div>
+            </OutsideClickHandler>
         </div>
     )
 }
+
+

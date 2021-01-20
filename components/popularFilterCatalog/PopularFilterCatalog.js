@@ -10,44 +10,21 @@ import SwiperCore, { Navigation } from 'swiper';
 SwiperCore.use([Navigation]);
 
 
-const POPULARFILTER_CATALOG = {
-    mainTitle: "Популярные фильтры",
-    elements: [
-        {
-            name: "Барроко",
-            pictureURL: "/images/popular-filter-1.jpg"
-        },
-        {
-            name: "Живопись",
-            pictureURL: "/images/popular-filter-2.jpg"
-        },
-        {
-            name: "Пейзаж",
-            pictureURL: "/images/popular-filter-3.jpg"
-        },
-        {
-            name: "Модерн",
-            pictureURL: "/images/popular-filter-4.jpg"
-        },
-        {
-            name: "Барроко",
-            pictureURL: "/images/popular-filter-2.jpg"
-        },
-    ]
-}
 
 
 
 
 
-export const PopularFilterCatalog = () => {
+
+export const PopularFilterCatalog = (props) => {
+    const data = props.data.popularFilter
     return(
         <React.Fragment>
         <div className="popular-filter">
             <div className="centering">
                 <div className="centering-tablet">
                     <div className="popular-filter__header">
-                        <h2 className="popular-filter__title">{!!POPULARFILTER_CATALOG.mainTitle ? POPULARFILTER_CATALOG.mainTitle : undefined}</h2>
+                        <h2 className="popular-filter__title">{!!data.mainTitle ? data.mainTitle : undefined}</h2>
                         <div className="swiper-button">
                             <div className="swiper-button__prev"></div>
                             <div className="swiper-button__next"></div>
@@ -76,7 +53,7 @@ export const PopularFilterCatalog = () => {
                             },
                         }}
                     >
-                        {!!POPULARFILTER_CATALOG.elements ? POPULARFILTER_CATALOG.elements.map((item, key) => (
+                        {!!data.elements ? data.elements.map((item, key) => (
                             <SwiperSlide key={item.name + key}>
                                 <div className="filter-photo">
                                     <img className="filter-photo__inner" src={item.pictureURL} alt=""/>

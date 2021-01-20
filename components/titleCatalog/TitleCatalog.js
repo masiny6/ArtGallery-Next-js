@@ -2,17 +2,15 @@ import React from "react"
 import "./titleCatalog.scss"
 
 
-const TITLECATALOG_DATA = {
-    mainTitle: "Каталог картин",
-    backgroundURL: "/images/title-catalog.jpg"
-}
 
 
-export const TitleCatalog = () => {
+
+export const TitleCatalog = (props) => {
+    const data = props.data.titleCatalog
     return(
         <div className="title-section">
-            <div className="centering" style={{backgroundImage: `url(${!!TITLECATALOG_DATA.backgroundURL ? TITLECATALOG_DATA.backgroundURL : undefined})`}}>
-                <h1 className="title-catalog">{!!TITLECATALOG_DATA.mainTitle ? TITLECATALOG_DATA.mainTitle : undefined}</h1>
+            <div className="centering" style={{backgroundImage: `url(${!!data.backgroundURL ? data.backgroundURL : undefined})`}}>
+                <h1 className="title-catalog">{!!data.mainTitle ? data.mainTitle : undefined}</h1>
             </div>
         </div>
     )

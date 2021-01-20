@@ -115,14 +115,14 @@ class ProductCard extends React.Component {
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <div className="product-card-main">
-                    <HeaderWhite/>
-                    <ProductCardCatalog/>
-                    <WorksCard/>
-                    <Footer/>
-                    <PopupAuthorization/>
-                    <PopupRegistration/>
-                    <PopupPasswordRecovery/>
-                    <PopupSuccess/>
+                    <HeaderWhite data={this.props.data}/>
+                    <ProductCardCatalog data={this.props.data}/>
+                    <WorksCard data={this.props.data}/>
+                    <Footer data={this.props.data}/>
+                    <PopupAuthorization data={this.props.data}/>
+                    <PopupRegistration data={this.props.data}/>
+                    <PopupPasswordRecovery data={this.props.data}/>
+                    <PopupSuccess data={this.props.data}/>
                 </div>
                 </React.Fragment>
             </RateContext.Provider>
@@ -130,3 +130,10 @@ class ProductCard extends React.Component {
     }
 }
 export default ProductCard
+export async function getServerSideProps(context) {
+    const res = await fetch(`http://localhost:3000/api/productCard`)
+    const data = await res.json()
+    return {
+      props: {data}, // will be passed to the page component as props
+    }
+  }

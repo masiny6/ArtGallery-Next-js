@@ -13,35 +13,16 @@ SwiperCore.use([Navigation]);
 
 
 
-const NEWS_DATA = {
-    mainTitle: "Новости искусства",
-    newsItems: [
-        {
-            pictureURL: "/images/news-photo-1.jpg",
-            tag: "Галлереи и выставки",
-            date: "21.12.2018",
-            newsURL: "",
-            title: "Обзор нашего экспетра Владимира Рубинштейна-Загорского",
-            description: "Теперь чтобы увидеть и сравнить все 36 картин культового голландца, не нужно объезжать весь мир."
-        },
-        {
-            pictureURL: "/images/news-photo-2.jpg",
-            tag: "Галлереи и выставки",
-            date: "21.12.2018",
-            newsURL: "",
-            title: "Обзор нашего экспетра Владимира Рубинштейна-Загорского",
-            description: "Теперь чтобы увидеть и сравнить все 36 картин культового голландца, не нужно объезжать весь мир."
-        },
-    ]
-}
-export const News = () => {
 
+export const News = (props) => {
+
+    const data = props.data.news
 
 
     return(
         <div className="news-section">
             <div className="section-header">
-                <h2 className="section-title">{!!NEWS_DATA.mainTitle ? NEWS_DATA.mainTitle: undefined}</h2>
+                <h2 className="section-title">{!!data.mainTitle ? data.mainTitle: undefined}</h2>
                 <div className="swiper-button">
                     <div className="swiper-button__prev"></div>
                     <div className="swiper-button__next"></div>
@@ -71,7 +52,7 @@ export const News = () => {
                     },
                 }}
         >
-            {!!NEWS_DATA.newsItems ? NEWS_DATA.newsItems.map((item, key) => (
+            {!!data.newsItems ? data.newsItems.map((item, key) => (
                 <SwiperSlide key={item.title + key}>
                     <NewsItem data={item}/>
                 </SwiperSlide>

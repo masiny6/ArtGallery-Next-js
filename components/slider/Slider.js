@@ -10,42 +10,10 @@ import SwiperCore, { Autoplay, Pagination } from 'swiper';
 // install Swiper components
 SwiperCore.use([Autoplay, Pagination]);
 
-const SLIDER_DATA = {
-    sliders: [
-        {
-            url: "/images/background-slide-1.jpg",
-            stringOne: "Новое на этой неделе1",
-            stringTwo: ["Лучшие фигуративные","произведения"],
-            stringThree: ["Новые оригинальные работы,","выбранные нашим эспертом"],
-            button: {
-                name: "Открыть",
-                url: ""
-            }
-        },
-        {
-            url: "/images/background-slide-1.jpg",
-            stringOne: "Новое на этой неделе2",
-            stringTwo: ["Лучшие фигуративные","произведения"],
-            stringThree: ["Новые оригинальные работы,","выбранные нашим эспертом"],
-            button: {
-                name: "Открыть",
-                url: ""
-            }
-        },
-        {
-            url: "/images/background-slide-1.jpg",
-            stringOne: "Новое на этой неделе3",
-            stringTwo: ["Лучшие фигуративные","произведения"],
-            stringThree: ["Новые оригинальные работы,","выбранные нашим эспертом"],
-            button: {
-                name: "Открыть",
-                url: ""
-            }
-        },
-    ]
-}
 
-export const Slider = () => {
+
+export const Slider = (props) => {
+    const data = props.data.slider
     return(
         <div className="main-slider">
             <Swiper
@@ -53,7 +21,7 @@ export const Slider = () => {
                 autoplay={{ delay: 2500, disableOnInteraction: false }}
                 pagination={{ clickable: true }}
             >
-                {!!SLIDER_DATA.sliders ? SLIDER_DATA.sliders.map((item, key) => (
+                {!!data.sliders ? data.sliders.map((item, key) => (
                     <SwiperSlide className="swiper-slide" style={{backgroundImage: `url(${item.url})`}} key={item.stringOne + key}>
                         <div className="main-slider__text">
                             {!!item.stringOne ? <p className="main-slider__string_one">{item.stringOne}</p> : undefined}<br/>

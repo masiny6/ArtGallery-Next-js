@@ -1,25 +1,27 @@
 import React, { useContext } from "react"
+import OutsideClickHandler from 'react-outside-click-handler';
 import { RateContext } from "../../context/RateContext"
 import "./popupPasswordRecovery.scss"
+import cn from "classnames"
 
-export const PopupPasswordRecovery = () => {
+export const PopupPasswordRecovery = (props) => {
 
 
     const {state, popupHideHandler, popupShowHandler} = useContext(RateContext)
-
-    const popupHide = ["popup-recovery", "js-popup-recovery", "js-popup-close-general"]
-
-    if(state.showPopup && state.valuePopup === "recovery") {
-        popupHide.splice(2,1)
-    }
+    const data = props.data.popupPasswordRecovery
 
 
     return(
-        <div className={popupHide.join(" ")}>
+        <div className={cn("popup-recovery", "js-popup-recovery", {"js-popup-close-general" : !(state.showPopup && state.valuePopup === "recovery")})}>
+                <OutsideClickHandler
+                onOutsideClick={() => {
+                    popupHideHandler()
+                }}
+                > 
             <div className="popup-recovery__centering">
                 <span className="popup-recovery__close js-popup-general-close" onClick={popupHideHandler}></span>
                 <div className="popup-header">
-                    <span className="popup-header__title">Восстановить пароль</span>
+                    <span className="popup-header__title">{!!data.mainTitle ? data.mainTitle : undefined}</span>
                 </div>
                 <form className="form-recovery js-form-recovery" action="">
                     <fieldset className="fieldset-email">
@@ -35,6 +37,7 @@ export const PopupPasswordRecovery = () => {
                     <span className="forgotten-password__button js-forgotten-password__button" onClick={() => popupShowHandler("authorization")}>Авторизоваться</span>
                 </div>
             </div>
+            </OutsideClickHandler>
         </div>
     )
 }

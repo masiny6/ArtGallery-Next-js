@@ -11,136 +11,15 @@ import { WorksItem } from "../worksItem/WorksItem";
 // install Swiper components
 SwiperCore.use([Navigation]);
 
-const WORKSCARD_DATA = {
-    mainTitle: "Похожие работы",
-    cards: [
-        {
-            pictureURL: "/images/photo-works-1.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-2.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-3.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-4.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-5.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-6.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-7.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-8.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-9.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        
-    ]
-}
 
-export const WorksCard = () => {
+
+export const WorksCard = (props) => {
+    const data = props.data.worksCard
     return(
         <React.Fragment>
         <div className="works-section works-section_card">
             <div className="section-header">
-                <h2 className="section-title">{!!WORKSCARD_DATA.mainTitle ? WORKSCARD_DATA.mainTitle : undefined}</h2>
+                <h2 className="section-title">{!!data.mainTitle ? data.mainTitle : undefined}</h2>
                 <div className="swiper-button">
                     <div className="swiper-button__prev"></div>
                     <div className="swiper-button__next"></div>
@@ -170,7 +49,7 @@ export const WorksCard = () => {
                          },
                      }}
                 >
-                    {WORKSCARD_DATA.cards ? WORKSCARD_DATA.cards.map((item, key) => (
+                    {data.cards ? data.cards.map((item, key) => (
                         <SwiperSlide key={item.name + key}>
                             <WorksItem data={item} />
                         </SwiperSlide>

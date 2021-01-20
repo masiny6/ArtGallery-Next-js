@@ -11,52 +11,18 @@ SwiperCore.use([Navigation]);
 
 
 
-const STYLES_DATA = {
-    mainTiitle: "Обзор стилей",
-    slides: {
-        slideOne: {
-            stylesListOne: ["Современное НЮ", "Новое изобразительное искусство"],
-            stylesListTwo: {
-                stylesListTwo_1: [
-                    {
-                        string1: "Вдохновение",
-                        string2: "Уорхолом"
-                    }, "Новый Поп Арт"],
-                stylesListTwo_2: [
-                    {
-                        string1: "Вдохновение",
-                        string2: "Гансом Хофманном"
-                    }, "Новый абстрактный экспрессионизм"],
-            }
-        },
-        slideTwo: {
-            stylesListOne: ["Современное НЮ", "Новое изобразительное искусство"],
-            stylesListTwo: {
-                stylesListTwo_1: [
-                    {
-                        string1: "Вдохновение",
-                        string2: "Уорхолом"
-                    }, "Новый Поп Арт"],
-                stylesListTwo_2: [
-                    {
-                        string1: "Вдохновение",
-                        string2: "Гансом Хофманном"
-                    }, "Новый абстрактный экспрессионизм"],
-            }
-        }
-    }
-}
 
 
 
-export const Styles = () => {
 
+export const Styles = (props) => {
+
+    const data = props.data.styles
 
     return(
-        
         <div className="styles-section">
             <div className="section-header">
-                <h2 className="section-title">{!!STYLES_DATA.mainTiitle ? STYLES_DATA.mainTiitle : undefined}</h2>
+                <h2 className="section-title">{!!data.mainTiitle ? data.mainTiitle : undefined}</h2>
                 <div className="swiper-button">
                     <div className="swiper-button__prev"></div>
                     <div className="swiper-button__next"></div>
@@ -90,22 +56,22 @@ export const Styles = () => {
                         <div className="styles-list-one">
                             <div className="styles-list styles-list_1">
                                 <div className="styles-list__elem">
-                                    <span className="styles-text__elem styles-text__elem_up">{STYLES_DATA.slides.slideOne.stylesListOne[0]}</span>
-                                    <span className="styles-text__elem styles-text__elem_down">{STYLES_DATA.slides.slideOne.stylesListOne[1]}</span>
+                                    <span className="styles-text__elem styles-text__elem_up">{data.slides.slideOne.stylesListOne[0]}</span>
+                                    <span className="styles-text__elem styles-text__elem_down">{data.slides.slideOne.stylesListOne[1]}</span>
                                 </div>
                             </div>
                         </div>
                         <div className="styles-list-two">
                             <div className="styles-list styles-list_2">
                                 <div className="styles-list__elem">
-                                    <span className="styles-text__elem styles-text__elem_up">{STYLES_DATA.slides.slideOne.stylesListTwo.stylesListTwo_1[0].string1}<br/> {STYLES_DATA.slides.slideOne.stylesListTwo.stylesListTwo_1[0].string2}</span>
-                                    <span className="styles-text__elem styles-text__elem_down">{STYLES_DATA.slides.slideOne.stylesListTwo.stylesListTwo_1[1]}</span>
+                                    <span className="styles-text__elem styles-text__elem_up">{data.slides.slideOne.stylesListTwo.stylesListTwo_1[0].string1}<br/> {data.slides.slideOne.stylesListTwo.stylesListTwo_1[0].string2}</span>
+                                    <span className="styles-text__elem styles-text__elem_down">{data.slides.slideOne.stylesListTwo.stylesListTwo_1[1]}</span>
                                 </div>
                             </div>
                             <div className="styles-list styles-list_3">
                                 <div className="styles-list__elem">
-                                    <span className="styles-text__elem styles-text__elem_up">{STYLES_DATA.slides.slideOne.stylesListTwo.stylesListTwo_2[0].string1}<br/> {STYLES_DATA.slides.slideOne.stylesListTwo.stylesListTwo_2[0].string2}</span>
-                                    <span className="styles-text__elem styles-text__elem_down">{STYLES_DATA.slides.slideOne.stylesListTwo.stylesListTwo_2[1]}</span>
+                                    <span className="styles-text__elem styles-text__elem_up">{data.slides.slideOne.stylesListTwo.stylesListTwo_2[0].string1}<br/> {data.slides.slideOne.stylesListTwo.stylesListTwo_2[0].string2}</span>
+                                    <span className="styles-text__elem styles-text__elem_down">{data.slides.slideOne.stylesListTwo.stylesListTwo_2[1]}</span>
                                 </div>
                             </div>
                         </div>
@@ -115,22 +81,22 @@ export const Styles = () => {
                         <div className="styles-list-two">
                             <div className="styles-list styles-list_4">
                                 <div className="styles-list__elem">
-                                <span className="styles-text__elem styles-text__elem_up">{STYLES_DATA.slides.slideTwo.stylesListTwo.stylesListTwo_1[0].string1}<br/> {STYLES_DATA.slides.slideTwo.stylesListTwo.stylesListTwo_1[0].string2}</span>
-                                    <span className="styles-text__elem styles-text__elem_down">{STYLES_DATA.slides.slideTwo.stylesListTwo.stylesListTwo_1[1]}</span>
+                                <span className="styles-text__elem styles-text__elem_up">{data.slides.slideTwo.stylesListTwo.stylesListTwo_1[0].string1}<br/> {data.slides.slideTwo.stylesListTwo.stylesListTwo_1[0].string2}</span>
+                                    <span className="styles-text__elem styles-text__elem_down">{data.slides.slideTwo.stylesListTwo.stylesListTwo_1[1]}</span>
                                 </div>
                             </div>
                             <div className="styles-list styles-list_5">
                                 <div className="styles-list__elem">
-                                <span className="styles-text__elem styles-text__elem_up">{STYLES_DATA.slides.slideTwo.stylesListTwo.stylesListTwo_2[0].string1}<br/> {STYLES_DATA.slides.slideTwo.stylesListTwo.stylesListTwo_2[0].string2}</span>
-                                    <span className="styles-text__elem styles-text__elem_down">{STYLES_DATA.slides.slideTwo.stylesListTwo.stylesListTwo_2[1]}</span>
+                                <span className="styles-text__elem styles-text__elem_up">{data.slides.slideTwo.stylesListTwo.stylesListTwo_2[0].string1}<br/> {data.slides.slideTwo.stylesListTwo.stylesListTwo_2[0].string2}</span>
+                                    <span className="styles-text__elem styles-text__elem_down">{data.slides.slideTwo.stylesListTwo.stylesListTwo_2[1]}</span>
                                 </div>
                             </div>
                         </div>
                         <div className="styles-list-one">
                             <div className="styles-list styles-list_6">
                                 <div className="styles-list__elem">
-                                    <span className="styles-text__elem styles-text__elem_up">{STYLES_DATA.slides.slideTwo.stylesListOne[0]}</span>
-                                    <span className="styles-text__elem styles-text__elem_down">{STYLES_DATA.slides.slideTwo.stylesListOne[1]}</span>
+                                    <span className="styles-text__elem styles-text__elem_up">{data.slides.slideTwo.stylesListOne[0]}</span>
+                                    <span className="styles-text__elem styles-text__elem_down">{data.slides.slideTwo.stylesListOne[1]}</span>
                                 </div>
                             </div>
                         </div>

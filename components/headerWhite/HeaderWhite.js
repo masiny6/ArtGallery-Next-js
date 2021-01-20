@@ -5,10 +5,10 @@ import "./headerWhite.scss"
 import { RateContext } from "../../context/RateContext"
 import cn from "classnames"
 
-export const HeaderWhite = () => {
+export const HeaderWhite = (props) => {
   
   const {state, popupShowHandler, toggleHeaderHandler, toggleSearchHandler, searchValueHandler} = useContext(RateContext)
-
+  const data = props.data.header
   //Фокус на инпут search
   const searchElementFocus = useRef(null);
 
@@ -36,31 +36,33 @@ export const HeaderWhite = () => {
             <div className="menu-and-logo">
               <input id="burger-menu" className="burger-menu burger-menu-white" type="checkbox"/><label className="menu-phone" htmlFor="burger-menu"></label>
               <div className="logo">
-                <Link href="/"><a className="logo-link"><p className="main-logo main-logo-white"><span className="main-logo__elem">Art</span>Gallery</p></a></Link>
-                <Link href="/"><a className="logo-link"><p className="main-logo-mobile"><span className="main-logo__elem">A</span>G</p></a></Link>
+              {!!data.logo.desktop && !!data.logo.mobile ? <Link href="/"><a className="logo-link" href="/">
+                  <p className="main-logo main-logo-white"><span className="main-logo__elem">{!!data.logo.desktop ? data.logo.desktop[0] : data.logo.mobile[0]}</span>{!!data.logo.desktop ? data.logo.desktop[1] : data.logo.mobile[1]}</p>
+                  <p className="main-logo-mobile"><span className="main-logo__elem">{!!data.logo.mobile ? data.logo.mobile[0] : data.logo.desktop[0]}</span>{!!data.logo.mobile ? data.logo.mobile[1] : data.logo.desktop[1]}</p>
+                </a></Link> : undefined}
               </div>
             </div>
             <nav className="main-navigation main-navigation-white main-navigation-js">
               <ul className="navigation navigation-white">
-                <li className="navigation__elem"><Link href="/catalog"><a className="navigation__link navigation__link-white" to="/catalog">Каталог</a></Link></li>
-                <li className="navigation__elem"><a className="navigation__link navigation__link-white" href="#">Художники</a></li>
-                <li className="navigation__elem"><a className="navigation__link navigation__link-white" href="#">Блог</a></li>
-                <li className="navigation__elem"><a className="navigation__link navigation__link-white still still-white"  onPointerEnter={() => toggleHeaderHandler("more")} onPointerLeave={() => toggleHeaderHandler("more")} href="#">Ещё</a></li>
+              {!!data.menu.main ? data.menu.main.map((item, key)=> (
+                  <li className="navigation__elem" key={item.name + key}><Link href={item.url}><a className="navigation__link navigation__link-white" href={item.url}>{item.name}</a></Link></li>
+                )) : undefined}
+                <li className="navigation__elem"><a className="navigation__link navigation__link-white still still-white"  onPointerEnter={() => toggleHeaderHandler("more")} onPointerLeave={() => toggleHeaderHandler("more")} href="#">{data.menu.secondary.name}</a></li>
               </ul>
               <div className={moreHide.join(" ")} onPointerLeave={() => toggleHeaderHandler("more")}>
                 <ul className="still-list still-list-white">
-                  <li className="still-list__elem"><a className="still-list__link" href="#">О проекте</a></li>
-                  <li className="still-list__elem"><a className="still-list__link" href="#">Доставка</a></li>
-                  <li className="still-list__elem"><a className="still-list__link" href="#">Политика конфиденциальности</a></li>
-                  <li className="still-list__elem hidden-desktop hidden-tablet"><a className="still-list__link" href="#">Английская версия</a></li>
+                  {!!data.menu.secondary ? data.menu.secondary.secondaryItems.map((item, key) => (
+                    <li className="still-list__elem" key={item.name + key}><Link href={item.url}><a className="still-list__link" href={item.url}>{item.name}</a></Link></li>
+                  )) : undefined}
+                  {!!data.lang.mobile ? <li className="still-list__elem hidden-desktop hidden-tablet"><a className="still-list__link" href={data.lang.mobile.url}>{data.lang.mobile.name}</a></li> : undefined}
                 </ul>
-                <p className="copyright-mobile hidden-desktop hidden-tablet">©  Artgallery, 2018</p>
+                <p className="copyright-mobile hidden-desktop hidden-tablet">{data.copyright.name}</p>
               </div>
             </nav>
             <div className="account-and-etc">
               <div className="personal-account personal-account-white">
                 <span className="personal-account__photo-white" onClick={() => popupShowHandler("authorization")}></span>
-                <span className="personal-account__name personal-account__name-white">Александрелло</span>
+                {!!data.account ? <span className="personal-account__name personal-account__name-white">{data.account.name}</span> : undefined}
                 <div className="drop-menu-account drop-menu-account-white drop-menu-account-js">
                   <div className="centering-lists">
                     <ul className="first-section centering-lists__item">
@@ -121,9 +123,11 @@ export const HeaderWhite = () => {
                 </form>
               </div>
               <div className="languages languages-white">
-                <span className="languages__ru languages__ru-white"  onClick={() => toggleHeaderHandler("language")}>RU</span>
+                {!!data.lang.desktopStatic ? <span className="languages__ru languages__ru-white" onClick={() => toggleHeaderHandler("language")}>{data.lang.desktopStatic.name}</span> : undefined}
                 <ul className={cn("languages-list", {"languages-list-js" : !(state.showHeader && state.valueHeader === "language")}, "languages-list-white")}>
-                  <li className="languages-elem"><a className="languages__en" href="#">EN</a></li>
+                  {!!data.lang.desktopList ? data.lang.desktopList.map((item, key) => (
+                    <li className="languages-elem" key={item.name + key}><Link href={item.url}><a className="languages__en" href={item.url}>{item.name}</a></Link></li>
+                  )) : undefined}
                 </ul>
               </div>
             </div>

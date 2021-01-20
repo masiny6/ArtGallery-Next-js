@@ -1,27 +1,30 @@
 import React, { useContext } from "react"
+import OutsideClickHandler from 'react-outside-click-handler';
 import { RateContext } from "../../context/RateContext"
 import "./popupRegistration.scss"
+import cn from "classnames"
 
-export const PopupRegistration = () => {
+export const PopupRegistration = (props) => {
 
     const {state, popupHideHandler, popupShowHandler} = useContext(RateContext)
+    const data = props.data.popupRegistration
 
-    const popupHide = ["popup-registration", "js-popup-registration", "js-popup-close-general"]
-
-    if(state.showPopup && state.valuePopup === "registr") {
-        popupHide.splice(2,1)
-    }
 
 
     
     return(
-        <div className={popupHide.join(" ")}>
+        <div className={cn("popup-registration", "js-popup-registration", {"js-popup-close-general" : !(state.showPopup && state.valuePopup === "registr")})}>
+           <OutsideClickHandler
+                onOutsideClick={() => {
+                    popupHideHandler()
+                }}
+                > 
             <div className="popup-registration__centering">
                 <form className="form-registration js-form-registration" action="#">
                 <span className="popup-registration__close js-popup-general-close" onClick={popupHideHandler}></span>
                 <div className="popup-header">
                     <div className="title-and-text">
-                        <span className="popup-header__title">Регистрация</span>
+                        <span className="popup-header__title">{!!data.mainTitle ? data.mainTitle : undefined}</span>
                         <span className="popup-header__text">Это бесплатно и займёт не более 3 минут</span><span
                             className="no-account__registr-mobile">Авторизоваться</span>
                     </div>
@@ -118,6 +121,7 @@ export const PopupRegistration = () => {
                 </div>
                 </form>
             </div>
+            </OutsideClickHandler>
         </div>
     )
 }

@@ -13,51 +13,14 @@ import { RateContext } from "../../context/RateContext";
 SwiperCore.use([Thumbs, Navigation, Controller]);
 
 
-const PRODUCTCARD_DATA = {
-    title: "Распоряжение о структуре очень длинное название картины",
-    author: "Диана Миллер",
-    picture: [
-        {
-            url: "/images/product-1.jpg"
-        },
-        {
-            url: "/images/styles-photo-4.jpg"
-        },
-        {
-            url: "/images/styles-photo-3.jpg"
-        },
-    ],
-    article: "Арт. HWV-133423",
-    size: "100 x 120 x 4 см",
-    style: "Пейзаж",
-    price: 927750,
-    oldPrice: 727750,
-    parametrsPicture: [
-        {
-            name: "Год написания",
-            description: "2008"
-        },
-        {
-            name: "Тема",
-            description: "Океан, Берег, Пляж"
-        },
-        {
-            name: "Стиль",
-            description: "Современный пейзаж"
-        },
-        {
-            name: "Материалы",
-            description: "Уголь, Чернила, Пастель"
-        },
-    ],
-    descriptionPicure: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda nulla eius doloribus distinctio reprehenderit, rerum suscipit pariatur, iste quo, voluptatum sequi aut similique ad ab. Quasi tempora laboriosam possimus temporibus!",
-}
 
-export const ProductCardCatalog = () => {
+
+export const ProductCardCatalog = (props) => {
 
     const {favouriteToggleHandler, state, parametrsPictureToggleHandler, descriptionPictureToggleHandler, toggleIncreaseHandler} = useContext(RateContext)
     const [swiperProduct, setSwiperProduct] = useState(null);
     const [swiperPopup, setSwiperPopup] = useState(null);
+    const data = props.data.productCard
 
     return(
         <React.Fragment>
@@ -73,7 +36,7 @@ export const ProductCardCatalog = () => {
             </div>
             <div className="product-card__main">
                 <div className="centering">
-                    <h1 className="title-mobile">{!!PRODUCTCARD_DATA.title ? PRODUCTCARD_DATA.title : undefined}</h1>
+                    <h1 className="title-mobile">{!!data.title ? data.title : undefined}</h1>
                     <div className="author-mobile">
                         <a className="author-mobile__elem" href="#">Диана Миллер</a>
                     </div>
@@ -103,7 +66,7 @@ export const ProductCardCatalog = () => {
                                     },
                                 }}
                             >
-                                {!!PRODUCTCARD_DATA.picture ? PRODUCTCARD_DATA.picture.map((item, key) => (
+                                {!!data.picture ? data.picture.map((item, key) => (
                                     <SwiperSlide key={key + 3}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
                                 )) : undefined} 
                             </Swiper>
@@ -119,7 +82,7 @@ export const ProductCardCatalog = () => {
                                 watchSlidesVisibility
                                 watchSlidesProgress
                             >
-                                {!!PRODUCTCARD_DATA.picture ? PRODUCTCARD_DATA.picture.map((item, key) => (
+                                {!!data.picture ? data.picture.map((item, key) => (
                                     <SwiperSlide key={key + 2}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
                                 )) : undefined} 
                                 <div className="swiper-button-prev"></div>
@@ -173,9 +136,9 @@ export const ProductCardCatalog = () => {
                         </div>
                     </div>
                     <div className="text-section">
-                        <h1 className="text-section__title">{!!PRODUCTCARD_DATA.title ? PRODUCTCARD_DATA.title : undefined}</h1>
+                        <h1 className="text-section__title">{!!data.title ? data.title : undefined}</h1>
                         <div className="artile-and-favorites">
-                            <span className="article">{!!PRODUCTCARD_DATA.article ? PRODUCTCARD_DATA.article : undefined}</span>
+                            <span className="article">{!!data.article ? data.article : undefined}</span>
                             <span className={cn("favorites", {"js-favorites" : state.favourite})} onClick={favouriteToggleHandler}>
                                 <svg className={cn("svg-heart", {"js-svg-heart" : state.favourite})} viewBox="0 0 21.6 19.1">
                                     <path d="M10.8 3.7c5.5-6.8 12.6 1.4 8.7 5.7l-8.8 8.8L2 9.4C-1.5 5 5.3-3.2 10.8 3.7z"></path>
@@ -184,16 +147,16 @@ export const ProductCardCatalog = () => {
                             </span>
                         </div>
                         <div className="author">
-                            <a className="author__elem" href="#">{!!PRODUCTCARD_DATA.author ? PRODUCTCARD_DATA.author : undefined}</a>
+                            <a className="author__elem" href="#">{!!data.author ? data.author : undefined}</a>
                         </div>
                         <div className="size-and-style">
-                            <span className="size-picture">Размер картины: <span className="size-picture__inner">{!!PRODUCTCARD_DATA.size ? PRODUCTCARD_DATA.size : undefined}</span></span>
-                            <span className="style-picture">Стиль: <a className="style-picture__link" href="#">{!!PRODUCTCARD_DATA.style ? PRODUCTCARD_DATA.style : undefined}</a></span>
+                            <span className="size-picture">Размер картины: <span className="size-picture__inner">{!!data.size ? data.size : undefined}</span></span>
+                            <span className="style-picture">Стиль: <a className="style-picture__link" href="#">{!!data.style ? data.style : undefined}</a></span>
                         </div>
                         <div className="price-and-basket">
                             <div className="price">
-                                <span className="price__real">{Number(PRODUCTCARD_DATA.price).toLocaleString('ru-RU')} <span className="ruble">₽</span></span>
-                                <span className="price__old">{Number(PRODUCTCARD_DATA.oldPrice).toLocaleString('ru-RU')}</span>
+                                <span className="price__real">{Number(data.price).toLocaleString('ru-RU')} <span className="ruble">₽</span></span>
+                                <span className="price__old">{Number(data.oldPrice).toLocaleString('ru-RU')}</span>
                             </div>
                             <div className="basket">
                                 <div className="basket__inner">
@@ -293,7 +256,7 @@ export const ProductCardCatalog = () => {
                             </span>
                             <table className={cn("parameters-table", {"js-parameters-table" : state.parametrsButton})}>
                                 <tbody>
-                                    {!!PRODUCTCARD_DATA.parametrsPicture ? PRODUCTCARD_DATA.parametrsPicture.map((item, key) => (
+                                    {!!data.parametrsPicture ? data.parametrsPicture.map((item, key) => (
                                         <tr className="parameters-table__line" key={item.name + key}>
                                             <td className="parameters-table__column parameters-table__column-one">{item.name}</td>
                                             <td className="parameters-table__column parameters-table__column-two">{item.description}</td>
@@ -310,7 +273,7 @@ export const ProductCardCatalog = () => {
                                         fill="#000000" />
                                 </svg>
                             </span>
-                            <div className={cn("description-picture__text", {"js-description-picture__text" : state.descriptionButton})}>{!!PRODUCTCARD_DATA.descriptionPicure ? PRODUCTCARD_DATA.descriptionPicure : undefined}</div>
+                            <div className={cn("description-picture__text", {"js-description-picture__text" : state.descriptionButton})}>{!!data.descriptionPicure ? data.descriptionPicure : undefined}</div>
                         </div>
                     </div>
                 </div>
@@ -322,7 +285,7 @@ export const ProductCardCatalog = () => {
                     navigation
                     thumbs={{ swiper: swiperProduct}}
                 >
-                    {!!PRODUCTCARD_DATA.picture ? PRODUCTCARD_DATA.picture.map((item, key) => (
+                    {!!data.picture ? data.picture.map((item, key) => (
                         <SwiperSlide key={key + 1}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
                     )) : undefined} 
                 </Swiper>

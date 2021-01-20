@@ -12,6 +12,7 @@ import { PopupAuthorization } from '../components/popupAuthorization/PopupAuthor
 import { PopupRegistration } from '../components/popupRegistration/PopupRegistration'
 import { PopupPasswordRecovery } from '../components/popupPasswordRecovery/PopupPasswordRecovery'
 import { PopupSuccess } from '../components/popupSuccess/PopupSuccess'
+import ReactDOM from "react-dom"
 
 
 export default class Home extends React.Component{
@@ -29,17 +30,17 @@ export default class Home extends React.Component{
     }
     //Открытие и закрытие попапа
     popupShowHandler = (valuePopup) => {
-    this.setState({
-        showPopup: true,
-        valuePopup
-    })
+        this.setState({
+            showPopup: true,
+            valuePopup
+        })
     }
 
     popupHideHandler = () => {
-    this.setState({
-        showPopup: false,
-        valuePopup: ""
-    })
+        this.setState({
+            showPopup: false,
+            valuePopup: ""
+        })
     }
 
     toggleHeaderHandler = (valueHeader) => {
@@ -82,22 +83,30 @@ export default class Home extends React.Component{
             <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
             </Head>
             <div className="main">
-                <Header/>
+                <Header data={this.props.data}/>
                 <main className="main-content">
-                    <Slider/>
-                    <Beginner/>
-                    <Works/>
-                    <Styles/>
-                    <News/>
+                    <Slider data={this.props.data}/>
+                    <Beginner data={this.props.data}/>
+                    <Works data={this.props.data}/>
+                    <Styles data={this.props.data}/>
+                    <News data={this.props.data}/>
                 </main>
-                <Footer/>
-                <PopupAuthorization/>
-                <PopupRegistration/>
-                <PopupPasswordRecovery/>
-                <PopupSuccess/>
+                <Footer data={this.props.data}/>
+                {(this.state.showPopup && this.state.valuePopup === "authorization") ? <PopupAuthorization data={this.props.data}/> : undefined}
+                {(this.state.showPopup && this.state.valuePopup === "registr") ? <PopupRegistration data={this.props.data}/> : undefined}
+                {(this.state.showPopup && this.state.valuePopup === "recovery") ? <PopupPasswordRecovery data={this.props.data}/> : undefined}
+                {(this.state.showPopup && this.state.valuePopup === "success") ? <PopupSuccess data={this.props.data}/> : undefined}
             </div>
         </React.Fragment>
         </RateContext.Provider> 
         )
     }
 }
+
+export async function getServerSideProps(context) {
+    const res = await fetch(`http://localhost:3000/api/home`)
+    const data = await res.json()
+    return {
+      props: {data}, // will be passed to the page component as props
+    }
+  }

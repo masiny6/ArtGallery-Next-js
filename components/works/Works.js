@@ -1,148 +1,10 @@
 import React from "react"
 import Link from 'next/link'
 import "./works.scss"
+import Select from 'react-select'
 import { WorksItem } from "../worksItem/WorksItem";
 
-const WORKS_DATA = {
-    mainTitle: "Новые работы",
-    sortingCards: {
-        title: "Сортировать по",
-        sortList: [
-            {
-                name: "Дате добавления",
-                value: "value1"
-            },
-            {
-                name: "Цене",
-                value: "value2"
-            },
-            {
-                name: "Популярности",
-                value: "value3"
-            },
-        ]
-    },
-    cards: [
-        {
-            pictureURL: "/images/photo-works-1.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-2.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-3.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-4.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-5.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-6.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-7.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-8.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        {
-            pictureURL: "/images/photo-works-9.jpg",
-            tag: "Новинка",
-            title: "Распоряжения о структуре тут длинное название картины",
-            cardURL: "/productCard",
-            author: "Екатерина Александровна Преображенская",
-            authorURL: "",
-            size: "Картина, 80x60 см.",
-            price: 927750,
-            oldPrice: 727750,
-            favorite: false,
-            basket: false
-        },
-        
-    ]
-}
+
 
 export class Works extends React.Component {
 
@@ -171,17 +33,19 @@ export class Works extends React.Component {
 
 
     render() {
+        const data = this.props.data.works
         return(
             <div className="works-section works-section-masonry">
                 <div className="section-header">
-                    <h2 className="section-title">{!!WORKS_DATA.mainTitle ? WORKS_DATA.mainTitle : undefined}</h2>
+                    <h2 className="section-title">{!!data.mainTitle ? data.mainTitle : undefined}</h2>
                     <div className="sort">
-                        <p className="sort-text">{WORKS_DATA.sortingCards.title}</p>
-                        <select className="sort-list sort-list-js" name="select" defaultValue="value2">
-                            {WORKS_DATA.sortingCards.sortList.map((item, key) => (
+                        <p className="sort-text">{data.sortingCards.title}</p>
+                        {/* <select className="sort-list sort-list-js" name="select" defaultValue="value2">
+                            {data.sortingCards.sortList.map((item, key) => (
                                 <option className="sort-list__elem" key={item.name + key} value={item.value}>{item.name}</option>
                             ))}
-                        </select>
+                        </select> */}
+                        <Select className="sort-list sort-list-js" name="select"/>
                     </div>
                 </div>
                 <div className="centering grid js-grid" ref={this.grid}>
@@ -200,7 +64,7 @@ export class Works extends React.Component {
                             </svg>
                         </div>
                     </div>
-                    {WORKS_DATA.cards.map((item, key) => {
+                    {data.cards.map((item, key) => {
                         switch(key) {
                             case 2:
                                 return (

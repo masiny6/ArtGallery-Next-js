@@ -3,74 +3,13 @@ import "./header.scss"
 import { RateContext } from '../../context/RateContext'
 import Link from 'next/link'
 import cn from "classnames"
+import OutsideClickHandler from 'react-outside-click-handler'
 
-const HEADER_DATA = {
-  logo: {
-    desktop: ["Art", "Gallery"],
-    mobile: ["A", "G"]
-  },
-  menu: {
-    main: [
-      {
-        name: "Каталог",
-        url: "/catalog"
-      },
-      {
-        name: "Художники",
-        url: ""
-      },
-      {
-        name: "Блог",
-        url: ""
-      },
-    ],
-    secondary: {
-      name: "Ещё",
-      secondaryItems: [
-        {
-          name: "О проекте",
-          url: ""
-        },
-        {
-          name: "Доставка",
-          url: ""
-        },
-        {
-          name: "Политика конфиденциальности",
-          url: ""
-        },
-      ]
-    },
-  },
-  lang: {
-    desktopStatic: {
-      name: "RU"
-    },
-    desktopList: [
-      {
-        name: "EN",
-        url: "/en"
-      },
-    ],
-    mobile: {
-      name: "Английская версия",
-      url: "/en"
-    }
-  },
-  copyright: {
-    name: "© Artgallery, 2018"
-  },
-  account: {
-    name: "Александрелло",
-    url: ""
-  }
-  
-}
 
-export const Header = () => {
+export const Header = (props) => {
 
   const {state, popupShowHandler, toggleHeaderHandler, toggleSearchHandler, searchValueHandler} = useContext(RateContext)
-
+  const data = props.data.header
   //Фокус на инпут search
   const searchElementFocus = useRef(null);
 
@@ -98,33 +37,33 @@ export const Header = () => {
             <div className="menu-and-logo">
               <input id="burger-menu" className="burger-menu" type="checkbox"/><label onClick={() => toggleHeaderHandler("mobile-menu")} className="menu-phone" htmlFor="burger-menu"></label>
               <div className="logo">
-                {!!HEADER_DATA.logo.desktop && !!HEADER_DATA.logo.mobile ? <Link href="/"><a className="logo-link" href="/">
-                  <p className="main-logo"><span className="main-logo__elem">{!!HEADER_DATA.logo.desktop ? HEADER_DATA.logo.desktop[0] : HEADER_DATA.logo.mobile[0]}</span>{!!HEADER_DATA.logo.desktop ? HEADER_DATA.logo.desktop[1] : HEADER_DATA.logo.mobile[1]}</p>
-                  <p className="main-logo-mobile"><span className="main-logo__elem">{!!HEADER_DATA.logo.mobile ? HEADER_DATA.logo.mobile[0] : HEADER_DATA.logo.desktop[0]}</span>{!!HEADER_DATA.logo.mobile ? HEADER_DATA.logo.mobile[1] : HEADER_DATA.logo.desktop[1]}</p>
+                {!!data.logo.desktop && !!data.logo.mobile ? <Link href="/"><a className="logo-link" href="/">
+                  <p className="main-logo"><span className="main-logo__elem">{!!data.logo.desktop ? data.logo.desktop[0] : data.logo.mobile[0]}</span>{!!data.logo.desktop ? data.logo.desktop[1] : data.logo.mobile[1]}</p>
+                  <p className="main-logo-mobile"><span className="main-logo__elem">{!!data.logo.mobile ? data.logo.mobile[0] : data.logo.desktop[0]}</span>{!!data.logo.mobile ? data.logo.mobile[1] : data.logo.desktop[1]}</p>
                 </a></Link> : undefined}
               </div>
             </div>
             <nav className={cn("main-navigation", {"main-navigation-js" : !(state.showHeader && state.valueHeader === "mobile-menu")})}>
               <ul className="navigation">
-                {!!HEADER_DATA.menu.main ? HEADER_DATA.menu.main.map((item, key)=> (
+                {!!data.menu.main ? data.menu.main.map((item, key)=> (
                   <li className="navigation__elem" key={item.name + key}><Link href={item.url}><a className="navigation__link" href={item.url}>{item.name}</a></Link></li>
                 )) : undefined}
-                <li className="navigation__elem"><a className="navigation__link still" href="#" onPointerEnter={() => toggleHeaderHandler("more")} onPointerLeave={() => toggleHeaderHandler("more")}>{HEADER_DATA.menu.secondary.name}</a></li>
+                <li className="navigation__elem"><a className="navigation__link still" href="#" onPointerEnter={() => toggleHeaderHandler("more")} onPointerLeave={() => toggleHeaderHandler("more")}>{data.menu.secondary.name}</a></li>
               </ul>
               <div className={moreHide.join(" ")} onPointerLeave={() => toggleHeaderHandler("more")}>
                 <ul className="still-list">
-                  {!!HEADER_DATA.menu.secondary ? HEADER_DATA.menu.secondary.secondaryItems.map((item, key) => (
+                  {!!data.menu.secondary ? data.menu.secondary.secondaryItems.map((item, key) => (
                     <li className="still-list__elem" key={item.name + key}><Link href={item.url}><a className="still-list__link" href={item.url}>{item.name}</a></Link></li>
                   )) : undefined}
-                  {!!HEADER_DATA.lang.mobile ? <li className="still-list__elem hidden-desktop hidden-tablet"><a className="still-list__link" href={HEADER_DATA.lang.mobile.url}>{HEADER_DATA.lang.mobile.name}</a></li> : undefined}
+                  {!!data.lang.mobile ? <li className="still-list__elem hidden-desktop hidden-tablet"><a className="still-list__link" href={data.lang.mobile.url}>{data.lang.mobile.name}</a></li> : undefined}
                 </ul>
-                <p className="copyright-mobile hidden-desktop hidden-tablet">{HEADER_DATA.copyright.name}</p>
+                <p className="copyright-mobile hidden-desktop hidden-tablet">{data.copyright.name}</p>
               </div>
             </nav>
             <div className="account-and-etc">
               <div className="personal-account">
                 <span className="personal-account__photo" onClick={() => popupShowHandler("authorization")}></span>
-                {!!HEADER_DATA.account ? <span className="personal-account__name">{HEADER_DATA.account.name}</span> : undefined}
+                {!!data.account ? <span className="personal-account__name">{data.account.name}</span> : undefined}
                 <div className="drop-menu-account drop-menu-account-js">
                   <div className="centering-lists">
                     <ul className="first-section centering-lists__item">
@@ -163,13 +102,24 @@ export const Header = () => {
                     </svg>
                     <span className="counter-basket counter">67</span>
                   </a></li>
-                <li className="list-etc__elem"><a className="list-etc__link search" href="#">
-                    <svg className="svg-search" viewBox="0 0 4 4" onClick={() => toggleSearchHandler("search")}>
+                <li className="list-etc__elem">
+                  <a className="list-etc__link search" href="#">
+                  <OutsideClickHandler
+                  onOutsideClick={() => {
+                    setTimeout(function() {
+                      toggleHeaderHandler("")
+                    })
+                    
+                  }}
+                > 
+                    <svg className="svg-search" viewBox="0 0 4 4" onClick={() => toggleHeaderHandler("search")}>
                       <path id="Layer" className="shp0" d="M2.32 2.6L3.32 3.6L3.6 3.32L2.6 2.32L2.32 2.6Z" />
                       <path id="Layer" className="shp0"
                         d="M3.09 1.54C3.09 1.94 2.94 2.33 2.64 2.63C2.34 2.93 1.94 3.08 1.55 3.08C1.15 3.08 0.76 2.93 0.46 2.63C0.16 2.33 0.01 1.93 0.01 1.54C0.01 1.14 0.16 0.75 0.46 0.45C0.76 0.15 1.16 0 1.55 0C1.95 0 2.34 0.15 2.64 0.45C2.94 0.75 3.09 1.15 3.09 1.54ZM2.7 1.54C2.7 1.25 2.59 0.95 2.36 0.73C2.13 0.5 1.84 0.39 1.55 0.39C1.26 0.39 0.96 0.5 0.74 0.73C0.52 0.95 0.4 1.25 0.4 1.54C0.4 1.83 0.51 2.13 0.74 2.35C0.96 2.57 1.26 2.69 1.55 2.69C1.84 2.69 2.14 2.58 2.36 2.35C2.59 2.13 2.7 1.83 2.7 1.54Z" />
                     </svg>
-                  </a></li>
+                    </OutsideClickHandler>
+                  </a>
+                </li>
               </ul>
               <div className={cn("search-centering", {"search-centering-js" : !(state.showHeader && state.valueHeader === "search")})}>
                 <form className="search-form" action="#">
@@ -186,12 +136,22 @@ export const Header = () => {
                 </form>
               </div>
               <div className="languages">
-                {!!HEADER_DATA.lang.desktopStatic ? <span className="languages__ru" onClick={() => toggleHeaderHandler("language")}>{HEADER_DATA.lang.desktopStatic.name}</span> : undefined}
+                <OutsideClickHandler
+                  onOutsideClick={() => {
+                    // if (state.showHeader = false && state.valueHeader == "language") {
+                        toggleHeaderHandler("")
+                    // }
+                    
+                  }}
+                > 
+                  {!!data.lang.desktopStatic ? <span className="languages__ru" onClick={() => toggleHeaderHandler("language")}>{data.lang.desktopStatic.name}</span> : undefined}
+                
                 <ul className={cn("languages-list", {"languages-list-js" : !(state.showHeader && state.valueHeader === "language")})}>
-                  {!!HEADER_DATA.lang.desktopList ? HEADER_DATA.lang.desktopList.map((item, key) => (
+                  {!!data.lang.desktopList ? data.lang.desktopList.map((item, key) => (
                     <li className="languages-elem" key={item.name + key}><Link href={item.url}><a className="languages__en" href={item.url}>{item.name}</a></Link></li>
                   )) : undefined}
                 </ul>
+                </OutsideClickHandler>
               </div>
             </div>
           </div>
