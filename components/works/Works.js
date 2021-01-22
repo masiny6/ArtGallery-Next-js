@@ -45,7 +45,11 @@ export class Works extends React.Component {
                                 <option className="sort-list__elem" key={item.name + key} value={item.value}>{item.name}</option>
                             ))}
                         </select> */}
-                        <Select className="sort-list sort-list-js" name="select"/>
+                        <Select className="sort-list sort-list-js"
+                            options = {data.sortingCards.sortList}
+                            placeholder={''}
+                            defaultValue={data.sortingCards.sortList[0].options}
+                        />
                     </div>
                 </div>
                 <div className="centering grid js-grid" ref={this.grid}>

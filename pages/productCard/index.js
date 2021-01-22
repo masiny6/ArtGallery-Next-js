@@ -79,10 +79,26 @@ class ProductCard extends React.Component {
         })
     }
 
-    toggleSearchHandler = (valueHeader) => {
+    toggleLanguageHandler = () => {
         this.setState({
-            showHeader: !this.state.showHeader,
-            valueHeader,
+            showLanguage: !this.state.showLanguage,
+        })
+    }
+    toggleLanguageOutHandler = () => {
+        this.setState({
+            showLanguage: false,
+        })
+    }
+
+    toggleSearchHandler = () => {
+        this.setState({
+            showSearch: !this.state.showSearch,
+            searchValue: ""
+        })
+    }
+    toggleSearchOutHandler = () => {
+        this.setState({
+            showSearch: false,
             searchValue: ""
         })
     }
@@ -106,7 +122,11 @@ class ProductCard extends React.Component {
                                 popupShowHandler: this.popupShowHandler,
                                 popupHideHandler: this.popupHideHandler,
                                 toggleHeaderHandler: this.toggleHeaderHandler,
+
+                                toggleLanguageHandler: this.toggleLanguageHandler,
+                                toggleLanguageOutHandler: this.toggleLanguageOutHandler,
                                 toggleSearchHandler: this.toggleSearchHandler,
+                                toggleSearchOutHandler: this.toggleSearchOutHandler,
                                 searchValueHandler: this.searchValueHandler
                         }}>
                 <React.Fragment>
@@ -119,10 +139,10 @@ class ProductCard extends React.Component {
                     <ProductCardCatalog data={this.props.data}/>
                     <WorksCard data={this.props.data}/>
                     <Footer data={this.props.data}/>
-                    <PopupAuthorization data={this.props.data}/>
-                    <PopupRegistration data={this.props.data}/>
-                    <PopupPasswordRecovery data={this.props.data}/>
-                    <PopupSuccess data={this.props.data}/>
+                    {(this.state.showPopup && this.state.valuePopup === "authorization") ? <PopupAuthorization data={this.props.data}/> : undefined}
+                    {(this.state.showPopup && this.state.valuePopup === "registr") ? <PopupRegistration data={this.props.data}/> : undefined}
+                    {(this.state.showPopup && this.state.valuePopup === "recovery") ? <PopupPasswordRecovery data={this.props.data}/> : undefined}
+                    {(this.state.showPopup && this.state.valuePopup === "success") ? <PopupSuccess data={this.props.data}/> : undefined}
                 </div>
                 </React.Fragment>
             </RateContext.Provider>

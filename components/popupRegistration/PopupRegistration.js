@@ -1,5 +1,6 @@
 import React, { useContext } from "react"
-import OutsideClickHandler from 'react-outside-click-handler';
+import OutsideClickHandler from 'react-outside-click-handler'
+import { useForm } from "react-hook-form"
 import { RateContext } from "../../context/RateContext"
 import "./popupRegistration.scss"
 import cn from "classnames"
@@ -8,6 +9,9 @@ export const PopupRegistration = (props) => {
 
     const {state, popupHideHandler, popupShowHandler} = useContext(RateContext)
     const data = props.data.popupRegistration
+
+    const { register, handleSubmit, watch, errors } = useForm();
+    const onSubmit = data => console.log(data);
 
 
 
@@ -20,7 +24,7 @@ export const PopupRegistration = (props) => {
                 }}
                 > 
             <div className="popup-registration__centering">
-                <form className="form-registration js-form-registration" action="#">
+                <form className="form-registration js-form-registration" action="#" onSubmit={handleSubmit(onSubmit)}>
                 <span className="popup-registration__close js-popup-general-close" onClick={popupHideHandler}></span>
                 <div className="popup-header">
                     <div className="title-and-text">
@@ -92,27 +96,32 @@ export const PopupRegistration = (props) => {
                     <div className="section-form">
                         <span className="section-form__text">С помощью E-mail</span>
                         <div className="name-and-family">
-                            <fieldset className="fieldset-name">
+                            <fieldset className={cn("fieldset-name", {"fieldset-error" : errors.name})}>
                                 <legend className="label-name label-general">Имя</legend>
-                                <input className="input-name" type="text" name="name" required/>
+                                <input className="input-name" style={errors.name ? {borderColor: "red"} : undefined} type="text" name="name" ref={register({ required: true })}/>
+                                <span className="error">{errors.name && "Заполните это поле"}</span>
                             </fieldset>
-                            <fieldset className="fieldset-family">
+                            <fieldset className={cn("fieldset-family", {"fieldset-error" : errors.family})}>
                                 <legend className="label-family label-general">Фамилия</legend>
-                                <input className="input-family" type="text" name="family" required/>
+                                <input className="input-family" style={errors.family ? {borderColor: "red"} : undefined} type="text" name="family" ref={register({ required: true })}/>
+                                <span className="error">{errors.family && "Заполните это поле"}</span>
                             </fieldset>
                         </div>
-                        <fieldset className="fieldset-email">
+                        <fieldset className={cn("fieldset-email", {"fieldset-error" : errors.email})}>
                             <legend className="label-email label-general">E-mail</legend>
-                            <input className="input-email" type="email" name="email" required/>
+                            <input className="input-email" style={errors.email ? {borderColor: "red"} : undefined} type="email" name="email" ref={register({ required: true, pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/ })}/>
+                            <span className="error">{errors.email && "Заполните это поле"}</span>
                         </fieldset>
-                        <fieldset className="fieldset-password">
+                        <fieldset className={cn("fieldset-password", {"fieldset-error" : errors.password})}>
                             <legend className="label-password label-general">Пароль</legend>
-                            <input className="input-password" type="password" name="password" required/>
+                            <input className="input-password" style={errors.password ? {borderColor: "red"} : undefined} type="password" name="password" ref={register({ required: true, minLength: 6 })}/>
+                            <span className="error">{errors.password && "Заполните это поле"}</span>
                         </fieldset>
                         <div className="user-agreement">
-                            <input className="user-agreement__input" type="checkbox" name="agreement" required/>
+                            <input className="user-agreement__input" style={errors.agreement ? {borderColor: "red"} : undefined} type="checkbox" name="agreement" ref={register({ required: true })}/>
                             <span className="user-agreement__text label-general">Я согласен с <a className="user-agreement__link"
                                     href="#">пользовательским соглашением</a></span>
+                            <p className="error">{errors.agreement && "Заполните это поле"}</p>
                         </div>
                         <div className="button__inner">
                             <button className="button-registration" type="submit">Зарегистрироваться</button>

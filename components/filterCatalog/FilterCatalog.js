@@ -4,6 +4,7 @@ import Slider, { Range } from 'rc-slider';
 import Select from 'react-select'
 import 'rc-slider/assets/index.css';
 import cn from "classnames"
+import ReactDOM from "react-dom"
 
 
 
@@ -13,8 +14,10 @@ export class FilterCatalog extends React.Component {
         super(props);
         this.state = {
             valueInputs: [200000, 800000],
+            valueInputsSize: [10, 30],
             filterNameActive: "author",
-            collapsExpand: false
+            collapsExpand: false,
+            checkbox: {}
         }
     }
     collapsExpandHandler = () => {
@@ -65,6 +68,23 @@ export class FilterCatalog extends React.Component {
         });
     };
 
+    resetButton = () => {
+        this.setState({
+            valueInputs: [200000, 800000],
+            checkbox: {}
+        });
+    }
+    onChangeFavorite = (e) =>{
+        let itemKey = e.target.id;
+        let itemChecked = e.target.checked;
+        let checkbox = this.state.checkbox
+        checkbox[itemKey] = itemChecked
+        this.setState({
+            checkbox: checkbox
+        })
+    };
+
+    
     render() {
         const data = this.props.data.filter
         return(
@@ -108,7 +128,7 @@ export class FilterCatalog extends React.Component {
                                     min={0}
                                     max={40}
                                     defaultValue={[10, 30]}
-                                    marks={{ 0: "S", 10: "M", 20: "L", 30: "XL", 40: "XXL" }} 
+                                    marks={{ 0: "S", 10: "M", 20: "L", 30: "XL", 40: "XXL" }}
                                     step={null}
                                     allowCross={false}
                                 />
@@ -122,7 +142,7 @@ export class FilterCatalog extends React.Component {
                                 </div>
                             </div>
                             <div className="button-reset">
-                                <button className="button-reset__inner js-button-reset__inner" type="reset" data-variant="0">Сбросить фильтр</button>
+                                <button className="button-reset__inner js-button-reset__inner" type="reset" data-variant="0" onClick={this.resetButton}>Сбросить фильтр</button>
                             </div>
                         </div>
                     </div>
@@ -173,14 +193,14 @@ export class FilterCatalog extends React.Component {
                                 </span>
                             </div>
                         </div>
-                        <span className={cn("filter-tabs__elem", "tab-author", "desktop-hidden", {"filter-tabs-js" : this.state.collapsExpand})} data-tabs="author">{!!data.author.title ? data.author.title : undefined}
+                        <span onClick={() => this.filterToggleHandler("author")} className={cn("filter-tabs__elem", "tab-author", "desktop-hidden", {"filter-tabs-js" : this.state.collapsExpand}, {"js-filter-tabs-border" : this.state.filterNameActive == "author"})} data-tabs="author">{!!data.author.title ? data.author.title : undefined}
                             <svg className="tab-arrow" viewBox="0 0 11 7" fil="#000">
                                 <path
                                     d="M0.55 1.5L1.96 0.09L6.91 5.03L5.5 6.45L0.55 1.5ZM4.09 5.03L9.04 0.09L10.45 1.5L5.5 6.45L4.09 5.03Z"
                                     fill="#000000" />
                             </svg>
                         </span>
-                        <div className={cn("tab-author-inner", {"js-tab-inner-active" : this.state.filterNameActive == "author", "js-tab-inner-disabled" : this.state.filterNameActive != "author"}, "tab-inner")} data-inner="author">
+                        <div className={cn("tab-author-inner", "tab-inner", "js-tab-inner-border", {"js-tab-inner-active" : this.state.filterNameActive == "author", "js-tab-inner-disabled" : this.state.filterNameActive != "author"}, "tab-inner")} data-inner="author">
                             <div className="centering">
                                 <div className="centering-tablet">
                                     <span className="tab-author-inner__text">Начните вводить имя или фамилию автора</span>
@@ -197,98 +217,99 @@ export class FilterCatalog extends React.Component {
                                         </optgroup>
                                     </select> */}
                                     <Select className="author-list author-list-js"
-                                        options = {data.author.elementsSelect.A}
+                                        options = {data.author.elementsSelect}
                                         isMulti
+                                        placeholder={''}
                                     />
                                     <div className="autocomplete__options js-autocomplete-options">{}</div>
                                 </div>
                             </div>
                         </div>
-                        <span className={cn("filter-tabs__elem", "tab-genre", "desktop-hidden", {"filter-tabs-js" : this.state.collapsExpand})} data-tabs="genre">{!!data.genre.title ? data.genre.title : undefined}
+                        <span onClick={() => this.filterToggleHandler("genre")} className={cn("filter-tabs__elem", "tab-genre", "desktop-hidden", {"filter-tabs-js" : this.state.collapsExpand}, {"js-filter-tabs-border" : this.state.filterNameActive == "genre"})} data-tabs="genre">{!!data.genre.title ? data.genre.title : undefined}
                             <svg className="tab-arrow" viewBox="0 0 11 7" fil="#000">
                                 <path
                                     d="M0.55 1.5L1.96 0.09L6.91 5.03L5.5 6.45L0.55 1.5ZM4.09 5.03L9.04 0.09L10.45 1.5L5.5 6.45L4.09 5.03Z"
                                     fill="#000000" />
                             </svg>
                         </span>
-                        <div className={cn("tab-genre-inner", {"js-tab-inner-active" : this.state.filterNameActive == "genre", "js-tab-inner-disabled" : this.state.filterNameActive != "genre"}, "tab-inner")} data-inner="genre">
+                        <div className={cn("tab-genre-inner", "tab-inner", "js-tab-inner-border", {"js-tab-inner-active" : this.state.filterNameActive == "genre", "js-tab-inner-disabled" : this.state.filterNameActive != "genre"}, "tab-inner")} data-inner="genre">
                             <div className="centering">
                                 <div className="centering-tablet">
                                     {!!data.genre ? data.genre.elements.map((item, key) => (
-                                        <label className="tab-inner-text" htmlFor="" key={item + key}>{item}
-                                            <input className="tab-inner-elem" type="checkbox" name="" id=""/>
+                                        <label className={cn("tab-inner-text", {"js-tab-inner-text" : this.state.checkbox[item+key]})} htmlFor={item + key} key={item + key}>{item}
+                                            <input className="tab-inner-elem" onChange={this.onChangeFavorite} type="checkbox" name="" id={item + key}/>
                                         </label>
                                     )) : undefined}
                                 </div>
                             </div>
                         </div>
-                        <span className={cn("filter-tabs__elem", "tab-color", "desktop-hidden", "js-filter-tabs-border", {"filter-tabs-js" : this.state.collapsExpand})} data-tabs="color">{!!data.color.title ? data.color.title : undefined}
+                        <span onClick={() => this.filterToggleHandler("color")} className={cn("filter-tabs__elem", "tab-color", "desktop-hidden", {"filter-tabs-js" : this.state.collapsExpand}, {"js-filter-tabs-border" : this.state.filterNameActive == "color"})} data-tabs="color">{!!data.color.title ? data.color.title : undefined}
                             <svg className="tab-arrow" viewBox="0 0 11 7" fil="#000">
                                 <path
                                     d="M0.55 1.5L1.96 0.09L6.91 5.03L5.5 6.45L0.55 1.5ZM4.09 5.03L9.04 0.09L10.45 1.5L5.5 6.45L4.09 5.03Z"
                                     fill="#000000" />
                             </svg>
                         </span>
-                        <div className={cn("tab-color-inner", {"js-tab-inner-active" : this.state.filterNameActive == "color", "js-tab-inner-disabled" : this.state.filterNameActive != "color"}, "tab-inner")} data-inner="color">
+                        <div className={cn("tab-color-inner", "tab-inner", "js-tab-inner-border", {"js-tab-inner-active" : this.state.filterNameActive == "color", "js-tab-inner-disabled" : this.state.filterNameActive != "color"}, "tab-inner")} data-inner="color">
                             <div className="centering">
                                 <div className="centering-tablet">
                                     {!!data.color ? data.color.elements.map((item, key) => (
-                                        <label className="tab-inner-text" htmlFor="" key={item + key}>{item}
-                                            <input className="tab-inner-elem" type="checkbox" name="" id=""/>
+                                        <label className={cn("tab-inner-text", {"js-tab-inner-text" : this.state.checkbox[item+key]})} htmlFor={item + key} key={item + key}>{item}
+                                            <input className="tab-inner-elem" onChange={this.onChangeFavorite} type="checkbox" name="" id={item + key}/>
                                         </label>
                                     )) : undefined}
                                 </div>
                             </div>
                         </div>
-                        <span className={cn("filter-tabs__elem", "tab-topic", "desktop-hidden", "js-filter-tabs-border", {"filter-tabs-js" : this.state.collapsExpand})} data-tabs="topic">{!!data.topic.title ? data.topic.title : undefined}
+                        <span onClick={() => this.filterToggleHandler("topic")} className={cn("filter-tabs__elem", "tab-topic", "desktop-hidden", {"filter-tabs-js" : this.state.collapsExpand}, {"js-filter-tabs-border" : this.state.filterNameActive == "topic"})} data-tabs="topic">{!!data.topic.title ? data.topic.title : undefined}
                             <svg className="tab-arrow" viewBox="0 0 11 7" fil="#000">
                                 <path
                                     d="M0.55 1.5L1.96 0.09L6.91 5.03L5.5 6.45L0.55 1.5ZM4.09 5.03L9.04 0.09L10.45 1.5L5.5 6.45L4.09 5.03Z"
                                     fill="#000000" />
                             </svg>
                         </span>
-                        <div className={cn("tab-topic-inner", {"js-tab-inner-active" : this.state.filterNameActive == "topic", "js-tab-inner-disabled" : this.state.filterNameActive != "topic"}, "tab-inner")} data-inner="topic">
+                        <div className={cn("tab-topic-inner", "tab-inner", "js-tab-inner-border", {"js-tab-inner-active" : this.state.filterNameActive == "topic", "js-tab-inner-disabled" : this.state.filterNameActive != "topic"}, "tab-inner")} data-inner="topic">
                             <div className="centering">
                                 <div className="centering-tablet">
                                     {!!data.topic ? data.topic.elements.map((item, key) => (
-                                        <label className="tab-inner-text" htmlFor="" key={item + key}>{item}
-                                            <input className="tab-inner-elem" type="checkbox" name="" id=""/>
+                                        <label className={cn("tab-inner-text", {"js-tab-inner-text" : this.state.checkbox[item+key]})} htmlFor={item + key} key={item + key}>{item}
+                                            <input className="tab-inner-elem" onChange={this.onChangeFavorite} type="checkbox" name="" id={item + key}/>
                                         </label>
                                     )) : undefined}
                                 </div>
                             </div>
                         </div>
-                        <span className={cn("filter-tabs__elem", "tab-material", "desktop-hidden", "js-filter-tabs-border", {"filter-tabs-js" : this.state.collapsExpand})} data-tabs="material">{!!data.material.title ? data.material.title : undefined}
+                        <span onClick={() => this.filterToggleHandler("material")} className={cn("filter-tabs__elem", "tab-material", "desktop-hidden", {"filter-tabs-js" : this.state.collapsExpand}, {"js-filter-tabs-border" : this.state.filterNameActive == "material"})} data-tabs="material">{!!data.material.title ? data.material.title : undefined}
                             <svg className="tab-arrow" viewBox="0 0 11 7" fil="#000">
                                 <path
                                     d="M0.55 1.5L1.96 0.09L6.91 5.03L5.5 6.45L0.55 1.5ZM4.09 5.03L9.04 0.09L10.45 1.5L5.5 6.45L4.09 5.03Z"
                                     fill="#000000" />
                             </svg>
                         </span>
-                        <div className={cn("tab-material-inner", {"js-tab-inner-active" : this.state.filterNameActive == "material", "js-tab-inner-disabled" : this.state.filterNameActive != "material"}, "tab-inner")} data-inner="material">
+                        <div className={cn("tab-material-inner", "tab-inner", "js-tab-inner-border", {"js-tab-inner-active" : this.state.filterNameActive == "material", "js-tab-inner-disabled" : this.state.filterNameActive != "material"}, "tab-inner")} data-inner="material">
                             <div className="centering">
                                 <div className="centering-tablet">
                                     {!!data.material ? data.material.elements.map((item, key) => (
-                                        <label className="tab-inner-text" htmlFor="" key={item + key}>{item}
-                                            <input className="tab-inner-elem" type="checkbox" name="" id=""/>
+                                        <label className={cn("tab-inner-text", {"js-tab-inner-text" : this.state.checkbox[item+key]})} htmlFor={item + key} key={item + key}>{item}
+                                            <input className="tab-inner-elem" onChange={this.onChangeFavorite} type="checkbox" name="" id={item + key}/>
                                         </label>
                                     )) : undefined}
                                 </div>
                             </div>
                         </div>
-                        <span className={cn("filter-tabs__elem", "tab-style", "desktop-hidden", "js-filter-tabs-border", {"filter-tabs-js" : this.state.collapsExpand})} data-tabs="style">{!!data.style.title ? data.style.title : undefined}
+                        <span onClick={() => this.filterToggleHandler("style")} className={cn("filter-tabs__elem", "tab-style", "desktop-hidden", {"filter-tabs-js" : this.state.collapsExpand}, {"js-filter-tabs-border" : this.state.filterNameActive == "style"})} data-tabs="style">{!!data.style.title ? data.style.title : undefined}
                             <svg className="tab-arrow" viewBox="0 0 11 7" fil="#000">
                                 <path
                                     d="M0.55 1.5L1.96 0.09L6.91 5.03L5.5 6.45L0.55 1.5ZM4.09 5.03L9.04 0.09L10.45 1.5L5.5 6.45L4.09 5.03Z"
                                     fill="#000000" />
                             </svg>
                         </span>
-                        <div className={cn("tab-style-inner", {"js-tab-inner-active" : this.state.filterNameActive == "style", "js-tab-inner-disabled" : this.state.filterNameActive != "style"}, "tab-inner")} data-inner="style">
+                        <div className={cn("tab-style-inner", "tab-inner", "js-tab-inner-border", {"js-tab-inner-active" : this.state.filterNameActive == "style", "js-tab-inner-disabled" : this.state.filterNameActive != "style"}, "tab-inner")} data-inner="style">
                             <div className="centering">
                                 <div className="centering-tablet">
                                     {!!data.style ? data.style.elements.map((item, key) => (
-                                        <label className="tab-inner-text" htmlFor="" key={item + key}>{item}
-                                            <input className="tab-inner-elem" type="checkbox" name="" id=""/>
+                                        <label className={cn("tab-inner-text", {"js-tab-inner-text" : this.state.checkbox[item+key]})} htmlFor={item + key} key={item + key}>{item}
+                                            <input className="tab-inner-elem" onChange={this.onChangeFavorite} type="checkbox" name="" id={item + key}/>
                                         </label>
                                     )) : undefined}
                                 </div>

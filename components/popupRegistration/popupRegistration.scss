@@ -435,9 +435,15 @@
                     margin-top: 2px;
                     display: block;
                 }
-
+                .fieldset-error {
+                    margin-bottom: 0px;
+                    legend {
+                        color: red;
+                    }
+                }
                 .error {
-                    border: 1px solid red !important;
+                    color: red;
+                    font-size: 14px;
                 }
 
                 .label-error {

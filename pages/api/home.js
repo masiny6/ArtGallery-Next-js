@@ -119,16 +119,7 @@ export default function handler(req, res) {
                 title: "Сортировать по",
                 sortList: [
                     {
-                        name: "Дате добавления",
-                        value: "value1"
-                    },
-                    {
-                        name: "Цене",
-                        value: "value2"
-                    },
-                    {
-                        name: "Популярности",
-                        value: "value3"
+                        options: [{value: "Дате добавления", label: "Дате добавления"}, {value: "Цене", label: "Цене"}, {value: "Популярности", label: "Популярности"}],
                     },
                 ]
             },

@@ -1,6 +1,7 @@
 import React, { useContext } from "react"
 import OutsideClickHandler from 'react-outside-click-handler';
 import { RateContext } from "../../context/RateContext"
+import { useForm } from "react-hook-form"
 import "./popupPasswordRecovery.scss"
 import cn from "classnames"
 
@@ -9,6 +10,9 @@ export const PopupPasswordRecovery = (props) => {
 
     const {state, popupHideHandler, popupShowHandler} = useContext(RateContext)
     const data = props.data.popupPasswordRecovery
+
+    const { register, handleSubmit, watch, errors } = useForm();
+    const onSubmit = data => console.log(data);
 
 
     return(
@@ -23,10 +27,11 @@ export const PopupPasswordRecovery = (props) => {
                 <div className="popup-header">
                     <span className="popup-header__title">{!!data.mainTitle ? data.mainTitle : undefined}</span>
                 </div>
-                <form className="form-recovery js-form-recovery" action="">
-                    <fieldset className="fieldset-email">
-                        <legend className="label-email">Введите свой e-mail</legend>
-                        <input className="input-email" type="email" name="email" placeholder="E-mail" required/>
+                <form className="form-recovery js-form-recovery" action="#" onSubmit={handleSubmit(onSubmit)}>
+                    <fieldset className={cn("fieldset-email", {"fieldset-error" : errors.email})}>
+                        <legend className="label-email" >Введите свой e-mail</legend>
+                        <input className="input-email" type="email" name="email" placeholder="E-mail" ref={register({ required: true, pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/ })}/>
+                        <span className="error">{errors.email && "Заполните это поле"}</span>
                     </fieldset>
                     <div className="button__inner">
                         <button className="button-recovery" type="submit" onClick={() => popupShowHandler("success")}>Восстановить пароль</button>

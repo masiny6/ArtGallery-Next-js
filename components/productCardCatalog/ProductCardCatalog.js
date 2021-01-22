@@ -6,10 +6,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
-// import Swiper core and required components
 import SwiperCore, { Thumbs, Navigation, Controller } from 'swiper';
 import { RateContext } from "../../context/RateContext";
-// install Swiper components
 SwiperCore.use([Thumbs, Navigation, Controller]);
 
 
@@ -49,6 +47,10 @@ export const ProductCardCatalog = (props) => {
                                 onSwiper={setSwiperProduct}
                                 watchSlidesVisibility
                                 watchSlidesProgress
+                                navigation = {{
+                                    nextEl: ".product-card__main .swiper-button_next",
+                                    prevEl: ".product-card__main .swiper-button_prev"
+                                }}
                                 
                                 breakpoints={{
                                     320: {
@@ -284,6 +286,7 @@ export const ProductCardCatalog = (props) => {
                     loop
                     navigation
                     thumbs={{ swiper: swiperProduct}}
+                    
                 >
                     {!!data.picture ? data.picture.map((item, key) => (
                         <SwiperSlide key={key + 1}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>

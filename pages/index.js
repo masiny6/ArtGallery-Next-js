@@ -25,7 +25,11 @@ export default class Home extends React.Component{
             
             showHeader: false,
             valueHeader: "",
-            searchValue: "",
+
+            showLanguage: false,
+
+            showSearch: false
+
         }
     }
     //Открытие и закрытие попапа
@@ -46,15 +50,31 @@ export default class Home extends React.Component{
     toggleHeaderHandler = (valueHeader) => {
         this.setState({
             showHeader: !this.state.showHeader,
-            valueHeader
+            valueHeader,
+            showLanguage: false,
+            showSearch: false,
         })
     }
 
-    toggleSearchHandler = (valueHeader) => {
+    toggleLanguageHandler = () => {
         this.setState({
-            showHeader: !this.state.showHeader,
-            valueHeader,
-            searchValue: ""
+            showLanguage: !this.state.showLanguage,
+        })
+    }
+    toggleLanguageOutHandler = () => {
+        this.setState({
+            showLanguage: false,
+        })
+    }
+
+    toggleSearchHandler = () => {
+        this.setState({
+            showSearch: !this.state.showSearch,
+        })
+    }
+    toggleSearchOutHandler = () => {
+        this.setState({
+            showSearch: false,
         })
     }
 
@@ -72,7 +92,10 @@ export default class Home extends React.Component{
                                 popupShowHandler: this.popupShowHandler,
                                 popupHideHandler: this.popupHideHandler,
                                 toggleHeaderHandler: this.toggleHeaderHandler,
+                                toggleLanguageHandler: this.toggleLanguageHandler,
+                                toggleLanguageOutHandler: this.toggleLanguageOutHandler,
                                 toggleSearchHandler: this.toggleSearchHandler,
+                                toggleSearchOutHandler: this.toggleSearchOutHandler,
                                 searchValueHandler: this.searchValueHandler
                         }}>
                 
@@ -81,6 +104,11 @@ export default class Home extends React.Component{
             <title>ArtGallery</title>
             <link rel="icon" href="/favicon.ico" />
             <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+            {this.state.showPopup ? <style jsx>{`
+                body {
+                    overflow-y: hidden;
+                }
+            `}</style> : undefined}
             </Head>
             <div className="main">
                 <Header data={this.props.data}/>
