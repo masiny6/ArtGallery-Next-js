@@ -212,7 +212,8 @@ export default class Home extends React.Component{
 }
 
 export async function getServerSideProps(context) {
-    const res = await fetch(`http://localhost:3000/api/home`)
+    const res = await fetch(`https://artgallery-11bbf-default-rtdb.firebaseio.com/home.json`)
+    
     const data = await res.json()
     return {
       props: {data}, // will be passed to the page component as props

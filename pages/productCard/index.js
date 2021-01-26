@@ -151,7 +151,7 @@ class ProductCard extends React.Component {
 }
 export default ProductCard
 export async function getServerSideProps(context) {
-    const res = await fetch(`http://localhost:3000/api/productCard`)
+    const res = await fetch(`https://artgallery-11bbf-default-rtdb.firebaseio.com/productCard.json`)
     const data = await res.json()
     return {
       props: {data}, // will be passed to the page component as props

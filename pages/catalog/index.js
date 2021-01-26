@@ -127,7 +127,7 @@ class Catalog extends React.Component{
 
 export default Catalog
 export async function getServerSideProps(context) {
-    const res = await fetch(`http://localhost:3000/api/catalog`)
+    const res = await fetch(`https://artgallery-11bbf-default-rtdb.firebaseio.com/catalog.json`)
     const data = await res.json()
     return {
       props: {data}, // will be passed to the page component as props
