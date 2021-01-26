@@ -7,7 +7,7 @@ import cn from "classnames"
 
 export const PopupRegistration = (props) => {
 
-    const {state, popupHideHandler, popupShowHandler} = useContext(RateContext)
+    const {state, popupHideHandler, popupShowHandler, registrAndLoginHandler, buttonRegisterHandler} = useContext(RateContext)
     const data = props.data.popupRegistration
 
     const { register, handleSubmit, watch, errors } = useForm();
@@ -109,12 +109,12 @@ export const PopupRegistration = (props) => {
                         </div>
                         <fieldset className={cn("fieldset-email", {"fieldset-error" : errors.email})}>
                             <legend className="label-email label-general">E-mail</legend>
-                            <input className="input-email" style={errors.email ? {borderColor: "red"} : undefined} type="email" name="email" ref={register({ required: true, pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/ })}/>
+                            <input className="input-email" onChange={(e) => registrAndLoginHandler(e, "email")} style={errors.email ? {borderColor: "red"} : undefined} type="email" name="email" ref={register({ required: true, pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/ })}/>
                             <span className="error">{errors.email && "Заполните это поле"}</span>
                         </fieldset>
                         <fieldset className={cn("fieldset-password", {"fieldset-error" : errors.password})}>
                             <legend className="label-password label-general">Пароль</legend>
-                            <input className="input-password" style={errors.password ? {borderColor: "red"} : undefined} type="password" name="password" ref={register({ required: true, minLength: 6 })}/>
+                            <input className="input-password" onChange={(e) => registrAndLoginHandler(e, "password")} style={errors.password ? {borderColor: "red"} : undefined} type="password" name="password" ref={register({ required: true, minLength: 6 })}/>
                             <span className="error">{errors.password && "Заполните это поле"}</span>
                         </fieldset>
                         <div className="user-agreement">
@@ -124,7 +124,7 @@ export const PopupRegistration = (props) => {
                             <p className="error">{errors.agreement && "Заполните это поле"}</p>
                         </div>
                         <div className="button__inner">
-                            <button className="button-registration" type="submit">Зарегистрироваться</button>
+                            <button className="button-registration" type="submit" onClick={buttonRegisterHandler}>Зарегистрироваться</button>
                         </div>
                     </div>
                 </div>

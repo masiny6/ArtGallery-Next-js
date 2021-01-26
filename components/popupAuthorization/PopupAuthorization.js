@@ -25,7 +25,7 @@ function useWindowSize() {
 
 export const PopupAuthorization = (props) => {
 
-    const {state, popupHideHandler, popupShowHandler} = useContext(RateContext)
+    const {state, popupHideHandler, popupShowHandler, buttonLoginHandler, registrAndLoginHandler} = useContext(RateContext)
     const [width, height] = useWindowSize();//
     const data = props.data.popupAuthorization
 
@@ -104,16 +104,16 @@ export const PopupAuthorization = (props) => {
                         <form className="form-authorization js-form-authorization" action="#" onSubmit={handleSubmit(onSubmit)}>
                             <fieldset className="fieldset-email">
                                 <legend className="label-email" style={errors.email ? {color: "red"} : undefined}>E-mail</legend>
-                                <input className="input-email" style={errors.email ? {borderColor: "red"} : undefined} name="email" ref={register({ required: true, pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/ })}/>
+                                <input className="input-email" onChange={(e) => registrAndLoginHandler(e, "email")} style={errors.email ? {borderColor: "red"} : undefined} name="email" ref={register({ required: true, pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/ })}/>
                                 <span style={{color: "red"}}>{errors.email && "Заполните это поле"}</span>
                             </fieldset>
                             <fieldset className="fieldset-password">
                                 <legend className="label-password" style={errors.password ? {color: "red"} : undefined}>Пароль</legend>
-                                <input className="input-password" style={errors.password ? {borderColor: "red"} : undefined} type="password" name="password" ref={register({ required: true, minLength: 6 })}/>
+                                <input className="input-password" onChange={(e) => registrAndLoginHandler(e, "password")} style={errors.password ? {borderColor: "red"} : undefined} type="password" name="password" ref={register({ required: true, minLength: 6 })}/>
                                 <span style={{color: "red"}}>{errors.password && "Заполните это поле"}</span>
                             </fieldset>
                             <div className="button__inner">
-                                <button type="submit" className="button-authorization">Авторизоваться</button>
+                                <button type="submit" className="button-authorization" onClick={buttonLoginHandler}>Авторизоваться</button>
                             </div>
                             
                         </form>

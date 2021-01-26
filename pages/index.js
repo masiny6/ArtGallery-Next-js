@@ -12,7 +12,8 @@ import { PopupAuthorization } from '../components/popupAuthorization/PopupAuthor
 import { PopupRegistration } from '../components/popupRegistration/PopupRegistration'
 import { PopupPasswordRecovery } from '../components/popupPasswordRecovery/PopupPasswordRecovery'
 import { PopupSuccess } from '../components/popupSuccess/PopupSuccess'
-import ReactDOM from "react-dom"
+import axios from "axios"
+import cn from "classnames"
 
 
 export default class Home extends React.Component{
@@ -28,10 +29,73 @@ export default class Home extends React.Component{
 
             showLanguage: false,
 
-            showSearch: false
+            showSearch: false,
+
+            auth: false,
+            formControls: {
+                email: "",
+                password: ""
+            }
 
         }
     }
+
+
+    buttonLoginHandler = async () => {
+        
+        const authData = {
+            email: this.state.formControls.email,
+            password: this.state.formControls.password,
+            returnSecureToken: true
+        };
+
+        try {
+            const response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA9DWBoyBNlbxIEnaP5aO4wysrXGkru1l0", authData)
+            if(response.data.idToken) {
+                const formControls = {...this.state.formControls}
+                
+                formControls.email = ""
+                formControls.password = ""
+                
+                this.setState({
+                    showPopup: false,
+                    valuePopup: "",
+                    formControls,
+                    auth: true
+                })
+            } 
+        } catch(e){
+            console.log(e)
+        }
+    }
+
+
+    buttonRegisterHandler = async () => {
+        const authData = {
+            email: this.state.formControls.email,
+            password: this.state.formControls.password,
+            returnSecureToken: true
+        }
+        try {
+            const response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyA9DWBoyBNlbxIEnaP5aO4wysrXGkru1l0", authData)
+            if(response.data.idToken) {
+
+                const formControls = {...this.state.formControls}
+                formControls.email = ""
+                formControls.password = ""
+
+                this.setState({
+                    showPopup: true,
+                    valuePopup: "authorization",
+                    formControls
+                })
+            } 
+        } catch(e){
+            console.log(e)
+        }
+    }
+
+
     //Открытие и закрытие попапа
     popupShowHandler = (valuePopup) => {
         this.setState({
@@ -84,6 +148,19 @@ export default class Home extends React.Component{
         })
     }
 
+    registrAndLoginHandler = (e, value) => {
+        if (value == "email") {
+            this.setState({
+                formControls: {email: e.target.value, password: this.state.formControls.password}
+            })
+        } else if (value == "password") {
+            this.setState({
+                formControls: {email: this.state.formControls.email, password: e.target.value}
+            })
+        }
+    }
+
+
 
     render() {
         return (
@@ -96,7 +173,10 @@ export default class Home extends React.Component{
                                 toggleLanguageOutHandler: this.toggleLanguageOutHandler,
                                 toggleSearchHandler: this.toggleSearchHandler,
                                 toggleSearchOutHandler: this.toggleSearchOutHandler,
-                                searchValueHandler: this.searchValueHandler
+                                searchValueHandler: this.searchValueHandler,
+                                registrAndLoginHandler: this.registrAndLoginHandler,
+                                buttonRegisterHandler: this.buttonRegisterHandler,
+                                buttonLoginHandler: this.buttonLoginHandler
                         }}>
                 
         <React.Fragment>
@@ -110,7 +190,7 @@ export default class Home extends React.Component{
                 }
             `}</style> : undefined}
             </Head>
-            <div className="main">
+            <div className={cn({"main" : !this.state.auth}, {"main-authorization" : this.state.auth})}>
                 <Header data={this.props.data}/>
                 <main className="main-content">
                     <Slider data={this.props.data}/>

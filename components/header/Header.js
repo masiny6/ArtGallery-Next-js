@@ -61,10 +61,15 @@ export const Header = (props) => {
               </div>
             </nav>
             <div className="account-and-etc">
+            <OutsideClickHandler
+                onOutsideClick={() => {
+                  toggleHeaderHandler()
+                }}
+              > 
               <div className="personal-account">
-                <span className="personal-account__photo" onClick={() => popupShowHandler("authorization")}></span>
+                <span className="personal-account__photo" onClick={state.auth ? () => toggleHeaderHandler("profile") : () => popupShowHandler("authorization")}></span>
                 {!!data.account ? <span className="personal-account__name">{data.account.name}</span> : undefined}
-                <div className="drop-menu-account drop-menu-account-js">
+                <div className={cn("drop-menu-account", {"drop-menu-account-js" : !(state.showHeader && state.valueHeader == "profile")})}>
                   <div className="centering-lists">
                     <ul className="first-section centering-lists__item">
                       <li className="first-section__elem centering-lists__general"><a className="centering-lists__link" href="#">Мой
@@ -87,6 +92,7 @@ export const Header = (props) => {
                   </div>
                 </div>
               </div>
+              </OutsideClickHandler>
               <OutsideClickHandler
                   onOutsideClick={() => {
                     toggleSearchOutHandler()
