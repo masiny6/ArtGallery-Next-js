@@ -16,7 +16,8 @@ SwiperCore.use([Thumbs, Navigation, Controller]);
 export const ProductCardCatalog = (props) => {
 
     const {favouriteToggleHandler, state, parametrsPictureToggleHandler, descriptionPictureToggleHandler, toggleIncreaseHandler} = useContext(RateContext)
-    const [swiperProduct, setSwiperProduct] = useState(null);
+    const [swiperProduct1, setSwiperProduct1] = useState(null);
+    const [swiperProduct2, setSwiperProduct2] = useState(null);
     const [swiperPopup, setSwiperPopup] = useState(null);
     const data = props.data.productCard
 
@@ -44,7 +45,7 @@ export const ProductCardCatalog = (props) => {
                                 spaceBetween={10}
                                 slidesPerView={6}
                                 direction={"vertical"}
-                                onSwiper={setSwiperProduct}
+                                onSwiper={setSwiperProduct1}
                                 watchSlidesVisibility
                                 watchSlidesProgress
                                 navigation = {{
@@ -69,7 +70,7 @@ export const ProductCardCatalog = (props) => {
                                 }}
                             >
                                 {!!data.picture ? data.picture.map((item, key) => (
-                                    <SwiperSlide key={key + 3}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
+                                    <SwiperSlide key={key}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
                                 )) : undefined} 
                             </Swiper>
                             <Swiper className="swiper-container-two"
@@ -80,12 +81,14 @@ export const ProductCardCatalog = (props) => {
                                     prevEl: ".product-card__main .swiper-button_prev"
                                 }}
                                 autoHeight
-                                thumbs={{ swiper: swiperProduct}}
+                                onSwiper={setSwiperProduct2}
+                                thumbs={{ swiper: swiperProduct1 }}
+                                controller={{ control: swiperPopup }}
                                 watchSlidesVisibility
                                 watchSlidesProgress
                             >
                                 {!!data.picture ? data.picture.map((item, key) => (
-                                    <SwiperSlide key={key + 2}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
+                                    <SwiperSlide key={key}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
                                 )) : undefined} 
                                 <div className="swiper-button-prev"></div>
                                 <div className="swiper-button-next"></div>
@@ -259,7 +262,7 @@ export const ProductCardCatalog = (props) => {
                             <table className={cn("parameters-table", {"js-parameters-table" : state.parametrsButton})}>
                                 <tbody>
                                     {!!data.parametrsPicture ? data.parametrsPicture.map((item, key) => (
-                                        <tr className="parameters-table__line" key={item.name + key}>
+                                        <tr className="parameters-table__line" key={key}>
                                             <td className="parameters-table__column parameters-table__column-one">{item.name}</td>
                                             <td className="parameters-table__column parameters-table__column-two">{item.description}</td>
                                         </tr>
@@ -285,11 +288,13 @@ export const ProductCardCatalog = (props) => {
                 <Swiper
                     loop
                     navigation
-                    thumbs={{ swiper: swiperProduct}}
+                    onSwiper={setSwiperPopup}
+                    thumbs={{ swiper: swiperProduct1 }}
+                    controller={{ control: swiperProduct2 }}
                     
                 >
                     {!!data.picture ? data.picture.map((item, key) => (
-                        <SwiperSlide key={key + 1}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
+                        <SwiperSlide key={key}><img className="photo-section__elem" src={item.url} alt=""/></SwiperSlide>
                     )) : undefined} 
                 </Swiper>
             </div>

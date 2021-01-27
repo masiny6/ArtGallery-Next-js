@@ -50,7 +50,7 @@ export const WorksCard = (props) => {
                      }}
                 >
                     {data.cards ? data.cards.map((item, key) => (
-                        <SwiperSlide key={item.name + key}>
+                        <SwiperSlide key={key}>
                             <WorksItem data={item} />
                         </SwiperSlide>
                     )) : undefined}
