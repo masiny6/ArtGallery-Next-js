@@ -45,10 +45,12 @@ export class Works extends React.Component {
                                 <option className="sort-list__elem" key={item.name + key} value={item.value}>{item.name}</option>
                             ))}
                         </select> */}
-                        <Select className="sort-list sort-list-js"
+                        <Select 
+                            className="sort-list sort-list-js stylish"
+                            classNamePrefix="stylish"
                             options = {data.sortingCards.sortList}
                             placeholder={''}
-                            defaultValue={data.sortingCards.sortList[0].options}
+                            defaultValue={data.sortingCards.sortList[0].options[0]}
                         />
                     </div>
                 </div>

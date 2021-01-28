@@ -35,7 +35,10 @@ export default class Home extends React.Component{
             formControls: {
                 email: "",
                 password: ""
-            }
+            },
+
+            showProfile: false,
+
 
         }
     }
@@ -147,6 +150,16 @@ export default class Home extends React.Component{
             searchValue: event.target.value
         })
     }
+    toggleProfileHandler = () => {
+        this.setState({
+            showProfile: !this.state.showProfile,
+        })
+    }
+    toggleProfileOutHandler = () => {
+        this.setState({
+            showProfile: false,
+        })
+    }
 
     registrAndLoginHandler = (e, value) => {
         if (value == "email") {
@@ -176,7 +189,9 @@ export default class Home extends React.Component{
                                 searchValueHandler: this.searchValueHandler,
                                 registrAndLoginHandler: this.registrAndLoginHandler,
                                 buttonRegisterHandler: this.buttonRegisterHandler,
-                                buttonLoginHandler: this.buttonLoginHandler
+                                buttonLoginHandler: this.buttonLoginHandler,
+                                toggleProfileHandler: this.toggleProfileHandler,
+                                toggleProfileOutHandler: this.toggleProfileOutHandler
                         }}>
                 
         <React.Fragment>

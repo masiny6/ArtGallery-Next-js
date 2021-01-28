@@ -53,19 +53,64 @@
     .sort-list {
         width: 282px;
         height: 40px;
-        .css-yk16xz-control {
+        .stylish__menu {
+            margin-top: 0px;
+            border-top: 1px solid black;
             border-radius: 0;
-            border-color: transparent;
         }
-        .css-1okebmr-indicatorSeparator {
+        .stylish__option--is-focused {
+            background-color: #666;
+            color: white;
+        }
+        .stylish__option--is-selected {
+            background-color: #666;
+            color: #fff;
+          }
+        .stylish__option {
+            font-family: "Proxima-Nova-Rg", sans-serif;
+        }
+        .stylish__control {
+            background: white;
+            border-radius: 0;
+            border: none;
+        }
+        .stylish__control--is-focused {
+            box-shadow: 0 0 0 transparent;
+        }
+        .stylish__control--menu-is-open {
+            .stylish__dropdown-indicator {
+                transform: rotate(180deg);
+            }
+        }
+        //svg стрелка
+        .css-6q0nyr-Svg {
+            fill: black;
+        }
+        .stylish__group-heading {
+            font-family: "Proxima-Nova-Bd", sans-serif;
+            font-weight: bold;
+            font-size: 23px;
+            color: black;
+        }
+            
+        
+        .stylish__indicator-separator,
+        .stylish__clear-indicator {
             display: none;
         }
-        .css-1pahdxg-control{
-            border: 0;
-            border-color: transparent;
-            border-radius: 0;
-            box-shadow: 0;
-        }
+        // .css-yk16xz-control {
+        //     border-radius: 0;
+        //     border-color: transparent;
+        // }
+        // .css-1okebmr-indicatorSeparator {
+        //     display: none;
+        // }
+        // .css-1pahdxg-control{
+        //     border: 0;
+        //     border-color: transparent;
+        //     border-radius: 0;
+        //     box-shadow: 0;
+        // }
     }
 
     .select2-container--default .select2-selection--single .select2-selection__rendered {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import "./filterCatalog.scss"
 import Slider, { Range } from 'rc-slider';
 import Select from 'react-select'
@@ -17,7 +17,9 @@ export class FilterCatalog extends React.Component {
             valueInputsSize: [10, 30],
             filterNameActive: "author",
             collapsExpand: false,
-            checkbox: {}
+            checkbox: {},
+            selectOptions: [],
+            deleteOptions: []
         }
     }
     collapsExpandHandler = () => {
@@ -85,7 +87,49 @@ export class FilterCatalog extends React.Component {
     };
 
     
+    onOptionSelected = (option) => {
+        let selectOptions = []
+        let deleteOptions = this.state.deleteOptions
+        deleteOptions = []
+        option.map((item)=> {
+            selectOptions.push(item.value)
+            deleteOptions.push({value: item.value, label: item.value})
+        })
+        
+        this.setState({
+            selectOptions,
+            deleteOptions
+        })
+    }
+    
+    onDeleteOptionSelected = (e) => {
+        let optionDelete = e.target.childNodes[0].data
+        
+        let selectOptions = this.state.selectOptions
+        let deleteOptions = this.state.deleteOptions
+
+
+        this.state.selectOptions.map((item, key)=> {
+            if(item == optionDelete){
+                selectOptions.splice(key, 1)
+                deleteOptions.splice(key, 1)
+                
+                this.setState({
+                    selectOptions,
+                    deleteOptions
+                })
+                
+
+            }
+        })
+
+    }
+        
+    
+
+    
     render() {
+        
         const data = this.props.data.filter
         return(
             <div className="filter-catalog">
@@ -216,12 +260,20 @@ export class FilterCatalog extends React.Component {
                                             )) : undefined}
                                         </optgroup>
                                     </select> */}
-                                    <Select className="author-list author-list-js"
+                                    <Select
+                                        className="stylish"
+                                        classNamePrefix="stylish"
                                         options = {data.author.elementsSelect}
                                         isMulti
                                         placeholder={''}
+                                        onChange={(option)=>this.onOptionSelected(option)}
+                                        value={this.state.deleteOptions}
                                     />
-                                    <div className="autocomplete__options js-autocomplete-options">{}</div>
+                                    <div className="autocomplete__options js-autocomplete-options">
+                                       {this.state.selectOptions.map((item, key) => (
+                                           <div className="autocomplete__item js-autocomplete-item" onClick={(e) => this.onDeleteOptionSelected(e)} value={item} key={item + key}>{item}</div>
+                                       ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>

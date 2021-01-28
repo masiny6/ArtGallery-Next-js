@@ -8,7 +8,7 @@ import OutsideClickHandler from 'react-outside-click-handler'
 
 export const Header = (props) => {
 
-  const {state, popupShowHandler, toggleHeaderHandler, toggleLanguageHandler, toggleLanguageOutHandler, toggleSearchHandler, toggleSearchOutHandler, searchValueHandler} = useContext(RateContext)
+  const {state, popupShowHandler, toggleHeaderHandler, toggleProfileHandler, toggleProfileOutHandler, toggleLanguageHandler, toggleLanguageOutHandler, toggleSearchHandler, toggleSearchOutHandler, searchValueHandler} = useContext(RateContext)
   const data = props.data.header
   //Фокус на инпут search
   const searchElementFocus = useRef(null);
@@ -63,13 +63,13 @@ export const Header = (props) => {
             <div className="account-and-etc">
             <OutsideClickHandler
                 onOutsideClick={() => {
-                  toggleHeaderHandler()
+                  toggleProfileOutHandler()
                 }}
               > 
               <div className="personal-account">
-                <span className="personal-account__photo" onClick={state.auth ? () => toggleHeaderHandler("profile") : () => popupShowHandler("authorization")}></span>
+                <span className="personal-account__photo" onClick={state.auth ? toggleProfileHandler : () => popupShowHandler("authorization")}></span>
                 {!!data.account ? <span className="personal-account__name">{data.account.name}</span> : undefined}
-                <div className={cn("drop-menu-account", {"drop-menu-account-js" : !(state.showHeader && state.valueHeader == "profile")})}>
+                <div className={cn("drop-menu-account", {"drop-menu-account-js" : !(state.showProfile)})}>
                   <div className="centering-lists">
                     <ul className="first-section centering-lists__item">
                       <li className="first-section__elem centering-lists__general"><a className="centering-lists__link" href="#">Мой

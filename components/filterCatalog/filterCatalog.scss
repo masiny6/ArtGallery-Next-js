@@ -2,26 +2,52 @@
     .js-hidden-select {
         display: none !important;
     }
-    .author-list {
+    .stylish {
         width: 620px;
         display: inline-block;
         z-index: 4;
+        .stylish__menu {
+            margin-top: 0px;
+            border-top: 1px solid black;
+            border-radius: 0;
+        }
+        .stylish__option--is-focused {
+            background-color: #666;
+            color: white;
+        }
+        .stylish__option {
+            font-family: "Proxima-Nova-Rg", sans-serif;
+        }
+        .stylish__control {
+            background: white;
+            border-radius: 0;
+            border: none;
+        }
+        .stylish__control--is-focused {
+            box-shadow: 0 0 0 transparent;
+            
+        }
+        .stylish__control--menu-is-open {
+            .stylish__dropdown-indicator {
+                transform: rotate(180deg);
+            }
+        }
+        //svg стрелка
+        .css-6q0nyr-Svg {
+            fill: black;
+        }
+        .stylish__group-heading {
+            font-family: "Proxima-Nova-Bd", sans-serif;
+            font-weight: bold;
+            font-size: 23px;
+            color: black;
+        }
+            
         
-        .css-yk16xz-control {
-            border-radius: 0;
-            border-color: transparent;
-        }
-        .css-1okebmr-indicatorSeparator {
+        .stylish__indicator-separator,
+        .stylish__clear-indicator,
+        .stylish__multi-value {
             display: none;
-        }
-        .css-2613qy-menu{
-           top: 20px !important;
-        }
-        .css-1pahdxg-control{
-            border: 0;
-            border-color: transparent;
-            border-radius: 0;
-            box-shadow: 0;
         }
     }
     .filter-mobile {
@@ -645,9 +671,13 @@
         background-position: 16px;
         min-height: 54px;
         position: relative;
-        
-        .author-list {
+
+        .stylish {
             width: 88%;
+            .stylish__option {
+                font-family: "Proxima-Nova-Rg", sans-serif;
+                font-size: 15px;
+            }
         }
 
         .filter-mobile {
