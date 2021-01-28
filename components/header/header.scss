@@ -18,8 +18,11 @@
     z-index: 9999;
 }
 
-.main-header__centering {
+
+.main-header__centering > div,
+.main-header__centering{
     display: flex;
+    
 }
 
 .logo {
@@ -879,6 +882,7 @@
 
     .list-etc {
         display: flex;
+        width: auto;
         min-width: 140px;
         margin-right: 0px;
         justify-content: space-between;

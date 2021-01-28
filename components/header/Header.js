@@ -34,8 +34,13 @@ export const Header = (props) => {
     return(
         <header className="main-header">
           <div className="centering main-header__centering">
+          <OutsideClickHandler
+                onOutsideClick={() => {
+                  toggleHeaderHandler()
+                }}
+              > 
             <div className="menu-and-logo">
-              <input id="burger-menu" className="burger-menu" type="checkbox"/><label onClick={() => toggleHeaderHandler("mobile-menu")} className="menu-phone" htmlFor="burger-menu"></label>
+              <input id="burger-menu" className="burger-menu" type="checkbox" checked={cn({"checked" : (state.showHeader && state.valueHeader === "mobile-menu")}, {"" : state.showHeader})}/><label onClick={() => toggleHeaderHandler("mobile-menu")} className="menu-phone" htmlFor="burger-menu"></label>
               <div className="logo">
                 {!!data.logo.desktop && !!data.logo.mobile ? <Link href="/"><a className="logo-link" href="/">
                   <p className="main-logo"><span className="main-logo__elem">{!!data.logo.desktop ? data.logo.desktop[0] : data.logo.mobile[0]}</span>{!!data.logo.desktop ? data.logo.desktop[1] : data.logo.mobile[1]}</p>
@@ -60,6 +65,7 @@ export const Header = (props) => {
                 <p className="copyright-mobile hidden-desktop hidden-tablet">{data.copyright.name}</p>
               </div>
             </nav>
+            </OutsideClickHandler>
             <div className="account-and-etc">
             <OutsideClickHandler
                 onOutsideClick={() => {

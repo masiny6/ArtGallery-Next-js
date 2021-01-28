@@ -73,7 +73,9 @@ export class FilterCatalog extends React.Component {
     resetButton = () => {
         this.setState({
             valueInputs: [200000, 800000],
-            checkbox: {}
+            checkbox: {},
+            selectOptions: [],
+            deleteOptions: []
         });
     }
     onChangeFavorite = (e) =>{
@@ -101,7 +103,7 @@ export class FilterCatalog extends React.Component {
             deleteOptions
         })
     }
-    
+
     onDeleteOptionSelected = (e) => {
         let optionDelete = e.target.childNodes[0].data
         

@@ -34,8 +34,13 @@ export const HeaderWhite = (props) => {
     return(
         <header className="main-header main-header-white">
           <div className="centering main-header__centering">
+          <OutsideClickHandler
+                onOutsideClick={() => {
+                  toggleHeaderHandler()
+                }}
+              > 
             <div className="menu-and-logo">
-              <input id="burger-menu" className="burger-menu burger-menu-white" type="checkbox"/><label onClick={() => toggleHeaderHandler("mobile-menu")} className="menu-phone" htmlFor="burger-menu"></label>
+              <input id="burger-menu" className="burger-menu burger-menu-white" type="checkbox" checked={cn({"checked" : (state.showHeader && state.valueHeader === "mobile-menu")}, {"" : state.showHeader})}/><label onClick={() => toggleHeaderHandler("mobile-menu")} className="menu-phone" htmlFor="burger-menu"></label>
               <div className="logo">
               {!!data.logo.desktop && !!data.logo.mobile ? <Link href="/"><a className="logo-link" href="/">
                   <p className="main-logo main-logo-white"><span className="main-logo__elem">{!!data.logo.desktop ? data.logo.desktop[0] : data.logo.mobile[0]}</span>{!!data.logo.desktop ? data.logo.desktop[1] : data.logo.mobile[1]}</p>
@@ -60,6 +65,7 @@ export const HeaderWhite = (props) => {
                 <p className="copyright-mobile hidden-desktop hidden-tablet">{data.copyright.name}</p>
               </div>
             </nav>
+            </OutsideClickHandler>
             <div className="account-and-etc">
               <div className="personal-account personal-account-white">
                 <span className="personal-account__photo-white" onClick={() => popupShowHandler("authorization")}></span>
