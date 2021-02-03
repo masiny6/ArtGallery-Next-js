@@ -50,7 +50,7 @@ export const Footer = (props) => {
                                         <path id="Layer" fillRule="evenodd" className="shp0" d="M5.91 4.53L0 4.53L0 0L5.91 0L5.91 4.53ZM5.33 3.94L5.33 0.58L0.59 0.58L0.59 3.94L5.33 3.94Z" />
                                         <path id="Layer" fillRule="evenodd" className="shp0" d="M5.78 0.54L3.11 2.57C3 2.65 2.85 2.65 2.74 2.56L0.11 0.52C-0.02 0.42 -0.04 0.24 0.06 0.11C0.12 0.04 0.2 0 0.29 0L5.62 0C5.78 0 5.91 0.13 5.91 0.29C5.91 0.39 5.86 0.48 5.78 0.53L5.78 0.54ZM2.93 1.98L4.75 0.59L1.14 0.59L2.93 1.98Z" />
                                 </svg>
-                                    <a className="contact__mail" href={`mail-to:${data.contact.mail}`}>{!!data.contact ? data.contact.mail : undefined}</a></li>
+                                    <a className="contact__mail" href={`mailto:${data.contact.mail}`}>{!!data.contact ? data.contact.mail : undefined}</a></li>
                                 <li className="contact__elem">
                                     <svg className="svg-map" viewBox="0 0 372 512">
                                         <path id="Layer" fillRule="evenodd" className="shp0" d="M371.43 185.43C371.43 312.31 205.49 498.59 198.42 506.46C191.8 513.84 180.21 513.85 173.58 506.46C166.51 498.59 0.57 312.31 0.57 185.43C0.57 83.18 83.75 0 186 0C288.24 0 371.42 83.18 371.43 185.43ZM338.03 185.43C338.03 101.59 269.83 33.39 186 33.39C102.17 33.39 33.96 101.59 33.96 185.43C33.96 272.51 130.15 403.39 186 469.73C241.86 403.37 338.03 272.51 338.03 185.43Z" />

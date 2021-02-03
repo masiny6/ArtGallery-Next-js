@@ -12,7 +12,7 @@ export const PopupPasswordRecovery = (props) => {
     const data = props.data.popupPasswordRecovery
 
     const { register, handleSubmit, watch, errors } = useForm();
-    const onSubmit = data => console.log(data);
+    const onSubmit = data => popupShowHandler("success");
 
 
     return(
@@ -31,10 +31,10 @@ export const PopupPasswordRecovery = (props) => {
                     <fieldset className={cn("fieldset-email", {"fieldset-error" : errors.email})}>
                         <legend className="label-email" >Введите свой e-mail</legend>
                         <input className="input-email" type="email" name="email" placeholder="E-mail" ref={register({ required: true, pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/ })}/>
-                        <span className="error">{errors.email && "Заполните это поле"}</span>
+                        <span className="error">{errors.email && "Введите корректный email"}</span>
                     </fieldset>
                     <div className="button__inner">
-                        <button className="button-recovery" type="submit" onClick={() => popupShowHandler("success")}>Восстановить пароль</button>
+                        <button className="button-recovery" type="submit">Восстановить пароль</button>
                     </div>
                 </form>
                 <div className="forgotten-password">

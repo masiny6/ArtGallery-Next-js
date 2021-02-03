@@ -105,7 +105,7 @@ export const PopupAuthorization = (props) => {
                             <fieldset className="fieldset-email">
                                 <legend className="label-email" style={errors.email ? {color: "red"} : undefined}>E-mail</legend>
                                 <input className="input-email" onChange={(e) => registrAndLoginHandler(e, "email")} style={errors.email ? {borderColor: "red"} : undefined} name="email" ref={register({ required: true, pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/ })}/>
-                                <span style={{color: "red"}}>{errors.email && "Заполните это поле"}</span>
+                                <span style={{color: "red"}}>{errors.email && "Введите корректный email"}</span>
                             </fieldset>
                             <fieldset className="fieldset-password">
                                 <legend className="label-password" style={errors.password ? {color: "red"} : undefined}>Пароль</legend>

@@ -13,8 +13,8 @@ export class FilterCatalog extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            valueInputs: [200000, 800000],
-            valueInputsSize: [10, 30],
+            valueInputs: this.props.data.filter.filterPrice.defaultValue,
+            valueInputsSize: this.props.data.filter.filterSize.defaultValue,
             filterNameActive: "author",
             collapsExpand: false,
             checkbox: {},
@@ -50,9 +50,9 @@ export class FilterCatalog extends React.Component {
 
     onMinChange = (e) => {
         let min = +e.target.value || 0
-        if (min > this.state.valueInputs[1]) {
-            min = this.state.valueInputs[1]
-        }
+        // if (min > this.state.valueInputs[1]) {
+        //     min = this.state.valueInputs[1]
+        // }
         let valueInputs = [min, this.state.valueInputs[1]]
         this.setState({
             valueInputs
@@ -61,14 +61,36 @@ export class FilterCatalog extends React.Component {
 
     onMaxChange = (e) => {
         let max = +e.target.value || 1000000
-        if (max < this.state.valueInputs[0]) {
-            max = this.state.valueInputs[0]
-        }
+        // if (max < this.state.valueInputs[0]) {
+        //     max = this.state.valueInputs[0]
+        // }
         let valueInputs = [this.state.valueInputs[0], max]
         this.setState({
             valueInputs
         });
     };
+    onBlurMinChange = (e) => {
+        let min = +e.target.value || 0
+        if (min > this.state.valueInputs[1]) {
+            min = this.state.valueInputs[1]
+        }
+        let valueInputs = [min, this.state.valueInputs[1]]
+        this.setState({
+            valueInputs
+        });
+    }
+    onBlurMaxChange = (e) => {
+        let max = +e.target.value || 1000000
+        if (max < this.state.valueInputs[0]) {
+            max = this.state.valueInputs[0]
+        } else {
+            max = 1000000
+        }
+        let valueInputs = [this.state.valueInputs[0], max]
+        this.setState({
+            valueInputs
+        });
+    }
 
     resetButton = () => {
         this.setState({
@@ -77,6 +99,27 @@ export class FilterCatalog extends React.Component {
             selectOptions: [],
             deleteOptions: []
         });
+        const data1 = {
+            filterPrice: {
+                min: 0,
+                max: 1000000,
+                defaultValue: [200000, 800000]
+            },
+            filterSize: {
+                min: 0,
+                max: 40,
+                defaultValue: [10, 30],
+                marks: { 
+                    0: "S",
+                    10: "M",
+                    20: "L", 
+                    30: "XL", 
+                    40: "XXL" 
+                }
+            }
+        }
+        let a = JSON.stringify(data1)
+        console.log(a)
     }
     onChangeFavorite = (e) =>{
         let itemKey = e.target.id;
@@ -133,6 +176,7 @@ export class FilterCatalog extends React.Component {
     render() {
         
         const data = this.props.data.filter
+        
         return(
             <div className="filter-catalog">
                 <div className="filter-mobile">
@@ -148,19 +192,19 @@ export class FilterCatalog extends React.Component {
                         <div className="main-filter">
                             <div className="filter-price">
                                 <div className="filter-price__conclusion">
-                                    <input className="conclusion-min" id="conclusion-min-js" type="number" value={this.state.valueInputs[0]} onChange={this.onMinChange}/>
+                                    <input className="conclusion-min" id="conclusion-min-js" type="number" value={this.state.valueInputs[0]} onChange={this.onMinChange} onBlur={this.onBlurMinChange}/>
                                     <span className="conclusion-line"></span>
-                                    <input className="conclusion-max" id="conclusion-max-js" type="number" value={this.state.valueInputs[1]} onChange={this.onMaxChange}/>
+                                    <input className="conclusion-max" id="conclusion-max-js" type="number" value={this.state.valueInputs[1]} onChange={this.onMaxChange} onBlur={this.onBlurMaxChange}/>
                                 </div>
                                 <div className="filter-price__inner">
                                     <span className="filter-price__title">Цена</span>
                                     {/* <input className="filter-price__range" id="range-price-js"/> */}
                                     <Range className="filter-price__range"
                                         onChange={this.onSliderChange}
-                                        min={0}
-                                        max={1000000}
+                                        min={data.filterPrice.min}
+                                        max={data.filterPrice.max}
                                         value={this.state.valueInputs}
-                                        defaultValue={[200000, 800000]}
+                                        defaultValue={data.filterPrice.defaultValue}
                                         allowCross={false}
                                     />
                                     <span className="filter-price__min">0</span>
@@ -171,10 +215,10 @@ export class FilterCatalog extends React.Component {
                                 <span className="filter-size__title">Размер</span>
                                 {/* <input className="filter-size__range" id="range-size-js"/> */}
                                 <Range className="filter-size__range"
-                                    min={0}
-                                    max={40}
-                                    defaultValue={[10, 30]}
-                                    marks={{ 0: "S", 10: "M", 20: "L", 30: "XL", 40: "XXL" }}
+                                    min={data.filterSize.min}
+                                    max={data.filterSize.max}
+                                    defaultValue={data.filterSize.defaultValue}
+                                    marks={data.filterSize.marks}
                                     step={null}
                                     allowCross={false}
                                 />

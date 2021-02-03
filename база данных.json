@@ -404,6 +404,23 @@
             "backgroundURL": "/images/title-catalog.jpg"
         },
         "filter": {
+            "filterPrice": {
+                "min": 0,
+                "max": 1000000,
+                "defaultValue": [200000, 800000]
+            },
+            "filterSize": {
+                "min": 0,
+                "max": 40,
+                "defaultValue": [10, 30],
+                "marks": {
+                    "0": "S",
+                    "10": "M",
+                    "20": "L",
+                    "30": "XL",
+                    "40": "XXL"
+                }
+            },
             "author": {
                 "title": "Автор",
                 "elementsSelect": [{
